@@ -1,3 +1,8 @@
 {
-    "hello": "Bonjour le monde"
+    "header-name": "1000 premiers jours",
+    "nav-pourquoi": "Pourquoi les 1000 premiers jours ?",
+    "nav-comment": "Comment ce service fonctionne-t-il ?",
+    "nav-qui": "Qui sommes-nous ?",
+    "nav-contact": "Nous contacter",
+    "nav-professionnel": "Espace professionnel"
 }

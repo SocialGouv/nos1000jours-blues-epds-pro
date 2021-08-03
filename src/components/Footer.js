@@ -1,6 +1,8 @@
 import React from "react";
 import Link from "next/link";
 
+import { useTranslation } from 'next-i18next';
+
 const LightLink = ({ href, children }) => (
   <Link href={href} passHref>
     <a href={href}>{children}</a>
@@ -12,23 +14,25 @@ const Separator = () => (
 );
 
 export function Footer() {
+  const { t } = useTranslation('footer');
+
   return (
     <footer className="content">
 
-      <div className="title">La Fabrique Numérique des Ministères Sociaux</div>
+      <div className="title">{t('la-fabrique')}</div>
       <div className="container text-center">
         <ul className="list-inline">
           <li className="list-inline-item">
-            <LightLink href="/cgu">Condititions générales</LightLink>
+            <LightLink href="/cgu">{t('cgu')}</LightLink>
           </li>
           <Separator />
           <li className="list-inline-item">
-            <LightLink href="/mentions-legales">Mentions légales</LightLink>
+            <LightLink href="/mentions-legales">{t('mentions-legales')}</LightLink>
           </li>
           <Separator />
           <li className="list-inline-item">
             <LightLink href="/politique-confidentialite">
-              Politique de confidentialité
+              {t('politique-confidentialite')}
             </LightLink>
           </li>
         </ul>

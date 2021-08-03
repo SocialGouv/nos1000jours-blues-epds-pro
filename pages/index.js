@@ -5,7 +5,7 @@ import { Layout } from "../src/components/Layout";
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export default function Index() {
+const Index = () => {
   return (
     <Layout>
       <Home />
@@ -29,13 +29,6 @@ function Home() {
   );
 }
 
-
-export const getStaticProps = async ({ locale }) => ({
-  props: {
-    ...await serverSideTranslations(locale, ['common', 'home']),
-  },
-})
-
 const Style = () => (
   <style jsx>{`
   h2 {
@@ -43,3 +36,11 @@ const Style = () => (
   }
   `}</style>
 );
+
+export const getStaticProps = async ({ locale }) => ({
+  props: {
+    ...await serverSideTranslations(locale, ['common', 'home', 'footer']),
+  },
+})
+
+export default Index
