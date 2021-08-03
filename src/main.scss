@@ -1,0 +1,21 @@
+@font-face {
+  font-weight: 400;
+  font-family: "Open Sans";
+  src: url("/fonts/OpenSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-weight: 600;
+  font-family: "Open Sans";
+  src: url("/fonts/OpenSans-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-weight: 700;
+  font-family: "Open Sans";
+  src: url("/fonts/OpenSans-Bold.ttf") format("truetype");
+}
+
+:target {
+  scroll-margin-top: 80px;
+}

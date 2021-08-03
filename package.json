@@ -1,15 +1,36 @@
 {
-  "name": "learn-starter",
+  "name": "nos1000jours-web-pro",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "repository": "https://github.com/SocialGouv/nos1000jours-web-pro",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
+    "bootstrap": "^4.6.0",
     "next": "^11.0.0",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-bootstrap": "^1.5.2",
+    "react-dom": "17.0.2",
+    "react-leaflet": "^3.1.0",
+    "sass": "^1.32.10",
+    "styled-components": "^5.2.3"
+  },
+  "devDependencies": {
+    "@socialgouv/eslint-config-react": "^1.61.0"
+  },
+  "eslintConfig": {
+    "rules": {
+      "react/prop-types": "warn",
+      "simple-import-sort/sort": "off",
+      "jsx-a11y/anchor-is-valid": "warn",
+      "react/no-unescaped-entities": "warn"
+    },
+    "extends": [
+      "@socialgouv/eslint-config-react"
+    ]
   }
 }
