@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "../src/bootstrap-theme.scss";
 import "../src/main.scss";
 
+import { appWithTranslation } from 'next-i18next';
 import App from "next/app";
 import Head from "next/head";
 import React from "react";
@@ -35,5 +36,5 @@ class MyApp extends App {
     }
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp);
 
