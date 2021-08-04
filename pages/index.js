@@ -31,6 +31,15 @@ function Home() {
 
 const Style = () => (
   <style jsx>{`
+  body {
+    font-family: "Marianne";
+    min-height: 100%;
+  }
+
+  html {
+    height: 100%;
+  }
+
   h2 {
     color: var(--primary);
   }

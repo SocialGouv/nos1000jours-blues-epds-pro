@@ -10,6 +10,7 @@ import { ThemeProvider } from "styled-components";
 
 const theme = {
     colors: {},
+    font: "Marianne"
 };
 
 class MyApp extends App {
