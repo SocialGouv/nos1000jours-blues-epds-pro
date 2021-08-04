@@ -48,7 +48,7 @@ const Style = () => (
 
 export const getStaticProps = async ({ locale }) => ({
   props: {
-    ...await serverSideTranslations(locale, ['common', 'home', 'footer']),
+    ...await serverSideTranslations(locale, ['common', 'home', 'footer', 'espace-professionnel']),
   },
 })
 

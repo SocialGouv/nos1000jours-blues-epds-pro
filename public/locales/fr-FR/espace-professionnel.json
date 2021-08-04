@@ -1,0 +1,12 @@
+{
+    "espace-pro": "Espace professionnel",
+    "acces-a-l-espace": "Accès à l’espace professionnel",
+    "texte-explicatif": "Texte explicatif qu’il faut avoir être un pro de santé pour y accéder. Du pourquoi, etc. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus ",
+    "vos-informations": "Vos informations",
+    "nom": "Votre nom* :",
+    "hint-nom": "Écrivez votre nom",
+    "email": "Votre adresse email* :",
+    "hint-email": "Écrivez votre email",
+    "champs-obligatoire": "*Champs obligatoires",
+    "me-connecter": "Me connecter"
+}

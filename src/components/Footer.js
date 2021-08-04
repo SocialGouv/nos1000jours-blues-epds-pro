@@ -50,15 +50,15 @@ export function Footer() {
       </Row>
 
 
-      <Style />
+      <FooterStyle />
     </footer >
   );
 }
 
-const Style = () => (
+const FooterStyle = () => (
   <style jsx>{`
   .content-footer {
-    background-color: #EBF6F8;
+    background-color: var(--bleu-clair);
     border-radius: 25px 25px 0 0;
     padding-top: 10px;
     padding-bottom: 10px;

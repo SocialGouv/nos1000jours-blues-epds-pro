@@ -14,15 +14,14 @@ export function Nav() {
   const { t } = useTranslation('common');
 
   return (
-    <Navbar sticky="top" bg="light" expand="lg">
+    <Navbar sticky="top" bg="white" expand="lg">
       <Container>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <div>
-          <a href="/#page-top" alt="Retour à l'accueil">
+          <a href="/espace-professionnel" alt="Retour à l'accueil">
             <img
               src="/img/logo-1000j.png"
-              width={100}
-              height={101}
+              height={100}
               alt="Logo 1000 premiers jours"
             />
           </a>
@@ -36,7 +35,7 @@ export function Nav() {
             <NavLink href="/comment">{t('nav-comment')}</NavLink>
             <NavLink href="/qui">{t('nav-qui')}</NavLink>
             <NavLink href="/contact">{t('nav-contact')}</NavLink>
-            <NavLink href="/professionnel">{t('nav-professionnel')}</NavLink>
+            <NavLink href="/espace-professionnel">{t('nav-professionnel')}</NavLink>
           </BSNav>
         </Navbar.Collapse>
 

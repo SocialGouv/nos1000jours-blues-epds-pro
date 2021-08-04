@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import { Container } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import { useTranslation } from 'next-i18next';
 
 import { Nav } from "./Nav";
@@ -21,3 +21,17 @@ export function Layout({ children }) {
     </React.Fragment>
   );
 }
+
+export function ContentLayout({ title, children }) {
+  return (
+    <Layout>
+      <Head>
+        <title>{title}</title>
+      </Head>
+      <Row>
+        {children}
+      </Row>
+    </Layout>
+  );
+}
+

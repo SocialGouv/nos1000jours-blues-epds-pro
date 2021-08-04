@@ -2,7 +2,11 @@ $theme-colors: (
   "primary": #26387c,
   "info": #1fc6d5,
   
-  "bleu-texte": #26366E
+  "bleu-texte": #26366E,
+  "bleu-courant": #5770BE,
+  "bleu-clair": #EBF6F8,
+
+  "gris-texte": #383838
 );
 
 @import "bootstrap/scss/bootstrap";

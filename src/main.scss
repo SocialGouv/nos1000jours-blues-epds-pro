@@ -8,8 +8,21 @@
 @font-face {
   font-family: "Marianne";
   src: url("/fonts/Marianne/Marianne-Bold.ttf");
-  font-style: normal;
+  font-style: bold;
   font-weight: 700;
+}
+
+@font-face {
+  font-family: "Marianne";
+  src: url("/fonts/Marianne/Marianne-RegularItalic.ttf");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Comfortaa";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/Comfortaa/Comfortaa-Regular.ttf");
 }
 
 :target {
