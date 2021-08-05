@@ -16,8 +16,10 @@ export function Layout({ children }) {
       </Head>
 
       <Nav />
-      <Container>{children}</Container>
+      <Container >{children}</Container>
       <Footer />
+
+      <Style />
     </React.Fragment>
   );
 }
@@ -28,10 +30,29 @@ export function ContentLayout({ title, children }) {
       <Head>
         <title>{title}</title>
       </Head>
-      <Row>
+      <Row style={{ minHeight: "80vh", alignContent: "start" }}>
         {children}
       </Row>
     </Layout>
   );
 }
+
+const Style = () => (
+  <style jsx>{`
+  body {
+    font-family: "Marianne";
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  html {
+    height: 100%;
+  }
+
+  h2 {
+    color: var(--primary);
+  }
+  `}</style>
+);
 

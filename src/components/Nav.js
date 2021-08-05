@@ -7,7 +7,7 @@ import { useTranslation } from 'next-i18next';
 const NavLink = styled(Link).attrs({ as: "a" })`
   margin: 0 10px;
   color: var(--bleu-texte) !important;
-  line-height: 25px;
+  font-size: 13px;
 `;
 
 export function Nav() {

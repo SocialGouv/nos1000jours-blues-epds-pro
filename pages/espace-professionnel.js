@@ -2,6 +2,8 @@ import React from "react";
 import { Col } from "react-bootstrap";
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
@@ -9,31 +11,55 @@ import { HeaderImage } from "../src/components/HeaderImage";
 
 export default function EspaceProfessionnel() {
     const { t } = useTranslation('espace-professionnel');
+    const router = useRouter()
+
+    const nextStep = async event => {
+        event.preventDefault()
+
+        router.push({
+            pathname: "/pourquoi-test",
+            query: {
+                email: event.target.inputEmail.value,
+                name: event.target.inputName.value
+            }
+        })
+    }
 
     return (
         <ContentLayout title={t("espace-pro")}>
             <HeaderImage image="/img/bg-espace-pro.png" title={t("espace-pro")} />
             <Col className="espace-pro-content">
-                <h3 class="espace-pro-title">{t("acces-a-l-espace")}</h3>
-                <label class="espace-pro-texte-explicatif">{t("texte-explicatif")}</label>
-                <label class="espace-pro-informations">{t("vos-informations")}</label>
+                <h3 className="espace-pro-title">{t("acces-a-l-espace")}</h3>
+                <label className="espace-pro-texte-explicatif">{t("texte-explicatif")}</label>
+                <label className="espace-pro-informations">{t("vos-informations")}</label>
 
-                <form>
-                    <div class="form-group espace-pro-row">
-                        <label class="espace-pro-labels">{t("nom")}</label>
-                        <div class="col-sm-8">
-                            <input type="email" class="form-control espace-pro-input" id="inputEmail" placeholder={t("hint-nom")}></input>
+                <form onSubmit={nextStep}>
+                    <div className="form-group espace-pro-row">
+                        <label className="espace-pro-labels">{t("nom")}</label>
+                        <div className="col-sm-8">
+                            <input type="text"
+                                className="form-control espace-pro-input"
+                                placeholder={t("hint-nom")}
+                                id="inputName"
+                                name="inputName"
+                                required />
                         </div>
                     </div>
-                    <div class="form-group espace-pro-row">
-                        <label class="espace-pro-labels">{t("email")}</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control espace-pro-input" id="inputName" aria-describedby="emailHelp" placeholder={t("hint-email")}></input>
+                    <div className="form-group espace-pro-row">
+                        <label className="espace-pro-labels">{t("email")}</label>
+                        <div className="col-sm-8">
+                            <input type="email"
+                                className="form-control espace-pro-input"
+                                aria-describedby="emailHelp"
+                                placeholder={t("hint-email")}
+                                id="inputEmail"
+                                name="inputEmail"
+                                required />
                         </div>
                     </div>
 
-                    <div class="espace-pro-obligatoire">{t("champs-obligatoire")}</div>
-                    <button type="submit" class="btn btn-primary espace-pro-button" style={{ marginTop: "23px" }}>{t("me-connecter")}</button>
+                    <div className="espace-pro-obligatoire">{t("champs-obligatoire")}</div>
+                    <button type="submit" className="btn btn-primary espace-pro-button" style={{ marginTop: "23px" }}>{t("me-connecter")}</button>
                 </form>
             </Col>
 
@@ -44,7 +70,7 @@ export default function EspaceProfessionnel() {
 
 export const getStaticProps = async ({ locale }) => ({
     props: {
-        ...await serverSideTranslations(locale, ['common', 'home', 'footer', 'espace-professionnel']),
+        ...await serverSideTranslations(locale, ['common', 'footer', 'espace-professionnel']),
     },
 })
 

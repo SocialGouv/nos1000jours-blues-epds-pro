@@ -6,8 +6,12 @@ import { Row, Col } from "react-bootstrap";
 
 const LightLink = ({ href, children }) => (
   <Link href={href} passHref>
-    <a href={href}>{children}</a>
-  </Link>
+    <a style={{
+      color: "black",
+      fontSize: "12px",
+      lineHeight: "22px"
+    }} href={href}>{children}</a>
+  </Link >
 );
 
 const Separator = () => (
@@ -62,6 +66,7 @@ const FooterStyle = () => (
     border-radius: 25px 25px 0 0;
     padding-top: 10px;
     padding-bottom: 10px;
+    margin-top: 20px;
   }
 
   .content-row {
@@ -75,12 +80,6 @@ const FooterStyle = () => (
     font-weight: bold;
     line-height: 33px;
     color: var(--bleu-texte);
-  }
-
-  a {
-    color: black;
-    font-size: 12px;
-    line-height: 22px;
   }
   `}</style>
 );
