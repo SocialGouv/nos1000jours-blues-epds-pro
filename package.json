@@ -10,6 +10,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@dataesr/react-dsfr": "^0.5.5",
     "bootstrap": "^4.6.0",
     "next": "^11.0.0",
     "next-i18next": "^8.5.5",

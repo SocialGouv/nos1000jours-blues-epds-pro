@@ -28,3 +28,64 @@
 :target {
   scroll-margin-top: 80px;
 }
+
+.page-content {
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.page-title {
+  color: var(--bleu-courant);
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 38px;
+}
+
+.page-subtitle {
+  font-family: Comfortaa;
+  font-weight: bold;
+  color: var(--bleu-texte);
+  line-height: 26px;
+}
+
+.champs-obligatoires {
+  font-size: 10px;
+  color: var(--gris-texte);
+  font-style: italic;
+}
+
+.custom-input {
+  border: none;
+  border-bottom: 1px solid var(--bleu-courant);
+  background-color: var(--bleu-clair);
+  color: var(--bleu-texte);
+  font-family: Marianne;
+  font-size: 12px;
+}
+.custom--input::placeholder {
+  color: var(--bleu-courant);
+}
+.custom--input:focus {
+  color: var(--bleu-texte);
+}
+.custom-input-row {
+  margin-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+.custom-input-label {
+  font-size: 13px;
+  line-height: 26px;
+  color: var(--gris-texte);
+  margin-bottom: 0;
+  align-self: center;
+}
+
+.custom-select {
+  border: none;
+  border-bottom: 1px solid var(--bleu-courant);
+  background-color: var(--bleu-clair);
+  color: var(--bleu-texte);
+  font-family: Marianne;
+  font-size: 12px;
+}
