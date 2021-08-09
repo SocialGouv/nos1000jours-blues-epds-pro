@@ -29,10 +29,8 @@
     "hint-genre": "Sélectionner une option",
     "genre-homme": "Femme",
     "genre-femme": "Homme",
-    "prenom": "Votre prénom* :",
-    "hint-prenom": "Écrivez votre prénom",
-    "nom": "Votre nom* :",
-    "hint-nom": "Écrivez votre nom",
+    "prenom": "Votre prénom*",
+    "nom": "Votre nom*",
     "champs-obligatoire": "*Champs obligatoires",
     "commencer": "Commencer"
 }

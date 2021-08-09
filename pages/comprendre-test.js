@@ -1,8 +1,9 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
+import { } from '@dataesr/react-dsfr';
 
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
@@ -51,49 +52,78 @@ const Step = ({ number, title, image }) => (
     </Row>
 );
 
-const FormInformations = ({ translation, onclick }) => (
-    <div>
-        <div className="page-subtitle comprendre-test-informations">Informations</div>
-        <form onSubmit={onclick}>
-            <div className="form-group">
-                <label className="custom-input-label" for="genderSelect">{translation("genre")}</label>
-                <select className="form-control custom-select col-sm-5"
-                    id="genderSelect"
-                    name="genderSelect"
-                    style={{ marginLeft: "15px" }}>
-                    <option>{translation("hint-genre")}</option>
-                    <option>{translation("genre-femme")}</option>
-                    <option>{translation("genre-homme")}</option>
-                </select>
-            </div>
-            <div className="form-group custom-input-row">
-                <label className="custom-input-label">{translation("prenom")}</label>
-                <div className="col-sm-5">
-                    <input type="text"
-                        className="form-control custom-input"
-                        placeholder={translation("hint-prenom")}
-                        id="inputLastname"
-                        name="inputLastname"
-                        required />
-                </div>
-            </div>
-            <div className="form-group custom-input-row">
-                <label className="custom-input-label">{translation("nom")}</label>
-                <div className="col-sm-5">
-                    <input type="text"
-                        className="form-control custom-input"
-                        placeholder={translation("hint-nom")}
-                        id="inputName"
-                        name="inputName"
-                        required />
-                </div>
-            </div>
+function FormInformations(props) {
+    const [canValidate, setCanValidate] = useState(false);
+    const [isNameValid, setNameValid] = useState(false);
+    const [isLastnameValid, setLastnameValid] = useState(false);
+    const [isGenderValid, setGenderValid] = useState(false);
 
-            <div className="champs-obligatoires">{translation("champs-obligatoire")}</div>
-            <button type="submit" className="btn btn-primary espace-pro-button" style={{ marginTop: "23px" }}>{translation("commencer")}</button>
-        </form>
-    </div>
-);
+    useEffect(() => {
+        setCanValidate(isNameValid & isLastnameValid);
+    }, [isNameValid, isLastnameValid]);
+
+    function handleChange(e) {
+        switch (e.target.id) {
+            case "inputName":
+                setNameValid(e.target.validity.valid);
+                break;
+            case "inputLastname":
+                setLastnameValid(e.target.validity.valid)
+                break;
+            case "genderSelect":
+                setGenderValid(e.target.selectedIndex > 0)
+                break;
+        }
+    }
+
+    return (
+        <div>
+            <div className="page-subtitle comprendre-test-informations">Informations</div>
+            <form onSubmit={props.onclick}>
+                <div className={`form-group fr-input-group ${isGenderValid ? "fr-input-group--valid" : ""}`}>
+                    <label className="fr-label" for="genderSelect text-input-valid">{props.translation("genre")}</label>
+                    <select className="form-control custom-select col-sm-5"
+                        id="genderSelect"
+                        name="genderSelect"
+                        onChange={handleChange}
+                        required>
+                        <option>{props.translation("hint-genre")}</option>
+                        <option>{props.translation("genre-femme")}</option>
+                        <option>{props.translation("genre-homme")}</option>
+                    </select>
+                </div>
+                <div className={`form-group fr-input-group ${isLastnameValid ? "fr-input-group--valid" : ""}`}>
+                    <label className="fr-label" for="text-input-valid">{props.translation("prenom")}</label>
+                    <div className="col-sm-5" style={{ paddingLeft: "0" }}>
+                        <input type="text"
+                            className={`form-control fr-input custom-input ${isLastnameValid ? "custom-input-valid" : ""}`}
+                            id="inputLastname"
+                            name="inputLastname"
+                            onChange={handleChange}
+                            required />
+                    </div>
+                </div>
+                <div className={`form-group fr-input-group ${isNameValid ? "fr-input-group--valid" : ""}`}>
+                    <label className="fr-label" for="text-input-valid">{props.translation("nom")}</label>
+                    <div className="col-sm-5" style={{ paddingLeft: "0" }}>
+                        <input type="text"
+                            className={`form-control fr-input custom-input ${isNameValid ? "custom-input-valid" : ""}`}
+                            id="inputName"
+                            name="inputName"
+                            onChange={handleChange}
+                            required />
+                    </div>
+                </div>
+
+                <div className="champs-obligatoires">{props.translation("champs-obligatoire")}</div>
+                <button type="submit"
+                    className="fr-btn"
+                    disabled={!canValidate}
+                    style={{ marginTop: "23px" }}>{props.translation("commencer")}</button>
+            </form>
+        </div>
+    )
+}
 
 export default function ComprendreTest() {
     const { t } = useTranslation('comprendre-test');
@@ -129,7 +159,9 @@ export default function ComprendreTest() {
                     </Row>
                 </div>
 
-                <FormInformations translation={t} onclick={nextPage} />
+                <FormInformations
+                    translation={t}
+                    onclick={nextPage} />
             </Col >
 
             <ComprendreTestStyle />

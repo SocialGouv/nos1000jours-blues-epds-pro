@@ -35,7 +35,7 @@
 }
 
 .page-title {
-  color: var(--bleu-courant);
+  color: var(--bleu-france);
   text-align: center;
   margin-top: 40px;
   margin-bottom: 38px;
@@ -56,7 +56,7 @@
 
 .custom-input {
   background-color: var(--bleu-clair) !important;
-  box-shadow: inset 0 -2px 0 0 var(--bleu-courant) !important;
+  box-shadow: inset 0 -2px 0 0 var(--bleu-france) !important;
 }
 .custom-input-valid {
   box-shadow: inset 0 -2px 0 0 var(--success) !important; 
@@ -64,9 +64,10 @@
 
 .custom-select {
   border: none;
-  border-bottom: 1px solid var(--bleu-courant);
+  border-radius: 0;
+  border-bottom: 2px solid var(--bleu-france);
   background-color: var(--bleu-clair);
-  color: var(--bleu-texte);
-  font-family: Marianne;
-  font-size: 12px;
+}
+.custom-select:focus {
+  background-color: var(--bleu-clair);
 }

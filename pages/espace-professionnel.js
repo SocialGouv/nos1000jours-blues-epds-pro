@@ -39,7 +39,6 @@ export default function EspaceProfessionnel() {
         } else if (e.target.id == "inputEmail") {
             setEmailValid(e.target.validity.valid)
         }
-        setCanValidate(isNameValid && isEmailValid)
     }
 
     return (
@@ -52,7 +51,7 @@ export default function EspaceProfessionnel() {
 
                 <form onSubmit={nextPage}>
                     <div className={`form-group custom-input-row fr-input-group ${isNameValid ? "fr-input-group--valid" : ""}`}>
-                        <label className="custom-input-label fr-label" for="text-input-valid">{t("nom")}</label>
+                        <label className="fr-label" for="text-input-valid">{t("nom")}</label>
                         <div className="col-sm-6" style={{ paddingLeft: "0" }}>
                             <input type="text"
                                 className={`form-control fr-input custom-input ${isNameValid ? "custom-input-valid" : ""}`}
@@ -63,7 +62,7 @@ export default function EspaceProfessionnel() {
                         </div>
                     </div>
                     <div className={`form-group custom-input-row fr-input-group ${isEmailValid ? "fr-input-group--valid" : ""}`}>
-                        <label className="custom-input-label fr-label" for="text-input-valid">{t("email")}</label>
+                        <label className="fr-label" for="text-input-valid">{t("email")}</label>
                         <div className="col-sm-8" style={{ paddingLeft: "0" }}>
                             <input type="email"
                                 className={`form-control fr-input custom-input ${isEmailValid ? "custom-input-valid" : ""}`}
