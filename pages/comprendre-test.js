@@ -92,28 +92,27 @@ function FormInformations(props) {
                         <option>{props.translation("genre-homme")}</option>
                     </select>
                 </div>
-                <div className={`form-group fr-input-group ${isLastnameValid ? "fr-input-group--valid" : ""}`}>
-                    <label className="fr-label" for="text-input-valid">{props.translation("prenom")}</label>
-                    <div className="col-sm-5" style={{ paddingLeft: "0" }}>
+                <Row>
+                    <Col className={`form-group fr-input-group ${isLastnameValid ? "fr-input-group--valid" : ""}`}>
+                        <label className="fr-label" for="text-input-valid">{props.translation("prenom")}</label>
                         <input type="text"
                             className={`form-control fr-input custom-input ${isLastnameValid ? "custom-input-valid" : ""}`}
                             id="inputLastname"
                             name="inputLastname"
                             onChange={handleChange}
                             required />
-                    </div>
-                </div>
-                <div className={`form-group fr-input-group ${isNameValid ? "fr-input-group--valid" : ""}`}>
-                    <label className="fr-label" for="text-input-valid">{props.translation("nom")}</label>
-                    <div className="col-sm-5" style={{ paddingLeft: "0" }}>
+
+                    </Col>
+                    <Col className={`form-group fr-input-group ${isNameValid ? "fr-input-group--valid" : ""}`}>
+                        <label className="fr-label" for="text-input-valid">{props.translation("nom")}</label>
                         <input type="text"
                             className={`form-control fr-input custom-input ${isNameValid ? "custom-input-valid" : ""}`}
                             id="inputName"
                             name="inputName"
                             onChange={handleChange}
                             required />
-                    </div>
-                </div>
+                    </Col>
+                </Row>
 
                 <div className="champs-obligatoires">{props.translation("champs-obligatoire")}</div>
                 <button type="submit"
