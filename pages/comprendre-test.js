@@ -136,7 +136,7 @@ export default function ComprendreTest() {
         localStorage.setItem("nomPatient", event.target.inputName.value);
 
         router.push({
-            // TODO:
+            pathname: "/questionnaire-epds"
         })
     }
 

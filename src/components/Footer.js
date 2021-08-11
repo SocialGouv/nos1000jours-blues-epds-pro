@@ -53,7 +53,6 @@ export function Footer() {
         </Col>
       </Row>
 
-
       <FooterStyle />
     </footer >
   );
