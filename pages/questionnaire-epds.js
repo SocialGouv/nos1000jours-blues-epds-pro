@@ -1,4 +1,4 @@
-import { React, useRef, useState } from "react";
+import { React, useEffect, useRef, useState } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
@@ -27,20 +27,18 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
         })
     }
 
+    useEffect(() => {
+        setEnabledNextButton(scoreBoard[actualIndex - 1] != null);
+    }, [actualIndex]);
+
     const onPreviousQuestion = () => {
         ref.current.prev();
         setActualIndex(actualIndex - 1);
-
-        console.log(ref.current.index);
     };
 
     const onNextQuestion = () => {
         ref.current.next();
         setActualIndex(actualIndex + 1);
-        setEnabledNextButton(false)
-
-        console.log(ref.current.index);
-        console.log(scoreBoard);
     };
 
     return (

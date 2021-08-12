@@ -7,11 +7,12 @@ export function EpdsQuestion({ question, scoreBoard, setEnabledNextButton }) {
     const radio3Id = prefix + "-radio3";
     const radio4Id = prefix + "-radio4";
 
+    const arrayRespones = [question.reponse_1_points,
+    question.reponse_2_points,
+    question.reponse_3_points,
+    question.reponse_4_points];
+
     function handleChange(e) {
-        const arrayRespones = [question.reponse_1_points,
-        question.reponse_2_points,
-        question.reponse_3_points,
-        question.reponse_4_points];
         const responseIndex = Number(e.target.id.split(prefix + "-radio")[1]);
 
         const point = arrayRespones[responseIndex - 1];
@@ -23,15 +24,15 @@ export function EpdsQuestion({ question, scoreBoard, setEnabledNextButton }) {
 
     return (
         <div style={{ marginTop: 50 }}>
-            <div className="fr-form-group">
+            <form className="fr-form-group">
                 <fieldset className="fr-fieldset">
                     <legend className="fr-fieldset__legend fr-text--regular epds-question" id="radio-legend">
                         {question.libelle}
                     </legend>
-                    <div className="fr-fieldset__content" style={{ marginTop: "10px" }} onChange={handleChange}>
+                    <div className="fr-fieldset__content" style={{ marginTop: "10px" }} onChange={handleChange} >
                         <div className="fr-radio-group">
                             <input type="radio" id={radio1Id} name="radio" />
-                            <label className="fr-label" for={radio1Id}>{question.reponse_1_libelle}</label>
+                            <label className="fr-label" for={radio1Id} >{question.reponse_1_libelle}</label>
                         </div>
                         <div className="fr-radio-group">
                             <input type="radio" id={radio2Id} name="radio" />
@@ -47,7 +48,7 @@ export function EpdsQuestion({ question, scoreBoard, setEnabledNextButton }) {
                         </div>
                     </div>
                 </fieldset>
-            </div>
+            </form>
 
             <EpdsStyle />
         </div >
