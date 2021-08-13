@@ -7,6 +7,7 @@ import { } from '@dataesr/react-dsfr';
 
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
+import { STORAGE_GENRE_PATIENT, STORAGE_NOM_PATIENT, STORAGE_PRENOM_PATIENT } from ".";
 
 const Pourquoi = ({ translation }) => (
     <div style={{ textAlign: "justify" }}>
@@ -131,9 +132,9 @@ export default function ComprendreTest() {
     const nextPage = async event => {
         event.preventDefault()
 
-        localStorage.setItem("genrePatient", event.target.genderSelect.value);
-        localStorage.setItem("prenomPatient", event.target.inputLastname.value);
-        localStorage.setItem("nomPatient", event.target.inputName.value);
+        localStorage.setItem(STORAGE_GENRE_PATIENT, event.target.genderSelect.value);
+        localStorage.setItem(STORAGE_PRENOM_PATIENT, event.target.inputLastname.value);
+        localStorage.setItem(STORAGE_NOM_PATIENT, event.target.inputName.value);
 
         router.push({
             pathname: "/questionnaire-epds"

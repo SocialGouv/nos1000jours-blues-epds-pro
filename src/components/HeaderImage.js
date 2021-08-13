@@ -5,7 +5,7 @@ export function HeaderImage({ image, title }) {
 
     return (
         <div className="content-header-image" style={{ backgroundImage: imageUrl }}>
-            <div className="image-title ">{title}</div>
+            <div className="image-title">{title}</div>
             <HeaderImageStyle />
         </div >
     )

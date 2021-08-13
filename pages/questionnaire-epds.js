@@ -10,6 +10,7 @@ import { Carousel, Col, ProgressBar, Row } from "react-bootstrap";
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
 import { EpdsQuestion } from "../src/components/epdsQuestion";
+import { STORAGE_TOTAL_SCORE } from ".";
 
 export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
     const { t } = useTranslation('questionnaire-epds');
@@ -22,8 +23,10 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
     const nextPage = async event => {
         event.preventDefault()
 
+        localStorage.setItem(STORAGE_TOTAL_SCORE, scoreBoard.reduce((a, b) => a + b, 0));
+
         router.push({
-            // TODO:
+            pathname: "/resultats"
         })
     }
 
