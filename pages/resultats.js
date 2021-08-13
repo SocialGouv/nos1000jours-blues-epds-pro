@@ -2,8 +2,8 @@ import { React, useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useRouter } from 'next/router'
-import { } from '@dataesr/react-dsfr';
+import { useRouter } from 'next/router';
+import { AccordionItem, Accordion } from '@dataesr/react-dsfr';
 
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
@@ -34,14 +34,17 @@ export default function Resultats() {
 
                 <Row style={{ diplay: "flex" }}>
                     <Col>
-                        <p className="font-weight-bold">{t("oser-parler")}</p>
-                        <p>{t("les-changements")}</p>
-                        <p className="font-weight-bold">{t("invitation-a-refaire")}</p>
+                        <p className="font-weight-bold resultats-text">{t("oser-parler")}</p>
+                        <p className="resultats-text">{t("les-changements")}</p>
+                        <p className="font-weight-bold resultats-text">{t("invitation-a-refaire")}</p>
                     </Col>
                     <Col>
                         <FormContact translation={t} onclick={sendResults} />
                     </Col>
                 </Row>
+
+                <AccordionResources translation={t} />
+                <AdsForApp translation={t} />
             </Col >
 
             <ComprendreTestStyle />
@@ -119,6 +122,53 @@ function FormContact(props) {
     )
 }
 
+const AccordionResources = ({ translation }) => (
+    <Accordion>
+        <AccordionItem title={translation("pros-sante")}>
+            <ItemSante />
+        </AccordionItem>
+        <AccordionItem title={translation("sites-information-orientation")}>
+            <ItemSiteInformationOrientation />
+        </AccordionItem>
+        <AccordionItem title={translation("ressouces")}>
+            <ItemResources />
+        </AccordionItem>
+    </Accordion >
+)
+
+const ItemSante = () => (
+    <div>Accordion Item #1</div>
+)
+
+const ItemSiteInformationOrientation = () => (
+    <div>Accordion Item #2</div>
+)
+
+const ItemResources = () => (
+    <div>Accordion Item #3</div>
+)
+
+const AdsForApp = ({ translation }) => (
+    <div className="resultats-appl-bloc">
+        <span className="font-weight-bold" style={{ fontSize: 24 }}>{translation("app-1000j")}</span>
+        <p style={{ paddingTop: 10, lineHeight: "32px" }}>{translation("app-1000j-content")}</p>
+        <div>{translation("telecharger")}
+            <a href="https://1000jours.fabrique.social.gouv.fr" target="_blank" style={{ textDecoration: "underline" }}>https://1000jours.fabrique.social.gouv.fr</a>
+        </div>
+        <table style={{ marginTop: 15 }}>
+            <tr>
+                <td><img src="/img/icone-playstore.svg" height={35} style={{ marginRight: 20 }} /></td>
+                <td><img src="/img/icone-appstore.svg" height={35} /></td>
+            </tr>
+            <tr>
+                <td><img src="/img/QR_google.png" height={96} style={{ marginTop: 10, marginRight: 20 }} /></td>
+                <td><img src="/img/QR_apple.png" height={96} style={{ marginTop: 10 }} /></td>
+            </tr>
+        </table>
+
+    </div >
+)
+
 function getInLocalStorage(key) {
     if (typeof window !== "undefined") {
         return localStorage.getItem(key);
@@ -133,6 +183,15 @@ export const getStaticProps = async ({ locale }) => ({
 
 const ComprendreTestStyle = () => (
     <style jsx>{`
-    
+    .resultats-text {
+        font-size: 13px;
+    }
+
+    .resultats-appl-bloc {
+        margin-top: 60px;
+        padding:20px 30px 20px 30px;
+        background-color: var(--gris);
+        border-left: 4px solid var(--bleu-france);
+    }
     `}</style>
 );
