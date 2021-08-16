@@ -23,10 +23,10 @@ export function Nav() {
           id="responsive-navbar-nav"
           className="justify-content-end">
           <BSNav>
-            <a className="nav-link" href="/pourquoi">{t('nav-pourquoi')}</a>
-            <a className="nav-link" href="/comment">{t('nav-comment')}</a>
-            <a className="nav-link" href="/qui">{t('nav-qui')}</a>
-            <a className="nav-link" href="/contact">{t('nav-contact')}</a>
+            <a className="nav-link" href="/pourquoi" hidden>{t('nav-pourquoi')}</a>
+            <a className="nav-link" href="/comment" hidden>{t('nav-comment')}</a>
+            <a className="nav-link" href="/qui" hidden>{t('nav-qui')}</a>
+            <a className="nav-link" href="mailto:contact-nos1000jours@fabrique.social.gouv.fr&subject=Démarrage">{t('nav-contact')}</a>
             <a className="nav-link" href="/espace-professionnel">{t('nav-professionnel')}</a>
           </BSNav>
         </Navbar.Collapse>
