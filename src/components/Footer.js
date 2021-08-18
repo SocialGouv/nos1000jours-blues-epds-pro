@@ -36,15 +36,15 @@ export function Footer() {
           <div className="container text-center box3">
             <ul className="list-inline">
               <li className="list-inline-item">
-                <LightLink href="/cgu">{t('cgu')}</LightLink>
+                <LightLink href="/annexes/cgu">{t('cgu')}</LightLink>
               </li>
               <Separator />
               <li className="list-inline-item">
-                <LightLink href="/mentions-legales">{t('mentions-legales')}</LightLink>
+                <LightLink href="/annexes/mentions-legales">{t('mentions-legales')}</LightLink>
               </li>
               <Separator />
               <li className="list-inline-item">
-                <LightLink href="/politique-confidentialite">
+                <LightLink href="/annexes/politique-confidentialite">
                   {t('politique-confidentialite')}
                 </LightLink>
               </li>
