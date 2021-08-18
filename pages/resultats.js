@@ -8,6 +8,7 @@ import { AccordionItem, Accordion } from '@dataesr/react-dsfr';
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
 import { PATTERN_EMAIL, STORAGE_EMAIL_PRO } from ".";
+import { epdsContacts } from "../src/constants/epdsResultInformation";
 
 export default function Resultats() {
     const { t } = useTranslation('resultats');
@@ -141,7 +142,21 @@ const ItemSante = () => (
 )
 
 const ItemSiteInformationOrientation = () => (
-    <div>Accordion Item #2</div>
+    <div className="resultats-contact">
+        <p className="font-weight-bold">Les lignes téléphoniques d’aide aux parents</p>
+        <div className="resultats-contact-item">
+            {epdsContacts.map((contact) => {
+                return (
+                    <div style={{ marginBottom: 30 }}>
+                        <div className="resultats-contact-title">{contact.contactName}</div>
+                        <div>{contact.thematic}</div>
+                        <div className="font-weight-bold">{contact.openingTime}</div>
+                        <div className="font-weight-bold">{contact.phoneNumber}</div>
+                    </div>
+                )
+            })}
+        </div>
+    </div >
 )
 
 const ItemResources = () => (
@@ -192,6 +207,24 @@ const ComprendreTestStyle = () => (
         padding:20px 30px 20px 30px;
         background-color: var(--gris);
         border-left: 4px solid var(--bleu-france);
+    }
+
+    .resultats-contact {
+        font-size: 14px;
+    }
+
+    .resultats-contact-title {
+        color: var(--jaune-courant);
+        font-weight: bold;
+        line-height: 19px;
+    }
+
+    .resultats-contact-item {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .resultats-contact-item div {
+        padding-right: 10px;
     }
     `}</style>
 );
