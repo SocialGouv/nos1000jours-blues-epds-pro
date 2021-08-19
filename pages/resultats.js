@@ -6,7 +6,7 @@ import { AccordionItem, Accordion } from '@dataesr/react-dsfr';
 
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
-import { PATTERN_EMAIL } from "../src/constants/constants";
+import { PATTERN_EMAIL, URL_1000J } from "../src/constants/constants";
 import { epdsContacts } from "../src/constants/epdsResultInformation";
 
 export default function Resultats() {
@@ -69,10 +69,10 @@ function FormContact(props) {
 
     return (
         <div>
-            <div className="font-weight-bold" style={{ fontSize: 13, marginBottom: 20 }}>{props.translation("intro-contact")}</div>
+            <div className="font-weight-bold" style={{ fontSize: 13, marginBottom: 20 }}>{props.translation("form.intro-contact")}</div>
             <form onSubmit={props.onclick}>
                 <div className={`form-group fr-input-group ${isEmailValid ? "fr-input-group--valid" : ""}`}>
-                    <label className="fr-label" for="text-input-valid">{props.translation("email")}</label>
+                    <label className="fr-label" for="text-input-valid">{props.translation("form.email")}</label>
                     <input type="email"
                         className={`form-control fr-input custom-input ${isEmailValid ? "custom-input-valid" : ""}`}
                         id="inputEmail"
@@ -82,7 +82,7 @@ function FormContact(props) {
                         required />
                 </div>
                 <div className={`form-group fr-input-group ${isPhoneValid ? "fr-input-group--valid" : ""}`}>
-                    <label className="fr-label" for="text-input-valid">{props.translation("telephone")}</label>
+                    <label className="fr-label" for="text-input-valid">{props.translation("form.telephone")}</label>
                     <input type="tel"
                         className={`form-control fr-input custom-input ${isPhoneValid ? "custom-input-valid" : ""}`}
                         id="inputTel"
@@ -91,7 +91,7 @@ function FormContact(props) {
                         onChange={handleChange} />
                 </div>
                 <div className={`form-group fr-input-group ${isEmailProValid ? "fr-input-group--valid" : ""}`}>
-                    <label className="fr-label" for="text-input-valid">{props.translation("email-pro")}</label>
+                    <label className="fr-label" for="text-input-valid">{props.translation("form.email-pro")}</label>
                     <input type="email"
                         className={`form-control fr-input custom-input ${isEmailProValid ? "custom-input-valid" : ""}`}
                         id="inputEmailPro"
@@ -100,11 +100,11 @@ function FormContact(props) {
                         onChange={handleChange} />
                 </div>
 
-                <div className="champs-obligatoires" style={{ fontSize: 13 }}>{props.translation("email-pro-existe")}</div>
+                <div className="champs-obligatoires" style={{ fontSize: 13 }}>{props.translation("form.email-pro-existe")}</div>
                 <button type="submit"
                     className="fr-btn"
                     disabled={!canSend}
-                    style={{ marginTop: "23px" }}>{props.translation("envoyer")}</button>
+                    style={{ marginTop: "23px" }}>{props.translation("form.envoyer")}</button>
             </form>
         </div>
     )
@@ -116,7 +116,7 @@ const AccordionResources = ({ translation }) => (
             <ItemSante />
         </AccordionItem>
         <AccordionItem title={translation("sites-information-orientation")}>
-            <ItemSiteInformationOrientation />
+            <ItemSiteInformationOrientation translation={translation} />
         </AccordionItem>
         <AccordionItem title={translation("ressouces")}>
             <ItemResources />
@@ -128,20 +128,22 @@ const ItemSante = () => (
     <div>Accordion Item #1</div>
 )
 
-const ItemSiteInformationOrientation = () => (
+const ItemSiteInformationOrientation = ({ translation }) => (
     <div className="resultats-contact">
-        <p className="font-weight-bold">Les lignes téléphoniques d’aide aux parents</p>
-        <div className="resultats-contact-item">
-            {epdsContacts.map((contact) => {
-                return (
-                    <div style={{ marginBottom: 30 }}>
-                        <div className="resultats-contact-title">{contact.contactName}</div>
-                        <div>{contact.thematic}</div>
-                        <div className="font-weight-bold">{contact.openingTime}</div>
-                        <div className="font-weight-bold">{contact.phoneNumber}</div>
-                    </div>
-                )
-            })}
+        <p className="font-weight-bold">{translation("sites-lignes-telephoniques")}</p>
+        <div div className="resultats-contact-item" >
+            {
+                epdsContacts.map((contact, index) => {
+                    return (
+                        <div style={{ marginBottom: 30 }} key={index}>
+                            <div className="resultats-contact-title">{contact.contactName}</div>
+                            <div>{contact.thematic}</div>
+                            <div className="font-weight-bold">{contact.openingTime}</div>
+                            <div className="font-weight-bold">{contact.phoneNumber}</div>
+                        </div>
+                    )
+                })
+            }
         </div>
     </div >
 )
@@ -152,10 +154,10 @@ const ItemResources = () => (
 
 const AdsForApp = ({ translation }) => (
     <div className="resultats-appl-bloc">
-        <span className="font-weight-bold" style={{ fontSize: 24 }}>{translation("app-1000j")}</span>
-        <p style={{ paddingTop: 10, lineHeight: "32px" }}>{translation("app-1000j-content")}</p>
-        <div>{translation("telecharger")}
-            <a href="https://1000jours.fabrique.social.gouv.fr" target="_blank" style={{ textDecoration: "underline" }}>https://1000jours.fabrique.social.gouv.fr</a>
+        <span className="font-weight-bold" style={{ fontSize: 24 }}>{translation("appli.app-1000j")}</span>
+        <p style={{ paddingTop: 10, lineHeight: "32px" }}>{translation("appli.app-1000j-content")}</p>
+        <div>{translation("appli.telecharger")}
+            <a href={URL_1000J} target="_blank" style={{ textDecoration: "underline" }}>{URL_1000J}</a>
         </div>
         <table style={{ marginTop: 15 }}>
             <tr>
@@ -184,7 +186,7 @@ export const getStaticProps = async ({ locale }) => ({
 })
 
 const ComprendreTestStyle = () => (
-    <style jsx>{`
+    <style jsx="true">{`
     .resultats-text {
         font-size: 13px;
     }

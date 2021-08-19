@@ -4,16 +4,21 @@
     "oser-parler": "Oser en parler, c’est déjà prendre soin de soi et de son enfant !",
     "les-changements": "Les changements importants liés à l’arrivée d’un bébé sont des facteurs de stress dont certains signes évocateurs sont normaux durant cette période. Parlez de vos difficultés des premiers mois, est essentiel pour que le professionnel de santé qui vous suit puisse à tout moment vous accompagner. Des aides et un accompagnement peuvent être mis en place pour vous aider durant cette période qui nécessite du soutien. En parler avec un professionnel de santé et votre entourage, c’est se soigner. Parce que vous n’êtes pas seul(e) et qu’en parler a permis à de nombreux parents d’aller mieux.",
     "invitation-a-refaire": "Nous vous invitons à vous questionner de nouveau dans les 14 jours.",
-    "intro-contact": "Si vous souhaitez être contacté par le professionnel de santé, renseignez votre adresse email ou votre numéro de téléphone :",
-    "email": "Votre adresse email*",
-    "telephone": "Votre numéro de téléphone",
-    "email-pro": "Adresse email de votre référent santé",
-    "email-pro-existe": "(si vous en avez un)",
-    "envoyer": "Envoyer",
+    "form": {
+        "intro-contact": "Si vous souhaitez être contacté par le professionnel de santé, renseignez votre adresse email ou votre numéro de téléphone :",
+        "email": "Votre adresse email*",
+        "telephone": "Votre numéro de téléphone",
+        "email-pro": "Adresse email de votre référent santé",
+        "email-pro-existe": "(si vous en avez un)",
+        "envoyer": "Envoyer"
+    },
     "pros-sante": "Les professionnels de santé",
     "sites-information-orientation": "Les sites et les lignes d’information et d’orientation",
+    "sites-lignes-telephoniques": "Les lignes téléphoniques d’aide aux parents",
     "ressouces": "Les ressources des premiers mois",
-    "app-1000j": "Application 1000 premiers jours",
-    "app-1000j-content": "Le compagnon privilégié des parents durant les 1000 premiers jours, du projet de parentalité au 3 ans de l’enfant.",
-    "telecharger": "À télécharger gratuitement : "
+    "appli": {
+        "app-1000j": "Application 1000 premiers jours",
+        "app-1000j-content": "Le compagnon privilégié des parents durant les 1000 premiers jours, du projet de parentalité au 3 ans de l’enfant.",
+        "telecharger": "À télécharger gratuitement : "
+    }
 }
