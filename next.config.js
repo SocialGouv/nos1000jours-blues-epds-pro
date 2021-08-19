@@ -6,7 +6,7 @@ module.exports = {
         return [
             {
                 source: '/',
-                destination: '/espace-professionnel',
+                destination: '/comprendre-test',
                 permanent: true,
             },
         ]
