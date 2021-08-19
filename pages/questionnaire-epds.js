@@ -159,7 +159,7 @@ export const getStaticProps = async ({ locale }) => {
 }
 
 const ComprendreTestStyle = () => (
-    <style jsx>{`
+    <style jsx="true">{`
     .questionnaire {
         margin-top: 20px;
         font-style: italic;

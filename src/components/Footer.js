@@ -59,7 +59,7 @@ export function Footer() {
 }
 
 const FooterStyle = () => (
-  <style jsx>{`
+  <style jsx="true">{`
   .content-footer {
     background-color: var(--bleu-clair);
     border-radius: 25px 25px 0 0;

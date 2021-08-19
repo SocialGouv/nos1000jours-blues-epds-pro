@@ -176,7 +176,7 @@ export const getStaticProps = async ({ locale }) => ({
 })
 
 const ComprendreTestStyle = () => (
-    <style jsx>{`
+    <style jsx="true">{`
     .comprendre-test-label {
         font-weight: bold;
         line-height: 18px;

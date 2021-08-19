@@ -38,7 +38,7 @@ export function Nav() {
 }
 
 const NavStyle = () => (
-  <style jsx>{`
+  <style jsx="true">{`
   .nav-link {
     margin: 0 10px;
     color: var(--bleu-texte) !important;

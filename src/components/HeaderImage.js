@@ -12,7 +12,7 @@ export function HeaderImage({ image, title }) {
 }
 
 const HeaderImageStyle = () => (
-    <style jsx>{`
+    <style jsx="true">{`
     .content-header-image {
         min-height: 150px;
         height: 100%;
