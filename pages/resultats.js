@@ -2,28 +2,18 @@ import { React, useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useRouter } from 'next/router';
 import { AccordionItem, Accordion } from '@dataesr/react-dsfr';
 
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
-import { PATTERN_EMAIL, STORAGE_EMAIL_PRO } from ".";
+import { PATTERN_EMAIL } from "../src/constants/constants";
 import { epdsContacts } from "../src/constants/epdsResultInformation";
 
 export default function Resultats() {
     const { t } = useTranslation('resultats');
-    const router = useRouter()
 
-    const nextPage = async event => {
-        event.preventDefault()
-
-        router.push({
-            // TODO:
-        })
-    }
-
-    function sendResults() {
-        // TODO:
+    function sendResultsByEmail() {
+        // TODO: send email
     }
 
     return (
@@ -40,7 +30,7 @@ export default function Resultats() {
                         <p className="font-weight-bold resultats-text">{t("invitation-a-refaire")}</p>
                     </Col>
                     <Col>
-                        <FormContact translation={t} onclick={sendResults} />
+                        <FormContact translation={t} onclick={sendResultsByEmail} />
                     </Col>
                 </Row>
 
@@ -54,12 +44,10 @@ export default function Resultats() {
 }
 
 function FormContact(props) {
-    const emailPro = getInLocalStorage(STORAGE_EMAIL_PRO);
-
     const [canSend, setCanSend] = useState(false);
     const [isEmailValid, setEmailValid] = useState(false);
     const [isPhoneValid, setPhoneValid] = useState(false);
-    const [isEmailProValid, setEmailProValid] = useState(emailPro);
+    const [isEmailProValid, setEmailProValid] = useState(false);
 
     useEffect(() => {
         setCanSend(isEmailValid);
@@ -109,7 +97,6 @@ function FormContact(props) {
                         id="inputEmailPro"
                         name="inputEmailPro"
                         pattern={PATTERN_EMAIL}
-                        defaultValue={emailPro}
                         onChange={handleChange} />
                 </div>
 

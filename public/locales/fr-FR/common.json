@@ -4,5 +4,11 @@
     "nav-comment": "Comment ce service fonctionne-t-il ?",
     "nav-qui": "Qui sommes-nous ?",
     "nav-contact": "Nous contacter",
-    "nav-professionnel": "Espace professionnel"
+    "nav-professionnel": "Espace professionnel",
+    "gender": {
+        "masculin": "Masculin",
+        "feminin": "Feminin",
+        "nonbinaire": "Non binaire",
+        "inconnu": "Inconnu"
+    }
 }

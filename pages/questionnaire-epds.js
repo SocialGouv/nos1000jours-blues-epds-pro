@@ -3,14 +3,15 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import { } from '@dataesr/react-dsfr';
-import { gql } from "@apollo/client";
-import client from "../apollo-client";
+import { useMutation } from "@apollo/client";
+
+import { client, EPDS_ADD_RESPONSE, QUESTIONNAIRE_EPDS } from "../apollo-client";
 import { Carousel, Col, ProgressBar, Row } from "react-bootstrap";
 
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
 import { EpdsQuestion } from "../src/components/epdsQuestion";
-import { STORAGE_TOTAL_SCORE } from ".";
+import { STORAGE_TOTAL_SCORE } from "../src/constants/constants";
 
 export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
     const { t } = useTranslation('questionnaire-epds');
@@ -19,9 +20,18 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
 
     const [actualIndex, setActualIndex] = useState(1);
     const [isEnabledNextButton, setEnabledNextButton] = useState(false);
+    const [sendScore, setSendScore] = useState(false);
+
+    const [addReponseQuery] = useMutation(EPDS_ADD_RESPONSE, {
+        client: client,
+        onError: (err) => {
+            console.log(err);
+        },
+    });
 
     const nextPage = async event => {
-        event.preventDefault()
+        event.preventDefault();
+        setSendScore(true)
 
         localStorage.setItem(STORAGE_TOTAL_SCORE, scoreBoard.reduce((a, b) => a + b, 0));
 
@@ -29,6 +39,36 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
             pathname: "/resultats"
         })
     }
+
+    useEffect(() => {
+        const saveEpdsResults = async () => {
+            if (sendScore) {
+                const result = scoreBoard.reduce((a, b) => a + b, 0);
+                const newCounter = 1;
+                const genderValue = localStorage.getItem(STORAGE_GENRE_PATIENT);
+
+                await addReponseQuery({
+                    variables: {
+                        compteur: newCounter,
+                        genre: genderValue,
+                        reponseNum1: scoreBoard[0],
+                        reponseNum10: scoreBoard[9],
+                        reponseNum2: scoreBoard[1],
+                        reponseNum3: scoreBoard[2],
+                        reponseNum4: scoreBoard[3],
+                        reponseNum5: scoreBoard[4],
+                        reponseNum6: scoreBoard[5],
+                        reponseNum7: scoreBoard[6],
+                        reponseNum8: scoreBoard[7],
+                        reponseNum9: scoreBoard[8],
+                        score: result,
+                    },
+                });
+            }
+        };
+
+        saveEpdsResults();
+    }, [sendScore]);
 
     useEffect(() => {
         setEnabledNextButton(scoreBoard[actualIndex - 1] != null);
@@ -122,7 +162,7 @@ const QuestionsProgressBar = ({ indexNow, size }) => (
         <Row>
             {Array(size + 1).fill(size, 1, 11).map((x, index) => {
                 return <Col key={index}
-                    className={`${index != indexNow && index != size ? "white-number" : "yellow-number"}`}>{index}</Col>;
+                    className={`${index != indexNow && index != size ? "white-number" : "yellow-number"} `}>{index}</Col>;
             })}
         </Row>
     </div>
@@ -130,23 +170,7 @@ const QuestionsProgressBar = ({ indexNow, size }) => (
 
 export const getStaticProps = async ({ locale }) => {
     const { data } = await client.query({
-        query: gql`
-                query QuestionnaireEpds {
-                    questionnaireEpds {
-                    libelle,
-                    ordre,
-                    locale,
-                    reponse_1_libelle,
-                    reponse_1_points,
-                    reponse_2_libelle,
-                    reponse_2_points,
-                    reponse_3_libelle,
-                    reponse_3_points,
-                    reponse_4_libelle,
-                    reponse_4_points,
-              }
-          }
-                `,
+        query: QUESTIONNAIRE_EPDS,
     });
 
     return ({

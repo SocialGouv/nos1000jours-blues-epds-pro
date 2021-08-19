@@ -7,7 +7,7 @@ import { } from '@dataesr/react-dsfr';
 
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
-import { STORAGE_GENRE_PATIENT, STORAGE_NOM_PATIENT, STORAGE_PRENOM_PATIENT } from ".";
+import { STORAGE_GENRE_PATIENT, STORAGE_NOM_PATIENT, STORAGE_PRENOM_PATIENT, EpdsGender } from "../src/constants/constants";
 
 const Pourquoi = ({ translation }) => (
     <div style={{ textAlign: "justify" }}>
@@ -88,9 +88,10 @@ function FormInformations(props) {
                         name="genderSelect"
                         onChange={handleChange}
                         required>
-                        <option>{props.translation("hint-genre")}</option>
-                        <option>{props.translation("genre-femme")}</option>
-                        <option>{props.translation("genre-homme")}</option>
+                        <option value={EpdsGender.inconnu.strapiLibelle}>{props.translation("hint-genre")}</option>
+                        <option value={EpdsGender.feminin.strapiLibelle}>{props.translation("common:" + EpdsGender.feminin.key)}</option>
+                        <option value={EpdsGender.masculin.strapiLibelle}>{props.translation("common:" + EpdsGender.masculin.key)}</option>
+                        <option value={EpdsGender.nonBinaire.strapiLibelle}>{props.translation("common:" + EpdsGender.nonBinaire.key)}</option>
                     </select>
                 </div>
                 <Row>
@@ -126,8 +127,8 @@ function FormInformations(props) {
 }
 
 export default function ComprendreTest() {
-    const { t } = useTranslation('comprendre-test');
-    const router = useRouter()
+    const { t } = useTranslation(['comprendre-test', 'common']);
+    const router = useRouter();
 
     const nextPage = async event => {
         event.preventDefault()
