@@ -10,7 +10,7 @@ export function Nav() {
       <Container>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <div>
-          <a href="/espace-professionnel" alt="Retour à l'accueil">
+          <a href="/comprendre-test" alt="Retour à l'accueil">
             <img
               src="/img/logo-1000j.png"
               height={100}
@@ -27,7 +27,7 @@ export function Nav() {
             <a className="nav-link" href="/comment" hidden>{t('nav-comment')}</a>
             <a className="nav-link" href="/qui" hidden>{t('nav-qui')}</a>
             <a className="nav-link" href="mailto:contact-nos1000jours@fabrique.social.gouv.fr&subject=Démarrage">{t('nav-contact')}</a>
-            <a className="nav-link" href="/espace-professionnel">{t('nav-professionnel')}</a>
+            <a className="nav-link" href="/comprendre-test">{t('nav-professionnel')}</a>
           </BSNav>
         </Navbar.Collapse>
 
