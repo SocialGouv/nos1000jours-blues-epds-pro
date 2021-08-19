@@ -3,13 +3,15 @@ $theme-colors: (
   "info": #1fc6d5,
   
   "bleu-texte": #26366E,
+  "bleu-france": #000091,
   "bleu-courant": #5770BE,
-  "jaune":#FCDF41,
   "bleu-clair": #F2F6FF,
 
-  "bleu-france": #000091,
+  "jaune-courant":#E8AA05,
+  "jaune":#FCDF41,
 
   "gris-texte": #383838,
+  "gris":#F0F0F0
 );
 
 @import "bootstrap/scss/bootstrap";

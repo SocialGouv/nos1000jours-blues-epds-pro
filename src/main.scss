@@ -1,23 +1,23 @@
 @font-face {
   font-family: "Marianne";
-  src: url("/fonts/Marianne/Marianne-Regular.ttf");
+  src: url("/fonts/Marianne/Marianne-Regular.ttf") format('truetype');
   font-style: normal;
 }
 
 @font-face {
   font-family: "Marianne";
-  src: url("/fonts/Marianne/Marianne-Bold.ttf");
+  src: url("/fonts/Marianne/Marianne-Bold.ttf") format('truetype');
   font-weight: bold;
 }
 
 @font-face {
   font-family: "Marianne";
-  src: url("/fonts/Marianne/Marianne-RegularItalic.ttf");
+  src: url("/fonts/Marianne/Marianne-RegularItalic.ttf") format('truetype');
   font-style: italic;
 }
 @font-face {
   font-family: "Marianne";
-  src: url("/fonts/Marianne/Marianne-BoldItalic.ttf");
+  src: url("/fonts/Marianne/Marianne-BoldItalic.ttf") format('truetype');
   font-weight: bold;
   font-style: italic;
 }
@@ -25,7 +25,7 @@
 @font-face {
   font-family: "Comfortaa";
   font-style: normal;
-  src: url("/fonts/Comfortaa/Comfortaa-Regular.ttf");
+  src: url("/fonts/Comfortaa/Comfortaa-Regular.ttf") format('truetype');
 }
 
 :target {
@@ -49,6 +49,10 @@ h2 {
 
 [href] {
   box-shadow: none !important;
+}
+
+td {
+  text-align: center;
 }
 
 .page-content {

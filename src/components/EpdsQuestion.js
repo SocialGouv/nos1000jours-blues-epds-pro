@@ -56,7 +56,7 @@ export function EpdsQuestion({ question, scoreBoard, setEnabledNextButton }) {
 }
 
 const EpdsStyle = () => (
-    <style jsx>{`
+    <style jsx="true">{`
     .epds-question {
         color: var(--bleu-france);
         font-size: 16px;

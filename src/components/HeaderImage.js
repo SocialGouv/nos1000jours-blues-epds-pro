@@ -5,14 +5,14 @@ export function HeaderImage({ image, title }) {
 
     return (
         <div className="content-header-image" style={{ backgroundImage: imageUrl }}>
-            <div className="image-title ">{title}</div>
+            <div className="image-title">{title}</div>
             <HeaderImageStyle />
         </div >
     )
 }
 
 const HeaderImageStyle = () => (
-    <style jsx>{`
+    <style jsx="true">{`
     .content-header-image {
         min-height: 150px;
         height: 100%;
