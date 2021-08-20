@@ -145,7 +145,7 @@ jobs:
 
       - name: Deploy application
         run: kapp --dangerous-override-ownership-of-existing-resources -y deploy -a ${{ env.project }} --namespace ${{ env.namespace }} -f manifests.yml
-s
+
   ##############################################################################
   ## GENERATE PRODUCTION MANIFESTS
   ##############################################################################
