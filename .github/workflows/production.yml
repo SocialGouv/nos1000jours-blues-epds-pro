@@ -28,7 +28,7 @@ jobs:
         id: docker_meta
         uses: "crazy-max/ghaction-docker-meta@2e1a5c7fa42123697f82d479b551a1bbdb1bef88"
         with:
-          images: ghcr.io/socialgouv/${{ env.project }}
+          images: ghcr.io/socialgouv/nos1000jours/${{ env.project }}
           labels: |
             org.opencontainers.image.title=${{ env.project }}
             org.opencontainers.image.documentation=https://github.com/SocialGouv/${{ env.project }}/tree/${{ github.sha }}
@@ -145,7 +145,7 @@ jobs:
 
       - name: Deploy application
         run: kapp --dangerous-override-ownership-of-existing-resources -y deploy -a ${{ env.project }} --namespace ${{ env.namespace }} -f manifests.yml
-
+s
   ##############################################################################
   ## GENERATE PRODUCTION MANIFESTS
   ##############################################################################

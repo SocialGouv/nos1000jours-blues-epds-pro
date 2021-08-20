@@ -1,5 +1,6 @@
 {
   "name": "nos1000jours-web-pro",
   "type": "static",
-  "registry": "ghcr"
+  "registry": "ghcr",
+  "project": "nos1000jours"
 }
