@@ -52,8 +52,8 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{ secrets.SOCIALGROOVYBOT_NAME }}
-          password: ${{ secrets.SOCIALGROOVYBOT_GHCR_PAT }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Image build and register
         uses: docker/build-push-action@v2
@@ -96,6 +96,31 @@ jobs:
         env:
           SOCIALGOUV_CONFIG_PATH: /tmp/autodevops/config.json
           SOCIALGOUV_BASE_DOMAIN: ${{ env.SOCIALGOUV_BASE_DOMAIN }}
+
+      - name: ⛑ Debug manifests ⛑
+        id: debug-manifests
+        run: |
+          TEXT=$(cat manifests.yml | npx @socialgouv/parse-manifests --text)
+          echo "${TEXT}"
+          MARKDOWN=$(cat manifests.yml | npx @socialgouv/parse-manifests --markdown)
+          MARKDOWN="${MARKDOWN//$'\n'/'%0A'}"
+          MARKDOWN="${MARKDOWN//$'\r'/'%0D'}"
+          echo "::set-output name=markdown::$MARKDOWN"
+
+      # necessary to find the PR on push events
+      - uses: jwalton/gh-find-current-pr@v1
+        id: finder
+
+      - name: ⛑ Comment PR
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          number: ${{ steps.finder.outputs.pr }}
+          message: |
+
+            Deployment ${{ github.sha }}.
+
+            ${{ steps.debug-manifests.outputs.markdown }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Archive k8s manifests
         uses: actions/upload-artifact@v2
