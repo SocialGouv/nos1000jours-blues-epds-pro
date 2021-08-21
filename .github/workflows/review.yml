@@ -97,7 +97,7 @@ jobs:
         env:
           SOCIALGOUV_CONFIG_PATH: /tmp/autodevops/config.json
           SOCIALGOUV_BASE_DOMAIN: ${{ env.SOCIALGOUV_BASE_DOMAIN }}
-          RANCHER_PROJECT_ID: ${{ env.RANCHER_PROJECT_ID }}
+          RANCHER_PROJECT_ID: ${{ secrets.RANCHER_PROJECT_ID }}
 
       - name: ⛑ Debug manifests ⛑
         id: debug-manifests
@@ -109,7 +109,7 @@ jobs:
           MARKDOWN="${MARKDOWN//$'\r'/'%0D'}"
           echo "::set-output name=markdown::$MARKDOWN"
         env:
-          RANCHER_PROJECT_ID: ${{ env.RANCHER_PROJECT_ID }}
+          RANCHER_PROJECT_ID: ${{ secrets.RANCHER_PROJECT_ID }}
 
       # necessary to find the PR on push events
       - uses: jwalton/gh-find-current-pr@v1
