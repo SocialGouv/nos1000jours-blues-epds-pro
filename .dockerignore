@@ -1,0 +1,7 @@
+.git
+.github
+.socialgouv
+*.md
+.next
+.out
+**/node_modules
