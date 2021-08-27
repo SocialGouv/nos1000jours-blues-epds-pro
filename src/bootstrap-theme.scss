@@ -1,0 +1,17 @@
+$theme-colors: (
+  "primary": #26387c,
+  "info": #1fc6d5,
+  
+  "bleu-texte": #26366E,
+  "bleu-france": #000091,
+  "bleu-courant": #5770BE,
+  "bleu-clair": #F2F6FF,
+
+  "jaune-courant":#E8AA05,
+  "jaune":#FCDF41,
+
+  "gris-texte": #383838,
+  "gris":#F0F0F0
+);
+
+@import "bootstrap/scss/bootstrap";
