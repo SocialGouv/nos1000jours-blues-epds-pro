@@ -11,7 +11,7 @@ import { Carousel, Col, ProgressBar, Row } from "react-bootstrap";
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
 import { EpdsQuestion } from "../src/components/epdsQuestion";
-import { STORAGE_TOTAL_SCORE } from "../src/constants/constants";
+import { STORAGE_GENRE_PATIENT, STORAGE_TOTAL_SCORE } from "../src/constants/constants";
 
 export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
     const { t } = useTranslation('questionnaire-epds');
