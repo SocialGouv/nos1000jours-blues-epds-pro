@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "export": "next export",
+    "start": "next start",
+    "test": "jest"
   },
   "dependencies": {
     "@apollo/client": "^3.4.5",
