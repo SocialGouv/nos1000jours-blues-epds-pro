@@ -1,9 +1,7 @@
 import React from "react";
 
 import { Layout } from "../src/components/Layout";
-
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import './i18n';
 
 const Index = () => {
   return (
@@ -25,11 +23,5 @@ function Home() {
     </div>
   );
 }
-
-export const getStaticProps = async ({ locale }) => ({
-  props: {
-    ...await serverSideTranslations(locale, ['common', 'footer']),
-  },
-})
 
 export default Index

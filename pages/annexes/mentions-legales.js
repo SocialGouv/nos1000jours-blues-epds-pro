@@ -1,12 +1,10 @@
 import React from "react";
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-
+import { useTranslation } from 'react-i18next';
 
 import { ContentLayout } from "../../src/components/Layout";
 
 export default function Mentions() {
-  const { t } = useTranslation('mentions-legales');
+  const { t } = useTranslation();
 
   return (
     <ContentLayout title={t("mentions-legales")}>
@@ -76,9 +74,3 @@ export default function Mentions() {
     </ContentLayout>
   );
 }
-
-export const getStaticProps = async ({ locale }) => ({
-  props: {
-    ...await serverSideTranslations(locale, ['common', 'footer', 'mentions-legales']),
-  },
-})

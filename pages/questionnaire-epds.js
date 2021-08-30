@@ -1,9 +1,8 @@
 import { React, useEffect, useRef, useState } from "react";
-import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import { } from '@dataesr/react-dsfr';
 import { useMutation } from "@apollo/client";
+import { useTranslation } from 'react-i18next';
 
 import { client, EPDS_ADD_RESPONSE, QUESTIONNAIRE_EPDS } from "../apollo-client";
 import { Carousel, Col, ProgressBar, Row } from "react-bootstrap";
@@ -175,7 +174,6 @@ export const getStaticProps = async ({ locale }) => {
 
     return ({
         props: {
-            ...await serverSideTranslations(locale, ['common', 'footer', 'questionnaire-epds']),
             questionsEpds: data.questionnaireEpds.slice().sort((a, b) => a.ordre - b.ordre),
             scoreBoard: new Array(data.questionnaireEpds.length),
         },

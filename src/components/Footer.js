@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
+import { useTranslation, Trans } from 'react-i18next';
 
-import { useTranslation } from 'next-i18next';
 import { Row, Col } from "react-bootstrap";
 
 const LightLink = ({ href, children }) => (

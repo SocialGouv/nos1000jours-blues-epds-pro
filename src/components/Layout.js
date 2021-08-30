@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import { Container, Row } from "react-bootstrap";
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'react-i18next';
 
 import { Nav } from "./Nav";
 import { Footer } from "./Footer";

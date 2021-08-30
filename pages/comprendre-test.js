@@ -1,9 +1,8 @@
 import { React, useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 import { } from '@dataesr/react-dsfr';
+import { useTranslation } from 'react-i18next';
 
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
@@ -127,7 +126,7 @@ function FormInformations(props) {
 }
 
 export default function ComprendreTest() {
-    const { t } = useTranslation(['comprendre-test', 'common']);
+    const { t, i18n } = useTranslation(['comprendre-test', 'common']);
     const router = useRouter();
 
     const nextPage = async event => {
@@ -169,12 +168,6 @@ export default function ComprendreTest() {
         </ContentLayout >
     );
 }
-
-export const getStaticProps = async ({ locale }) => ({
-    props: {
-        ...await serverSideTranslations(locale, ['common', 'footer', 'comprendre-test']),
-    },
-})
 
 const ComprendreTestStyle = () => (
     <style jsx="true">{`

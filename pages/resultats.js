@@ -1,8 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { AccordionItem, Accordion } from '@dataesr/react-dsfr';
+import { useTranslation } from 'react-i18next';
 
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
@@ -178,12 +177,6 @@ function getInLocalStorage(key) {
         return localStorage.getItem(key);
     }
 }
-
-export const getStaticProps = async ({ locale }) => ({
-    props: {
-        ...await serverSideTranslations(locale, ['common', 'footer', 'resultats']),
-    },
-})
 
 const ComprendreTestStyle = () => (
     <style jsx="true">{`
