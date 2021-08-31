@@ -1,12 +1,15 @@
-FROM node:14-alpine as builder
+FROM node:15.9-alpine
 
-COPY . .
+WORKDIR /app
+
+COPY . /app/
 
 RUN yarn --production --frozen-lockfile --prefer-offline && yarn cache clean
-
 RUN yarn build
-RUN yarn export
 
-FROM ghcr.io/socialgouv/docker/nginx:6.43.1
+USER node
 
-COPY --from=builder /out /usr/share/nginx/html
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+
+CMD ["yarn", "start"]
