@@ -164,7 +164,7 @@ jobs:
   deploy:
     name: Deploy application
     runs-on: ubuntu-latest
-    needs: [register, register-hasura, manifests]
+    needs: [register, manifests]
     steps:
 
     - name: Use autodevops deployment
