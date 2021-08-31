@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Layout } from "../src/components/Layout";
-import './i18n';
+import "../i18n.js";
 
 const Index = () => {
   return (
