@@ -125,32 +125,32 @@ jobs:
   #         SOCIALGOUV_BASE_DOMAIN: ${{ env.SOCIALGOUV_BASE_DOMAIN }}
   #         RANCHER_PROJECT_ID: ${{ secrets.RANCHER_PROJECT_ID }}
 
-      - name: ⛑ Debug manifests ⛑
-        id: debug-manifests
-        run: |
-          TEXT=$(cat manifests.yml | npx @socialgouv/parse-manifests --text)
-          echo "${TEXT}"
-          MARKDOWN=$(cat manifests.yml | npx @socialgouv/parse-manifests --markdown)
-          MARKDOWN="${MARKDOWN//$'\n'/'%0A'}"
-          MARKDOWN="${MARKDOWN//$'\r'/'%0D'}"
-          echo "::set-output name=markdown::$MARKDOWN"
-        env:
-          RANCHER_PROJECT_ID: ${{ secrets.RANCHER_PROJECT_ID }}
+    - name: ⛑ Debug manifests ⛑
+      id: debug-manifests
+      run: |
+        TEXT=$(cat manifests.yml | npx @socialgouv/parse-manifests --text)
+        echo "${TEXT}"
+        MARKDOWN=$(cat manifests.yml | npx @socialgouv/parse-manifests --markdown)
+        MARKDOWN="${MARKDOWN//$'\n'/'%0A'}"
+        MARKDOWN="${MARKDOWN//$'\r'/'%0D'}"
+        echo "::set-output name=markdown::$MARKDOWN"
+      env:
+        RANCHER_PROJECT_ID: ${{ secrets.RANCHER_PROJECT_ID }}
 
-      # necessary to find the PR on push events
-      - uses: jwalton/gh-find-current-pr@v1
-        id: finder
+    # necessary to find the PR on push events
+    - uses: jwalton/gh-find-current-pr@v1
+      id: finder
 
-      - name: ⛑ Comment PR
-        uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          number: ${{ steps.finder.outputs.pr }}
-          message: |
+    - name: ⛑ Comment PR
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        number: ${{ steps.finder.outputs.pr }}
+        message: |
 
-            Deployment ${{ github.sha }}.
+          Deployment ${{ github.sha }}.
 
-            ${{ steps.debug-manifests.outputs.markdown }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ${{ steps.debug-manifests.outputs.markdown }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # - name: Archive k8s manifests
       #   uses: actions/upload-artifact@v2
