@@ -9,7 +9,7 @@ import { Carousel, Col, ProgressBar, Row } from "react-bootstrap";
 import { client, EPDS_ADD_RESPONSE, QUESTIONNAIRE_EPDS } from "../apollo-client";
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
-import { EpdsQuestion } from "../src/components/epdsQuestion";
+import { EpdsQuestion } from "../src/components/EpdsQuestion";
 import { EpdsGender, EPDS_SOURCE, STORAGE_GENRE_PATIENT, STORAGE_TOTAL_SCORE } from "../src/constants/constants";
 
 export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
