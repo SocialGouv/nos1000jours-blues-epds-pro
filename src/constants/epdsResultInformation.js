@@ -128,3 +128,12 @@ export const epdsProfessionnelsSante = [
     description: "Le parent peut y être hospitalisé à temps complet ou juste pour la journée. Dans ces unités, une équipe pluridisciplinaire effectue un travail pour permettre au parent de reprendre confiance en lui, afin de soutenir le lien avec son enfant. Cette hospitalisation vise à développer du lien d’attachement avec le bébé, un besoin qui lui est essentiel."
   }
 ];
+
+export const epdsSitesInformation = [
+  { url: "https://agir-pour-bebe.fr" },
+  { url: "https://www.monenfant.fr" },
+  { url: "https://www.mpedia.fr" },
+  { url: "https://www.ameli.fr" },
+  { url: "https://www.psycom.fr" },
+  { url: "https://www.maman-blues.fr" }
+];

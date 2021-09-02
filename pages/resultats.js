@@ -7,7 +7,7 @@ import { AccordionItem, Accordion } from '@dataesr/react-dsfr';
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
 import { PATTERN_EMAIL, URL_1000J } from "../src/constants/constants";
-import { epdsContact, epdsProfessionnelsSante, epdsRessourcesPremiersMois, epdsSitesEtLignes } from "../src/constants/epdsResultInformation";
+import { epdsContact, epdsProfessionnelsSante, epdsRessourcesPremiersMois, epdsSitesEtLignes, epdsSitesInformation } from "../src/constants/epdsResultInformation";
 
 export default function Resultats() {
     const { t } = useTranslation('resultats');
@@ -115,8 +115,11 @@ const AccordionResources = ({ translation }) => (
         <AccordionItem title={translation("accordion.professionnels-sante")}>
             <ItemProfessionnelsSante translation={translation} />
         </AccordionItem>
-        <AccordionItem title={translation("accordion.sites-information-orientation")}>
-            <ItemSiteInformationOrientation translation={translation} />
+        <AccordionItem title={translation("accordion.lignes-telephoniques")}>
+            <ItemLignesTelephoniques translation={translation} />
+        </AccordionItem>
+        <AccordionItem title={translation("accordion.sites-information")}>
+            <ItemSitesInformation />
         </AccordionItem>
         <AccordionItem title={translation("accordion.ressouces")}>
             <ItemResources />
@@ -145,9 +148,20 @@ function showUrl(url, text) {
     }
 }
 
-const ItemSiteInformationOrientation = ({ translation }) => (
+const ItemSitesInformation = () => (
+    <div>
+        {epdsSitesInformation.map((site, index) => {
+            return <div>
+                <a href={site.url} target="_blank" style={{ textDecoration: "underline" }}>{site.url}</a>
+                <br />
+            </div>
+        })}
+    </div >
+)
+
+const ItemLignesTelephoniques = ({ translation }) => (
     <div className="resultats-contact">
-        <p className="font-weight-bold">{translation("accordion.sites-lignes-telephoniques")}</p>
+        <p className="font-weight-bold">{translation("accordion.lignes-telephoniques")}</p>
         <div div className="resultats-contact-item" >
             {
                 epdsSitesEtLignes.map((contact, index) => {

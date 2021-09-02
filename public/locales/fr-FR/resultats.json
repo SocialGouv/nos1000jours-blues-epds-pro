@@ -14,8 +14,8 @@
     },
     "accordion": {
         "professionnels-sante": "Les professionnels de santé",
-        "sites-information-orientation": "Les sites et les lignes d’information et d’orientation",
-        "sites-lignes-telephoniques": "Les lignes téléphoniques d’aide aux parents",
+        "lignes-telephoniques": "Les lignes téléphoniques",
+        "sites-information": "Les sites d’information",
         "ressouces": "Les ressources des premiers mois",
         "contacter": "Contacter",
         "consulter-document": "Consulter le document"
