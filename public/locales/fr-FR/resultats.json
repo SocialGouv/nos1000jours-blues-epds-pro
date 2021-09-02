@@ -17,7 +17,8 @@
         "sites-information-orientation": "Les sites et les lignes d’information et d’orientation",
         "sites-lignes-telephoniques": "Les lignes téléphoniques d’aide aux parents",
         "ressouces": "Les ressources des premiers mois",
-        "contacter": "Contacter"
+        "contacter": "Contacter",
+        "consulter-document": "Consulter le document"
     },
     "appli": {
         "app-1000j": "Application 1000 premiers jours",

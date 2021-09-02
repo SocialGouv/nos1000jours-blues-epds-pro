@@ -7,7 +7,7 @@ import { AccordionItem, Accordion } from '@dataesr/react-dsfr';
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
 import { PATTERN_EMAIL, URL_1000J } from "../src/constants/constants";
-import { epdsContact, epdsRessourcesPremiersMois, epdsSitesEtLignes } from "../src/constants/epdsResultInformation";
+import { epdsContact, epdsProfessionnelsSante, epdsRessourcesPremiersMois, epdsSitesEtLignes } from "../src/constants/epdsResultInformation";
 
 export default function Resultats() {
     const { t } = useTranslation('resultats');
@@ -113,7 +113,7 @@ function FormContact(props) {
 const AccordionResources = ({ translation }) => (
     <Accordion>
         <AccordionItem title={translation("accordion.professionnels-sante")}>
-            <ItemSante />
+            <ItemProfessionnelsSante translation={translation} />
         </AccordionItem>
         <AccordionItem title={translation("accordion.sites-information-orientation")}>
             <ItemSiteInformationOrientation translation={translation} />
@@ -127,9 +127,23 @@ const AccordionResources = ({ translation }) => (
     </Accordion >
 )
 
-const ItemSante = () => (
-    <div>Accordion Item #1</div>
+const ItemProfessionnelsSante = ({ translation }) => (
+    <div>
+        {epdsProfessionnelsSante.map((resource, index) => {
+            return <div className={`resultats-item-resources ${index > 0 ? "resultats-item-resources-border" : ""}`} key={index} >
+                <b>{resource.name}</b>
+                <br />{resource.description}
+                <br />{showUrl(resource.url, translation("accordion.consulter-document"))}
+            </div>
+        })}
+    </div>
 )
+
+function showUrl(url, text) {
+    if (url) {
+        return <a href={url} target="_blank" style={{ textDecoration: "underline" }}>{text}</a>
+    }
+}
 
 const ItemSiteInformationOrientation = ({ translation }) => (
     <div className="resultats-contact">

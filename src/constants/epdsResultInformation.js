@@ -87,3 +87,44 @@ export const epdsRessourcesPremiersMois = [
     description: "(café des parents, groupes de paroles, groupes de naissances, etc.) ont pour but de venir en aide aux parents et nouveaux parents."
   }
 ];
+
+export const epdsProfessionnelsSante = [
+  {
+    name: "Votre entourage peut se mobiliser pour vous aider : ",
+    description: "n’hésitez pas à parler à vos proches, amis et famille, de vos sentiments et de vos craintes."
+  },
+  {
+    name: "Un entretien auprès du professionnel de santé qui vous suit (référent maternité, médecin traitant, sage-femme, gynécologue, infirmière puéricultrice) : ",
+    description: "Pris en charge, il permet de vous rassurer sur vos compétences et d’activer si besoin des aides spécifiques: suivi postnatal, allaitement, soutien à la parentalité, aide à domicile."
+  },
+  {
+    name: "La PMI est un véritable allié pour les (futurs) parents, ",
+    description: " centre d’informations, d’accompagnement, et d’orientation pour vous et votre enfant. A l’écoute des parents, les nombreux professionnels de santé pourront vous proposer une prise en charge complète."
+  },
+  {
+    name: "Un entretien auprès du professionnel de santé ",
+    description: "qui vous suit est donc la première étape à franchir (référent à la maternité, médecin traitant, sage-femme, gynécologue, psychologue, infirmière puéricultrice), contactez-le."
+  },
+  {
+    name: "Le réseau périnatal en santé ",
+    description: "permet d’orienter la femme enceinte vers d’autres professionnels selon l’évolution de sa grossesse, et les nouveau-nés selon leur état de santé. Il ne se substitue pas au suivi médical exercé par le praticien ou la sage-femme. Vous pourrez y bénéficier d’un suivi si vous souhaitez, le médecin ou la sage-femme en charge du suivi de votre grossesse, pourra vous informer pour ouvrir un dossier périnatal partagé."
+  },
+  {
+    name: "La psychothérapie : ",
+    description: "C’est un traitement à part entière de la dépression, efficace et qui consiste à aider le couple, la mère ou le père, deuxième parent à reprendre confiance, de s’adapter à l’arrivée de bébé et à son rythme de vie, de renforcer leurs compétences de parents trouvant petit à petit un nouvel équilibre familial. Un psychologue, un psychothérapeute ou un psychiatre sont les professionnels qui peuvent proposer une pyschotérapie. Ses premiers effets (un soulagement lié à une écoute adaptée) peuvent se faire sentir immédiatement, les changements durables interviennent au bout de quelques semaines. Après la guérison d’un épisode dépressif, la psychothérapie sert aussi à prévenir la réapparition des symptômes.",
+    url: "https://solidarites-sante.gouv.fr/IMG/pdf/guide-8.pdf"
+  },
+  {
+    name: "Les aides médicamenteuses : ",
+    description: "Seuls les médecins peuvent prescrire des médicaments. L’utilisation d’antidépresseurs peut être discutée selon les cas, parfois avant de débuter une psychothérapie, ou en complément. Le médecin vous conseillera sur les options disponibles si vous allaitez encore. L’objectif du traitement par médicaments antidépresseurs est la réduction significative des symptômes dépressifs et de leurs conséquences dans la vie quotidienne. Les médicaments antidépresseurs améliorent les symptômes de la dépression au bout de 3 à 4 semaines de traitement continu. Ils aident généralement à restaurer le fonctionnement normal du sommeil, de l’appétit, à retrouver l’initiative, une perception positive de la vie… Ce fonctionnement normal persiste après l’arrêt du traitement."
+  },
+  {
+    name: "Les visites à domicile : ",
+    description: "Une aide à domicile permet aux parents de reprendre confiance en eux. Le soutien sur les aspects matériels ne sont donc pas à négliger, comme un soutien pour les tâches ménagères (recours à une aide-ménagère) et les soins au bébé (recours à une technicienne de l’intervention sociale et familiale – TISF), consulter le site la CAF et la cartographie pour identifier les associations de services d’aide et d’accompagnement à domicile",
+    url: "https://www.perinatalite-occitanie.fr/sites/rpo/files/pdf/TROUBLES%20EMOTIONNELS%20ET%20PSYCHIQUES%20DES%20MERES%20EN%20P.pdf"
+  },
+  {
+    name: "Les unités parents enfants : ",
+    description: "Le parent peut y être hospitalisé à temps complet ou juste pour la journée. Dans ces unités, une équipe pluridisciplinaire effectue un travail pour permettre au parent de reprendre confiance en lui, afin de soutenir le lien avec son enfant. Cette hospitalisation vise à développer du lien d’attachement avec le bébé, un besoin qui lui est essentiel."
+  }
+];
