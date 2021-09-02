@@ -76,6 +76,7 @@ export const EPDS_PARTAGE_INFORMATION = gql`
     $prenom: String
     $nom: String
     $score: String
+    $detail_questions: [String]
     $detail_score: [String]
     $detail_reponses: [String]
   ) {
@@ -86,6 +87,7 @@ export const EPDS_PARTAGE_INFORMATION = gql`
       prenom: $prenom
       nom: $nom
       score: $score
+      detail_questions: $detail_questions
       detail_score: $detail_score
       detail_reponses: $detail_reponses
     )

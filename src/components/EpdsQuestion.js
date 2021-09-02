@@ -1,6 +1,6 @@
 import React from "react";
 
-export function EpdsQuestion({ question, scoreBoard, responsesBoard, setEnabledNextButton }) {
+export function EpdsQuestion({ question, resultsBoard, setEnabledNextButton }) {
     const prefix = "q" + question.ordre;
     const radio1Id = prefix + "-radio1";
     const radio2Id = prefix + "-radio2";
@@ -17,8 +17,11 @@ export function EpdsQuestion({ question, scoreBoard, responsesBoard, setEnabledN
     function handleChange(e) {
         const responseIndex = Number(e.target.id.split(prefix + "-radio")[1]);
 
-        scoreBoard[question.ordre - 1] = arrayResponses[responseIndex - 1].points;
-        responsesBoard[question.ordre - 1] = arrayResponses[responseIndex - 1].libelle;
+        resultsBoard[question.ordre - 1] = {
+            question: question.libelle,
+            response: arrayResponses[responseIndex - 1].libelle,
+            points: arrayResponses[responseIndex - 1].points
+        }
 
         setEnabledNextButton(true);
     }

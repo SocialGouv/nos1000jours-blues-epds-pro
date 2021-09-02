@@ -10,9 +10,9 @@ import { client, EPDS_ADD_RESPONSE, QUESTIONNAIRE_EPDS } from "../apollo-client"
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
 import { EpdsQuestion } from "../src/components/EpdsQuestion";
-import { STORAGE_GENRE_PATIENT, STORAGE_RESPONSES_BOARD, STORAGE_SCORE_BOARD, STORAGE_TOTAL_SCORE, EPDS_SOURCE, EpdsGender } from "../src/constants/constants";
+import { STORAGE_GENRE_PATIENT, STORAGE_RESPONSES_BOARD, STORAGE_SCORE_BOARD, STORAGE_TOTAL_SCORE, EPDS_SOURCE, EpdsGender, STORAGE_RESULTS_BOARD } from "../src/constants/constants";
 
-export default function QuestionnaireEPDS({ questionsEpds, scoreBoard, responsesBoard }) {
+export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
     const { t } = useTranslation('questionnaire-epds');
     const router = useRouter();
     const ref = useRef(null);
@@ -33,9 +33,14 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard, responses
         setSendScore(true)
 
         localStorage.removeItem(STORAGE_GENRE_PATIENT);
-        localStorage.setItem(STORAGE_TOTAL_SCORE, scoreBoard.reduce((a, b) => a + b, 0));
         localStorage.setItem(STORAGE_SCORE_BOARD, JSON.stringify(scoreBoard));
         localStorage.setItem(STORAGE_RESPONSES_BOARD, JSON.stringify(responsesBoard));
+        localStorage.setItem(STORAGE_TOTAL_SCORE,
+            resultsBoard
+                .map((data) => data.points)
+                .reduce((a, b) => a + b, 0)
+        );
+        localStorage.setItem(STORAGE_RESULTS_BOARD, JSON.stringify(resultsBoard));
 
         router.push({
             pathname: "/resultats"
@@ -45,7 +50,7 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard, responses
     useEffect(() => {
         const saveEpdsResults = async () => {
             if (sendScore) {
-                const result = scoreBoard.reduce((a, b) => a + b, 0);
+                const result = resultsBoard.map((data) => data.points).reduce((a, b) => a + b, 0);
                 const newCounter = 1;
 
                 let genderValue = localStorage.getItem(STORAGE_GENRE_PATIENT);
@@ -55,16 +60,16 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard, responses
                     variables: {
                         compteur: newCounter,
                         genre: genderValue,
-                        reponseNum1: scoreBoard[0],
-                        reponseNum2: scoreBoard[1],
-                        reponseNum3: scoreBoard[2],
-                        reponseNum4: scoreBoard[3],
-                        reponseNum5: scoreBoard[4],
-                        reponseNum6: scoreBoard[5],
-                        reponseNum7: scoreBoard[6],
-                        reponseNum8: scoreBoard[7],
-                        reponseNum9: scoreBoard[8],
-                        reponseNum10: scoreBoard[9],
+                        reponseNum1: resultsBoard[0].points,
+                        reponseNum2: resultsBoard[1].points,
+                        reponseNum3: resultsBoard[2].points,
+                        reponseNum4: resultsBoard[3].points,
+                        reponseNum5: resultsBoard[4].points,
+                        reponseNum6: resultsBoard[5].points,
+                        reponseNum7: resultsBoard[6].points,
+                        reponseNum8: resultsBoard[7].points,
+                        reponseNum9: resultsBoard[8].points,
+                        reponseNum10: resultsBoard[9].points,
                         score: result,
                         source: EPDS_SOURCE
                     },
@@ -76,7 +81,7 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard, responses
     }, [sendScore]);
 
     useEffect(() => {
-        setEnabledNextButton(scoreBoard[actualIndex - 1] != null);
+        setEnabledNextButton(resultsBoard[actualIndex - 1] != null);
     }, [actualIndex]);
 
     const onPreviousQuestion = () => {
@@ -103,8 +108,7 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard, responses
                 <QuestionsCarousel
                     questions={questionsEpds}
                     refForOnClick={ref}
-                    scoreBoard={scoreBoard}
-                    responsesBoard={responsesBoard}
+                    resultsBoard={resultsBoard}
                     setEnabledNextButton={setEnabledNextButton} />
                 <PreviousAndNextButton translation={t}
                     onPrevious={onPreviousQuestion}
@@ -121,15 +125,14 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard, responses
     );
 }
 
-const QuestionsCarousel = ({ questions, refForOnClick, scoreBoard, responsesBoard, setEnabledNextButton }) => (
+const QuestionsCarousel = ({ questions, refForOnClick, resultsBoard, setEnabledNextButton }) => (
     <Carousel interval={null} controls={false} indicators={false} ref={refForOnClick}>
         {questions.map((question, index) => {
             return (
                 <Carousel.Item key={question.ordre}>
                     <EpdsQuestion className="d-block w-100"
                         question={question}
-                        scoreBoard={scoreBoard}
-                        responsesBoard={responsesBoard}
+                        resultsBoard={resultsBoard}
                         setEnabledNextButton={setEnabledNextButton} />
                 </Carousel.Item>
             )
@@ -184,8 +187,7 @@ export const getStaticProps = async ({ locale }) => {
         props: {
             ...await serverSideTranslations(locale, ['common', 'footer', 'questionnaire-epds']),
             questionsEpds: data.questionnaireEpds.slice().sort((a, b) => a.ordre - b.ordre),
-            scoreBoard: new Array(data.questionnaireEpds.length),
-            responsesBoard: new Array(data.questionnaireEpds.length),
+            resultsBoard: new Array(data.questionnaireEpds.length)
         },
     })
 }

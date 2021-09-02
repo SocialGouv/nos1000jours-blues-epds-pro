@@ -20,8 +20,7 @@ import {
     PATTERN_EMAIL,
     STORAGE_NOM_PATIENT,
     STORAGE_PRENOM_PATIENT,
-    STORAGE_RESPONSES_BOARD,
-    STORAGE_SCORE_BOARD,
+    STORAGE_RESULTS_BOARD,
     STORAGE_TOTAL_SCORE,
     URL_1000J
 } from "../src/constants/constants";
@@ -81,8 +80,7 @@ function FormContact(props) {
             const name = localStorage.getItem(STORAGE_NOM_PATIENT);
             const surname = localStorage.getItem(STORAGE_PRENOM_PATIENT);
             const result = localStorage.getItem(STORAGE_TOTAL_SCORE).toString();
-            const scoreBoard = JSON.parse(localStorage.getItem(STORAGE_SCORE_BOARD));
-            const responsesBoard = JSON.parse(localStorage.getItem(STORAGE_RESPONSES_BOARD));
+            const resultsBoard = JSON.parse(localStorage.getItem(STORAGE_RESULTS_BOARD));
 
             await sendEmailReponseQuery({
                 variables: {
@@ -92,8 +90,9 @@ function FormContact(props) {
                     prenom: surname,
                     nom: name,
                     score: result,
-                    detail_score: scoreBoard.map(String),
-                    detail_reponses: responsesBoard,
+                    detail_questions: resultsBoard.map((data) => data.question),
+                    detail_score: resultsBoard.map((data) => data.points).map(String),
+                    detail_reponses: resultsBoard.map((data) => data.response),
                 },
             });
 
