@@ -63,4 +63,27 @@ export const epdsSitesEtLignes = [
 export const epdsContact = {
   title: "Contacter",
   content: "Si vous souhaitez disposer d’informations complémentaires sur ce sujet, contactez notre partenaire Maman Blues, une association de bénévoles qui met au service des parents, son expertise accumulée depuis plusieurs années sur la dépression post partum. Les conseils de l’association ne remplaceront jamais le conseil d’un professionnel de santé. Pour être accompagné, il est donc indispensable de prendre rendez-vous avec lui dans les meilleurs délais."
-}
+};
+
+export const epdsRessourcesPremiersMois = [
+  {
+    name: "L’aide de votre entourage : ",
+    description: "Devenir parents procure beaucoup de joie mais aussi des difficultés. N’hésitez pas à demander de l’aide à vos proches. Ils pourront vous accompagner vers des ressources dont vous avez besoin.  "
+  },
+  {
+    name: "Le travailleur(se) en intervention sociale et familiale (TISF) ",
+    description: "intervient de manière intensive dans les premières semaines en répondant aux besoins de la famille (tâches domestiques, soins, aides administratives, dialogue, etc.). Pour plus d’informations, vous pouvez vous rapprocher de la CAF de votre domicile."
+  },
+  {
+    name: "La PMI peut effectuer des visites à domicile si vous en ressentez le besoin, ",
+    description: "notamment pour vous aider sur les premiers gestes autour de bébé et plus largement vous aider dans votre nouveau rôle de parents. Appelez votre PMI de rattachement pour prendre rendez-vous."
+  },
+  {
+    name: "Le lieu d’accueil enfant et parents (LAEP) ",
+    description: "est un espace convivial de jeu libre pour les enfants qui accueille, de manière libre et sans inscription, de jeunes enfants âgés de moins de 6 ans accompagnés de leur(s) parent(s) ou d’un adulte référent. C’est aussi un lieu de parole pour les parents, accueillis par des professionnels formés à l’écoute."
+  },
+  {
+    name: "Les associations locales et nationales de soutien à la parentalité ",
+    description: "(café des parents, groupes de paroles, groupes de naissances, etc.) ont pour but de venir en aide aux parents et nouveaux parents."
+  }
+];

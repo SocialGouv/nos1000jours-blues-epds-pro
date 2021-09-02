@@ -7,7 +7,7 @@ import { AccordionItem, Accordion } from '@dataesr/react-dsfr';
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
 import { PATTERN_EMAIL, URL_1000J } from "../src/constants/constants";
-import { epdsContact, epdsSitesEtLignes } from "../src/constants/epdsResultInformation";
+import { epdsContact, epdsRessourcesPremiersMois, epdsSitesEtLignes } from "../src/constants/epdsResultInformation";
 
 export default function Resultats() {
     const { t } = useTranslation('resultats');
@@ -152,7 +152,14 @@ const ItemSiteInformationOrientation = ({ translation }) => (
 )
 
 const ItemResources = () => (
-    <div>Accordion Item #3</div>
+    <div>
+        {epdsRessourcesPremiersMois.map((resource, index) => {
+            return <div className={`resultats-item-resources ${index > 0 ? "resultats-item-resources-border" : ""}`} key={index} >
+                <b>{resource.name}</b>
+                {resource.description}
+            </div>
+        })}
+    </div>
 )
 
 const ItemContacter = () => (
@@ -224,6 +231,15 @@ const ComprendreTestStyle = () => (
     }
     .resultats-contact-item div {
         padding-right: 10px;
+    }
+
+    .resultats-item-resources {
+        text-align: justify;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .resultats-item-resources-border {
+        border-top: 2px solid var(--gris)
     }
     `}</style>
 );
