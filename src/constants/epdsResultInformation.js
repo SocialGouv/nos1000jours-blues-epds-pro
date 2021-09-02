@@ -1,4 +1,4 @@
-export const epdsContacts = [
+export const epdsSitesEtLignes = [
   {
     contactName: "FNEPE",
     openingTime: "Du lundi au samedi 10h-13h et 14h-20h",
@@ -59,3 +59,8 @@ export const epdsContacts = [
     thematic: "Prématurité",
   },
 ];
+
+export const epdsContact = {
+  title: "Contacter",
+  content: "Si vous souhaitez disposer d’informations complémentaires sur ce sujet, contactez notre partenaire Maman Blues, une association de bénévoles qui met au service des parents, son expertise accumulée depuis plusieurs années sur la dépression post partum. Les conseils de l’association ne remplaceront jamais le conseil d’un professionnel de santé. Pour être accompagné, il est donc indispensable de prendre rendez-vous avec lui dans les meilleurs délais."
+}

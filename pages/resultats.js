@@ -7,7 +7,7 @@ import { AccordionItem, Accordion } from '@dataesr/react-dsfr';
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
 import { PATTERN_EMAIL, URL_1000J } from "../src/constants/constants";
-import { epdsContacts } from "../src/constants/epdsResultInformation";
+import { epdsContact, epdsSitesEtLignes } from "../src/constants/epdsResultInformation";
 
 export default function Resultats() {
     const { t } = useTranslation('resultats');
@@ -112,14 +112,17 @@ function FormContact(props) {
 
 const AccordionResources = ({ translation }) => (
     <Accordion>
-        <AccordionItem title={translation("pros-sante")}>
+        <AccordionItem title={translation("accordion.professionnels-sante")}>
             <ItemSante />
         </AccordionItem>
-        <AccordionItem title={translation("sites-information-orientation")}>
+        <AccordionItem title={translation("accordion.sites-information-orientation")}>
             <ItemSiteInformationOrientation translation={translation} />
         </AccordionItem>
-        <AccordionItem title={translation("ressouces")}>
+        <AccordionItem title={translation("accordion.ressouces")}>
             <ItemResources />
+        </AccordionItem>
+        <AccordionItem title={translation("accordion.contacter")}>
+            <ItemContacter />
         </AccordionItem>
     </Accordion >
 )
@@ -130,10 +133,10 @@ const ItemSante = () => (
 
 const ItemSiteInformationOrientation = ({ translation }) => (
     <div className="resultats-contact">
-        <p className="font-weight-bold">{translation("sites-lignes-telephoniques")}</p>
+        <p className="font-weight-bold">{translation("accordion.sites-lignes-telephoniques")}</p>
         <div div className="resultats-contact-item" >
             {
-                epdsContacts.map((contact, index) => {
+                epdsSitesEtLignes.map((contact, index) => {
                     return (
                         <div style={{ marginBottom: 30 }} key={index}>
                             <div className="resultats-contact-title">{contact.contactName}</div>
@@ -150,6 +153,13 @@ const ItemSiteInformationOrientation = ({ translation }) => (
 
 const ItemResources = () => (
     <div>Accordion Item #3</div>
+)
+
+const ItemContacter = () => (
+    <div>
+        <b>{epdsContact.title}</b>
+        <p style={{ textAlign: "justify" }}>{epdsContact.content}</p>
+    </div>
 )
 
 const AdsForApp = ({ translation }) => (
