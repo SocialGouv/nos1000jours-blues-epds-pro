@@ -10,9 +10,9 @@ import { client, EPDS_ADD_RESPONSE, QUESTIONNAIRE_EPDS } from "../apollo-client"
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
 import { EpdsQuestion } from "../src/components/EpdsQuestion";
-import { EpdsGender, EPDS_SOURCE, STORAGE_GENRE_PATIENT, STORAGE_TOTAL_SCORE } from "../src/constants/constants";
+import { STORAGE_GENRE_PATIENT, STORAGE_RESPONSES_BOARD, STORAGE_SCORE_BOARD, STORAGE_TOTAL_SCORE, EPDS_SOURCE, EpdsGender } from "../src/constants/constants";
 
-export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
+export default function QuestionnaireEPDS({ questionsEpds, scoreBoard, responsesBoard }) {
     const { t } = useTranslation('questionnaire-epds');
     const router = useRouter();
     const ref = useRef(null);
@@ -32,8 +32,10 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
         event.preventDefault();
         setSendScore(true)
 
+        localStorage.removeItem(STORAGE_GENRE_PATIENT);
         localStorage.setItem(STORAGE_TOTAL_SCORE, scoreBoard.reduce((a, b) => a + b, 0));
-        localStorage.removeItem(STORAGE_GENRE_PATIENT)
+        localStorage.setItem(STORAGE_SCORE_BOARD, JSON.stringify(scoreBoard));
+        localStorage.setItem(STORAGE_RESPONSES_BOARD, JSON.stringify(responsesBoard));
 
         router.push({
             pathname: "/resultats"
@@ -54,7 +56,6 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
                         compteur: newCounter,
                         genre: genderValue,
                         reponseNum1: scoreBoard[0],
-                        reponseNum10: scoreBoard[9],
                         reponseNum2: scoreBoard[1],
                         reponseNum3: scoreBoard[2],
                         reponseNum4: scoreBoard[3],
@@ -63,6 +64,7 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
                         reponseNum7: scoreBoard[6],
                         reponseNum8: scoreBoard[7],
                         reponseNum9: scoreBoard[8],
+                        reponseNum10: scoreBoard[9],
                         score: result,
                         source: EPDS_SOURCE
                     },
@@ -102,6 +104,7 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
                     questions={questionsEpds}
                     refForOnClick={ref}
                     scoreBoard={scoreBoard}
+                    responsesBoard={responsesBoard}
                     setEnabledNextButton={setEnabledNextButton} />
                 <PreviousAndNextButton translation={t}
                     onPrevious={onPreviousQuestion}
@@ -118,7 +121,7 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
     );
 }
 
-const QuestionsCarousel = ({ questions, refForOnClick, scoreBoard, setEnabledNextButton }) => (
+const QuestionsCarousel = ({ questions, refForOnClick, scoreBoard, responsesBoard, setEnabledNextButton }) => (
     <Carousel interval={null} controls={false} indicators={false} ref={refForOnClick}>
         {questions.map((question, index) => {
             return (
@@ -126,6 +129,7 @@ const QuestionsCarousel = ({ questions, refForOnClick, scoreBoard, setEnabledNex
                     <EpdsQuestion className="d-block w-100"
                         question={question}
                         scoreBoard={scoreBoard}
+                        responsesBoard={responsesBoard}
                         setEnabledNextButton={setEnabledNextButton} />
                 </Carousel.Item>
             )
@@ -181,6 +185,7 @@ export const getStaticProps = async ({ locale }) => {
             ...await serverSideTranslations(locale, ['common', 'footer', 'questionnaire-epds']),
             questionsEpds: data.questionnaireEpds.slice().sort((a, b) => a.ordre - b.ordre),
             scoreBoard: new Array(data.questionnaireEpds.length),
+            responsesBoard: new Array(data.questionnaireEpds.length),
         },
     })
 }

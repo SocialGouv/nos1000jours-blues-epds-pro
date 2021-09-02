@@ -1,10 +1,12 @@
-export const STORAGE_TOTAL_SCORE = "totalScore";
 export const STORAGE_EMAIL_PRO = "emailPro";
 export const STORAGE_NOM_PRO = "nomPro";
 
 export const STORAGE_NOM_PATIENT = "nomPatient";
 export const STORAGE_PRENOM_PATIENT = "prenomPatient";
 export const STORAGE_GENRE_PATIENT = "genrePatient";
+export const STORAGE_TOTAL_SCORE = "totalScore";
+export const STORAGE_SCORE_BOARD = "scoreBoard";
+export const STORAGE_RESPONSES_BOARD = "responsesBoard";
 
 export const PATTERN_EMAIL = "[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}";
 

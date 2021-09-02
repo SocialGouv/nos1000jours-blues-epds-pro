@@ -4,10 +4,11 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { AccordionItem, Accordion } from '@dataesr/react-dsfr';
 import { useRouter } from 'next/router';
+import { useMutation } from "@apollo/client";
 
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
-import { PATTERN_EMAIL, URL_1000J } from "../src/constants/constants";
+import { client, EPDS_PARTAGE_INFORMATION } from "../apollo-client";
 import {
     epdsContact,
     epdsLignes,
@@ -15,14 +16,19 @@ import {
     epdsRessourcesPremiersMois,
     epdsSitesInformation
 } from "../src/constants/epdsResultInformation";
+import {
+    PATTERN_EMAIL,
+    STORAGE_NOM_PATIENT,
+    STORAGE_PRENOM_PATIENT,
+    STORAGE_RESPONSES_BOARD,
+    STORAGE_SCORE_BOARD,
+    STORAGE_TOTAL_SCORE,
+    URL_1000J
+} from "../src/constants/constants";
 
 export default function Resultats() {
     const { t } = useTranslation('resultats');
     const router = useRouter();
-
-    function sendResultsByEmail() {
-        // TODO: send email
-    }
 
     return (
         <ContentLayout title={t("header")}>
@@ -38,7 +44,7 @@ export default function Resultats() {
                         <p className="font-weight-bold resultats-text">{t("invitation-a-refaire")}</p>
                     </Col>
                     <Col>
-                        <FormContact translation={t} onclick={sendResultsByEmail} />
+                        <FormContact translation={t} />
                     </Col>
                 </Row>
 
@@ -57,6 +63,47 @@ function FormContact(props) {
     const [isEmailValid, setEmailValid] = useState(false);
     const [isPhoneValid, setPhoneValid] = useState(false);
     const [isEmailProValid, setEmailProValid] = useState(false);
+    const [queryShareResponses, setQueryShareResponses] = useState();
+
+    const [sendEmailReponseQuery] = useMutation(EPDS_PARTAGE_INFORMATION, {
+        client: client,
+        onError: (err) => {
+            console.log(err);
+            setQueryShareResponses(err.toString());
+        },
+        onCompleted: () => {
+            setQueryShareResponses(props.translation("query-success"));
+        },
+    });
+
+    const shareEpdsResults = async (inputs) => {
+        if (canSend) {
+            const name = localStorage.getItem(STORAGE_NOM_PATIENT);
+            const surname = localStorage.getItem(STORAGE_PRENOM_PATIENT);
+            const result = localStorage.getItem(STORAGE_TOTAL_SCORE).toString();
+            const scoreBoard = JSON.parse(localStorage.getItem(STORAGE_SCORE_BOARD));
+            const responsesBoard = JSON.parse(localStorage.getItem(STORAGE_RESPONSES_BOARD));
+
+            await sendEmailReponseQuery({
+                variables: {
+                    email: inputs.inputEmail.value,
+                    email_pro: inputs.inputEmailPro.value,
+                    telephone: inputs.inputTel.value,
+                    prenom: surname,
+                    nom: name,
+                    score: result,
+                    detail_score: scoreBoard.map(String),
+                    detail_reponses: responsesBoard,
+                },
+            });
+
+        }
+    };
+
+    const send = async event => {
+        event.preventDefault()
+        shareEpdsResults(event.target);
+    }
 
     useEffect(() => {
         setCanSend(isEmailValid);
@@ -79,7 +126,7 @@ function FormContact(props) {
     return (
         <div>
             <div className="font-weight-bold" style={{ fontSize: 13, marginBottom: 20 }}>{props.translation("form.intro-contact")}</div>
-            <form onSubmit={props.onclick}>
+            <form onSubmit={send}>
                 <div className={`form-group fr-input-group ${isEmailValid ? "fr-input-group--valid" : ""}`}>
                     <label className="fr-label" for="text-input-valid">{props.translation("form.email")}</label>
                     <input type="email"
@@ -110,12 +157,15 @@ function FormContact(props) {
                 </div>
 
                 <div className="champs-obligatoires" style={{ fontSize: 13 }}>{props.translation("form.email-pro-existe")}</div>
-                <button type="submit"
-                    className="fr-btn"
-                    disabled={!canSend}
-                    style={{ marginTop: "23px" }}>{props.translation("form.envoyer")}</button>
+                <Row>
+                    <button type="submit"
+                        className="fr-btn"
+                        disabled={!canSend}
+                        style={{ marginTop: "23px" }}>{props.translation("form.envoyer")}</button>
+                    <div style={{ alignSelf: "flex-end", marginLeft: 5 }}>{queryShareResponses}</div>
+                </Row>
             </form>
-        </div>
+        </div >
     )
 }
 
@@ -220,7 +270,6 @@ const AdsForApp = ({ translation }) => (
                 <td><img src="/img/QR_apple.png" height={96} style={{ marginTop: 10 }} /></td>
             </tr>
         </table>
-
     </div >
 )
 

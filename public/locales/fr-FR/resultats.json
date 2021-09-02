@@ -24,5 +24,6 @@
         "app-1000j": "Application 1000 premiers jours",
         "app-1000j-content": "Le compagnon privilégié des parents durant les 1000 premiers jours, du projet de parentalité au 3 ans de l’enfant.",
         "telecharger": "À télécharger gratuitement : "
-    }
+    },
+    "query-success": "Le mail a été envoyé"
 }

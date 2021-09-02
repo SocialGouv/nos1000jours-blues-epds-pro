@@ -1,25 +1,26 @@
 import React from "react";
 
-export function EpdsQuestion({ question, scoreBoard, setEnabledNextButton }) {
+export function EpdsQuestion({ question, scoreBoard, responsesBoard, setEnabledNextButton }) {
     const prefix = "q" + question.ordre;
     const radio1Id = prefix + "-radio1";
     const radio2Id = prefix + "-radio2";
     const radio3Id = prefix + "-radio3";
     const radio4Id = prefix + "-radio4";
 
-    const arrayRespones = [question.reponse_1_points,
-    question.reponse_2_points,
-    question.reponse_3_points,
-    question.reponse_4_points];
+    const arrayResponses = [
+        { libelle: question.reponse_1_libelle, points: question.reponse_1_points },
+        { libelle: question.reponse_2_libelle, points: question.reponse_2_points },
+        { libelle: question.reponse_3_libelle, points: question.reponse_3_points },
+        { libelle: question.reponse_4_libelle, points: question.reponse_4_points },
+    ];
 
     function handleChange(e) {
         const responseIndex = Number(e.target.id.split(prefix + "-radio")[1]);
 
-        const point = arrayRespones[responseIndex - 1];
-        scoreBoard[question.ordre - 1] = point;
+        scoreBoard[question.ordre - 1] = arrayResponses[responseIndex - 1].points;
+        responsesBoard[question.ordre - 1] = arrayResponses[responseIndex - 1].libelle;
 
         setEnabledNextButton(true);
-        console.log("scoreBoard : " + scoreBoard)
     }
 
     return (

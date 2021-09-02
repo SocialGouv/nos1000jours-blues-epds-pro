@@ -67,3 +67,27 @@ export const EPDS_ADD_RESPONSE = gql`
       }
     }
   }`;
+
+export const EPDS_PARTAGE_INFORMATION = gql`
+  mutation (
+    $email: String!
+    $email_pro: String!
+    $telephone: String
+    $prenom: String
+    $nom: String
+    $score: String
+    $detail_score: [String]
+    $detail_reponses: [String]
+  ) {
+    epdsPartage(
+      email: $email
+      email_pro: $email_pro
+      telephone: $telephone
+      prenom: $prenom
+      nom: $nom
+      score: $score
+      detail_score: $detail_score
+      detail_reponses: $detail_reponses
+    )
+  }
+`;
