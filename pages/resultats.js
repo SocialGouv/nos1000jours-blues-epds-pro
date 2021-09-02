@@ -261,14 +261,16 @@ const AdsForApp = ({ translation }) => (
             <a href={URL_1000J} target="_blank" style={{ textDecoration: "underline" }}>{URL_1000J}</a>
         </div>
         <table style={{ marginTop: 15 }}>
-            <tr>
-                <td><img src="/img/icone-playstore.svg" height={35} style={{ marginRight: 20 }} /></td>
-                <td><img src="/img/icone-appstore.svg" height={35} /></td>
-            </tr>
-            <tr>
-                <td><img src="/img/QR_google.png" height={96} style={{ marginTop: 10, marginRight: 20 }} /></td>
-                <td><img src="/img/QR_apple.png" height={96} style={{ marginTop: 10 }} /></td>
-            </tr>
+            <tbody>
+                <tr>
+                    <td><img src="/img/icone-playstore.svg" height={35} style={{ marginRight: 20 }} /></td>
+                    <td><img src="/img/icone-appstore.svg" height={35} /></td>
+                </tr>
+                <tr>
+                    <td><img src="/img/QR_google.png" height={96} style={{ marginTop: 10, marginRight: 20 }} /></td>
+                    <td><img src="/img/QR_apple.png" height={96} style={{ marginTop: 10 }} /></td>
+                </tr>
+            </tbody>
         </table>
     </div >
 )
