@@ -3,6 +3,7 @@ import { Col, Row } from "react-bootstrap";
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { AccordionItem, Accordion } from '@dataesr/react-dsfr';
+import { useRouter } from 'next/router'
 
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
@@ -17,6 +18,9 @@ import {
 
 export default function Resultats() {
     const { t } = useTranslation('resultats');
+    const router = useRouter();
+
+    const mailString = "mailto:" + epdsContact.mailContact + "&subject=" + epdsContact.mailSubject;
 
     function sendResultsByEmail() {
         // TODO: send email
@@ -40,7 +44,7 @@ export default function Resultats() {
                     </Col>
                 </Row>
 
-                <AccordionResources translation={t} />
+                <AccordionResources translation={t} sendEmailOnClick={() => router.push(mailString)} />
                 <AdsForApp translation={t} />
             </Col >
 
@@ -116,7 +120,7 @@ function FormContact(props) {
     )
 }
 
-const AccordionResources = ({ translation }) => (
+const AccordionResources = ({ translation, sendEmailOnClick }) => (
     <Accordion>
         <AccordionItem title={translation("accordion.professionnels-sante")}>
             <ItemProfessionnelsSante translation={translation} />
@@ -131,7 +135,7 @@ const AccordionResources = ({ translation }) => (
             <ItemResources />
         </AccordionItem>
         <AccordionItem title={translation("accordion.contacter")}>
-            <ItemContacter />
+            <ItemContacter sendEmailOnClick={sendEmailOnClick} />
         </AccordionItem>
     </Accordion >
 )
@@ -196,10 +200,12 @@ const ItemResources = () => (
     </div>
 )
 
-const ItemContacter = () => (
-    <div>
-        <b>{epdsContact.title}</b>
+const ItemContacter = ({ sendEmailOnClick }) => (
+    <div style={{ textAlign: "center" }}>
         <p style={{ textAlign: "justify" }}>{epdsContact.content}</p>
+        <button className="fr-btn" onClick={sendEmailOnClick}>
+            {epdsContact.button}
+        </button>
     </div>
 )
 

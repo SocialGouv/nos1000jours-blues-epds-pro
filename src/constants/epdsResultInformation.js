@@ -61,8 +61,10 @@ export const epdsLignes = [
 ];
 
 export const epdsContact = {
-  title: "Contacter",
-  content: "Si vous souhaitez disposer d’informations complémentaires sur ce sujet, contactez notre partenaire Maman Blues, une association de bénévoles qui met au service des parents, son expertise accumulée depuis plusieurs années sur la dépression post partum. Les conseils de l’association ne remplaceront jamais le conseil d’un professionnel de santé. Pour être accompagné, il est donc indispensable de prendre rendez-vous avec lui dans les meilleurs délais."
+  content: "Si vous souhaitez disposer d’informations complémentaires sur ce sujet, contactez notre partenaire Maman Blues, une association de bénévoles qui met au service des parents, son expertise accumulée depuis plusieurs années sur la dépression post partum. Les conseils de l’association ne remplaceront jamais le conseil d’un professionnel de santé. Pour être accompagné, il est donc indispensable de prendre rendez-vous avec lui dans les meilleurs délais.",
+  button: "Contacter",
+  mailContact: "1000joursblues@fabrique.social.gouv.fr",
+  mailSubject: "1000 premiers jours"
 };
 
 export const epdsRessourcesPremiersMois = [
