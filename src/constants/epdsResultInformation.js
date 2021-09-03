@@ -1,4 +1,4 @@
-export const epdsSitesEtLignes = [
+export const epdsLignes = [
   {
     contactName: "FNEPE",
     openingTime: "Du lundi au samedi 10h-13h et 14h-20h",
@@ -17,7 +17,7 @@ export const epdsSitesEtLignes = [
     contactName: "Enfance & Covid",
     openingTime: "Du lundi au samedi de 10h à 18h",
     phoneNumber: "0 805 827 827",
-    thematic: "Grossesse - naissance - parents de bébés",
+    thematic: "Grossesse - naissance - parents de bébés - Ecole à la maison",
   },
   {
     contactName: "Enfance et Partage",
@@ -48,7 +48,7 @@ export const epdsSitesEtLignes = [
   {
     contactName: "Jumeaux et Plus",
     openingTime: "Du lundi au samedi de 9h à 21h",
-    phoneNumber: "0 974 763 963",
+    phoneNumber: "06 73 51 05 78",
     thematic: "Naissance et éducation de jumeaux, triplés et plus",
   },
   {

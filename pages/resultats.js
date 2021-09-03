@@ -7,7 +7,13 @@ import { AccordionItem, Accordion } from '@dataesr/react-dsfr';
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
 import { PATTERN_EMAIL, URL_1000J } from "../src/constants/constants";
-import { epdsContact, epdsProfessionnelsSante, epdsRessourcesPremiersMois, epdsSitesEtLignes, epdsSitesInformation } from "../src/constants/epdsResultInformation";
+import {
+    epdsContact,
+    epdsLignes,
+    epdsProfessionnelsSante,
+    epdsRessourcesPremiersMois,
+    epdsSitesInformation
+} from "../src/constants/epdsResultInformation";
 
 export default function Resultats() {
     const { t } = useTranslation('resultats');
@@ -116,7 +122,7 @@ const AccordionResources = ({ translation }) => (
             <ItemProfessionnelsSante translation={translation} />
         </AccordionItem>
         <AccordionItem title={translation("accordion.lignes-telephoniques")}>
-            <ItemLignesTelephoniques translation={translation} />
+            <ItemLignesTelephoniques />
         </AccordionItem>
         <AccordionItem title={translation("accordion.sites-information")}>
             <ItemSitesInformation />
@@ -159,22 +165,22 @@ const ItemSitesInformation = () => (
     </div >
 )
 
-const ItemLignesTelephoniques = ({ translation }) => (
+const ItemLignesTelephoniques = () => (
     <div className="resultats-contact">
-        <p className="font-weight-bold">{translation("accordion.lignes-telephoniques")}</p>
         <div div className="resultats-contact-item" >
-            {
-                epdsSitesEtLignes.map((contact, index) => {
-                    return (
-                        <div style={{ marginBottom: 30 }} key={index}>
-                            <div className="resultats-contact-title">{contact.contactName}</div>
-                            <div>{contact.thematic}</div>
-                            <div className="font-weight-bold">{contact.openingTime}</div>
+            {epdsLignes.map((contact, index) => {
+                return (
+                    <div style={{ marginBottom: 30 }} key={index}>
+                        <div className="resultats-contact-title">{contact.contactName}</div>
+                        <div>{contact.thematic}</div>
+                        <div className="font-weight-bold">{contact.openingTime}</div>
+                        <div style={{ display: "-webkit-inline-box" }}>
+                            <img src="/img/icone-telephone.svg" height={17} style={{ marginRight: 10 }} />
                             <div className="font-weight-bold">{contact.phoneNumber}</div>
                         </div>
-                    )
-                })
-            }
+                    </div>
+                )
+            })}
         </div>
     </div >
 )
