@@ -3,7 +3,7 @@ import { Col, Row } from "react-bootstrap";
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { AccordionItem, Accordion } from '@dataesr/react-dsfr';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
@@ -19,8 +19,6 @@ import {
 export default function Resultats() {
     const { t } = useTranslation('resultats');
     const router = useRouter();
-
-    const mailString = "mailto:" + epdsContact.mailContact + "&subject=" + epdsContact.mailSubject;
 
     function sendResultsByEmail() {
         // TODO: send email
@@ -44,7 +42,8 @@ export default function Resultats() {
                     </Col>
                 </Row>
 
-                <AccordionResources translation={t} sendEmailOnClick={() => router.push(mailString)} />
+                <AccordionResources translation={t}
+                    sendEmailOnClick={() => router.push(`mailto:${epdsContact.mailContact}&subject=${epdsContact.mailSubject}`)} />
                 <AdsForApp translation={t} />
             </Col >
 
@@ -142,49 +141,44 @@ const AccordionResources = ({ translation, sendEmailOnClick }) => (
 
 const ItemProfessionnelsSante = ({ translation }) => (
     <div>
-        {epdsProfessionnelsSante.map((resource, index) => {
-            return <div className={`resultats-item-resources ${index > 0 ? "resultats-item-resources-border" : ""}`} key={index} >
+        {epdsProfessionnelsSante.map((resource, index) =>
+            <div className={`resultats-item-resources ${index > 0 ? "resultats-item-resources-border" : ""}`} key={index} >
                 <b>{resource.name}</b>
                 <br />{resource.description}
-                <br />{showUrl(resource.url, translation("accordion.consulter-document"))}
+                <br />{resource.url ? showUrl(resource.url, translation("accordion.consulter-document")) : ''}
             </div>
-        })}
+        )}
     </div>
 )
 
-function showUrl(url, text) {
-    if (url) {
-        return <a href={url} target="_blank" style={{ textDecoration: "underline" }}>{text}</a>
-    }
-}
+const showUrl = (url, text) => (
+    <a href={url} target="_blank" style={{ textDecoration: "underline" }}>{text}</a>
+)
 
 const ItemSitesInformation = () => (
     <div>
-        {epdsSitesInformation.map((site, index) => {
-            return <div>
-                <a href={site.url} target="_blank" style={{ textDecoration: "underline" }}>{site.url}</a>
-                <br />
+        {epdsSitesInformation.map((site, index) =>
+            <div key={index}>
+                {showUrl(site.url, site.url)}<br />
             </div>
-        })}
+        )}
     </div >
 )
 
 const ItemLignesTelephoniques = () => (
     <div className="resultats-contact">
         <div div className="resultats-contact-item" >
-            {epdsLignes.map((contact, index) => {
-                return (
-                    <div style={{ marginBottom: 30 }} key={index}>
-                        <div className="resultats-contact-title">{contact.contactName}</div>
-                        <div>{contact.thematic}</div>
-                        <div className="font-weight-bold">{contact.openingTime}</div>
-                        <div style={{ display: "-webkit-inline-box" }}>
-                            <img src="/img/icone-telephone.svg" height={17} style={{ marginRight: 10 }} />
-                            <div className="font-weight-bold">{contact.phoneNumber}</div>
-                        </div>
+            {epdsLignes.map((contact, index) =>
+                <div style={{ marginBottom: 30 }} key={index}>
+                    <div className="resultats-contact-title">{contact.contactName}</div>
+                    <div>{contact.thematic}</div>
+                    <div className="font-weight-bold">{contact.openingTime}</div>
+                    <div style={{ display: "-webkit-inline-box" }}>
+                        <img src="/img/icone-telephone.svg" height={17} style={{ marginRight: 10 }} />
+                        <div className="font-weight-bold">{contact.phoneNumber}</div>
                     </div>
-                )
-            })}
+                </div>
+            )}
         </div>
     </div >
 )
