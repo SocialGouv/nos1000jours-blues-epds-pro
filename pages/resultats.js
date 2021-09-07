@@ -3,14 +3,22 @@ import { Col, Row } from "react-bootstrap";
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { AccordionItem, Accordion } from '@dataesr/react-dsfr';
+import { useRouter } from 'next/router';
 
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
 import { PATTERN_EMAIL, URL_1000J } from "../src/constants/constants";
-import { epdsContacts } from "../src/constants/epdsResultInformation";
+import {
+    epdsContact,
+    epdsLignes,
+    epdsProfessionnelsSante,
+    epdsRessourcesPremiersMois,
+    epdsSitesInformation
+} from "../src/constants/epdsResultInformation";
 
 export default function Resultats() {
     const { t } = useTranslation('resultats');
+    const router = useRouter();
 
     function sendResultsByEmail() {
         // TODO: send email
@@ -34,7 +42,8 @@ export default function Resultats() {
                     </Col>
                 </Row>
 
-                <AccordionResources translation={t} />
+                <AccordionResources translation={t}
+                    sendEmailOnClick={() => router.push(`mailto:${epdsContact.mailContact}&subject=${epdsContact.mailSubject}`)} />
                 <AdsForApp translation={t} />
             </Col >
 
@@ -110,46 +119,88 @@ function FormContact(props) {
     )
 }
 
-const AccordionResources = ({ translation }) => (
+const AccordionResources = ({ translation, sendEmailOnClick }) => (
     <Accordion>
-        <AccordionItem title={translation("pros-sante")}>
-            <ItemSante />
+        <AccordionItem title={translation("accordion.professionnels-sante")}>
+            <ItemProfessionnelsSante translation={translation} />
         </AccordionItem>
-        <AccordionItem title={translation("sites-information-orientation")}>
-            <ItemSiteInformationOrientation translation={translation} />
+        <AccordionItem title={translation("accordion.lignes-telephoniques")}>
+            <ItemLignesTelephoniques />
         </AccordionItem>
-        <AccordionItem title={translation("ressouces")}>
+        <AccordionItem title={translation("accordion.sites-information")}>
+            <ItemSitesInformation />
+        </AccordionItem>
+        <AccordionItem title={translation("accordion.ressouces")}>
             <ItemResources />
+        </AccordionItem>
+        <AccordionItem title={translation("accordion.contacter")}>
+            <ItemContacter sendEmailOnClick={sendEmailOnClick} />
         </AccordionItem>
     </Accordion >
 )
 
-const ItemSante = () => (
-    <div>Accordion Item #1</div>
+const ItemProfessionnelsSante = ({ translation }) => (
+    <div>
+        {epdsProfessionnelsSante.map((resource, index) =>
+            <div className={`resultats-item-resources ${index > 0 ? "resultats-item-resources-border" : ""}`} key={index} >
+                <b>{resource.name}</b>
+                <br />{resource.description}
+                <br />{resource.url ? showUrl(resource.url, translation("accordion.consulter-document")) : ''}
+            </div>
+        )}
+    </div>
 )
 
-const ItemSiteInformationOrientation = ({ translation }) => (
+const showUrl = (url, text) => (
+    <a href={url} target="_blank" style={{ textDecoration: "underline" }}>{text}</a>
+)
+
+const ItemSitesInformation = () => (
+    <div>
+        {epdsSitesInformation.map((site, index) =>
+            <div key={index}>
+                {showUrl(site.url, site.url)}<br />
+            </div>
+        )}
+    </div >
+)
+
+const ItemLignesTelephoniques = () => (
     <div className="resultats-contact">
-        <p className="font-weight-bold">{translation("sites-lignes-telephoniques")}</p>
-        <div div className="resultats-contact-item" >
-            {
-                epdsContacts.map((contact, index) => {
-                    return (
-                        <div style={{ marginBottom: 30 }} key={index}>
-                            <div className="resultats-contact-title">{contact.contactName}</div>
-                            <div>{contact.thematic}</div>
-                            <div className="font-weight-bold">{contact.openingTime}</div>
-                            <div className="font-weight-bold">{contact.phoneNumber}</div>
-                        </div>
-                    )
-                })
-            }
+        <div className="resultats-contact-item" >
+            {epdsLignes.map((contact, index) => {
+                return <div style={{ marginBottom: 30 }} key={index}>
+                    <div className="resultats-contact-title">{contact.contactName}</div>
+                    <div>{contact.thematic}</div>
+                    <div className="font-weight-bold">{contact.openingTime}</div>
+                    <div style={{ display: "-webkit-inline-box" }}>
+                        <img src="/img/icone-telephone.svg" height={17} style={{ marginRight: 10 }} />
+                        <div className="font-weight-bold">{contact.phoneNumber}</div>
+                    </div>
+                </div>
+            })}
         </div>
     </div >
 )
 
 const ItemResources = () => (
-    <div>Accordion Item #3</div>
+    <div>
+        {epdsRessourcesPremiersMois.map((resource, index) => {
+            return <div className={`resultats-item-resources ${index > 0 ? "resultats-item-resources-border" : ""}`} key={index} >
+                <b>{resource.name}</b>
+                {resource.description}
+            </div>
+        })}
+    </div>
+)
+
+const ItemContacter = ({ sendEmailOnClick }) => (
+    <div style={{ textAlign: "center" }}>
+        <p style={{ textAlign: "justify" }}>{epdsContact.content}</p>
+        <button className="fr-btn" onClick={sendEmailOnClick}>
+            {epdsContact.button}
+        </button>
+    </div>
 )
 
 const AdsForApp = ({ translation }) => (
@@ -214,6 +265,15 @@ const ComprendreTestStyle = () => (
     }
     .resultats-contact-item div {
         padding-right: 10px;
+    }
+
+    .resultats-item-resources {
+        text-align: justify;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .resultats-item-resources-border {
+        border-top: 2px solid var(--gris)
     }
     `}</style>
 );
