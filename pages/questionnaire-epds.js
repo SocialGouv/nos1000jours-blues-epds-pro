@@ -4,10 +4,9 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import { } from '@dataesr/react-dsfr';
 import { useMutation } from "@apollo/client";
-
-import { client, EPDS_ADD_RESPONSE, QUESTIONNAIRE_EPDS } from "../apollo-client";
 import { Carousel, Col, ProgressBar, Row } from "react-bootstrap";
 
+import { client, EPDS_ADD_RESPONSE, QUESTIONNAIRE_EPDS } from "../apollo-client";
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
 import { EpdsQuestion } from "../src/components/EpdsQuestion";

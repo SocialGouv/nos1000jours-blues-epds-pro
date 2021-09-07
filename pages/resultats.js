@@ -167,9 +167,9 @@ const ItemSitesInformation = () => (
 
 const ItemLignesTelephoniques = () => (
     <div className="resultats-contact">
-        <div div className="resultats-contact-item" >
-            {epdsLignes.map((contact, index) =>
-                <div style={{ marginBottom: 30 }} key={index}>
+        <div className="resultats-contact-item" >
+            {epdsLignes.map((contact, index) => {
+                return <div style={{ marginBottom: 30 }} key={index}>
                     <div className="resultats-contact-title">{contact.contactName}</div>
                     <div>{contact.thematic}</div>
                     <div className="font-weight-bold">{contact.openingTime}</div>
@@ -178,7 +178,7 @@ const ItemLignesTelephoniques = () => (
                         <div className="font-weight-bold">{contact.phoneNumber}</div>
                     </div>
                 </div>
-            )}
+            })}
         </div>
     </div >
 )
