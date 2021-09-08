@@ -10,7 +10,13 @@ import { client, EPDS_ADD_RESPONSE, QUESTIONNAIRE_EPDS } from "../apollo-client"
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
 import { EpdsQuestion } from "../src/components/EpdsQuestion";
-import { STORAGE_GENRE_PATIENT, STORAGE_RESPONSES_BOARD, STORAGE_SCORE_BOARD, STORAGE_TOTAL_SCORE, EPDS_SOURCE, EpdsGender, STORAGE_RESULTS_BOARD } from "../src/constants/constants";
+import {
+    STORAGE_TOTAL_SCORE,
+    EPDS_SOURCE,
+    EpdsGender,
+    STORAGE_RESULTS_BOARD,
+    STORAGE_GENRE_PATIENT
+} from "../src/constants/constants";
 
 export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
     const { t } = useTranslation('questionnaire-epds');
@@ -32,9 +38,6 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
         event.preventDefault();
         setSendScore(true)
 
-        localStorage.removeItem(STORAGE_GENRE_PATIENT);
-        localStorage.setItem(STORAGE_SCORE_BOARD, JSON.stringify(scoreBoard));
-        localStorage.setItem(STORAGE_RESPONSES_BOARD, JSON.stringify(responsesBoard));
         localStorage.setItem(STORAGE_TOTAL_SCORE,
             resultsBoard
                 .map((data) => data.points)

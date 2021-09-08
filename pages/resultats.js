@@ -144,6 +144,7 @@ function FormContact(props) {
                         name="inputEmail"
                         pattern={PATTERN_EMAIL}
                         onChange={handleChange} />
+                    <span className="champs-obligatoires">{props.translation("form.email-info")}</span>
                 </div>
                 <div className={`form-group fr-input-group ${isPhoneValid ? "fr-input-group--valid" : ""}`}>
                     <label className="fr-label" for="text-input-valid">{props.translation("form.telephone")}</label>
