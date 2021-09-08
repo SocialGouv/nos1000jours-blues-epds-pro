@@ -8,6 +8,7 @@ export const STORAGE_GENRE_PATIENT = "genrePatient";
 
 export const PATTERN_EMAIL = "[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}";
 
+export const API_URL = process.env.API_URL || "https://backoffice-develop-dev-les1000jours.dev.fabrique.social.gouv.fr";
 export const URL_1000J = "https://1000jours.fabrique.social.gouv.fr";
 
 export const EpdsGender = {

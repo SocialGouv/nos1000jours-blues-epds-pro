@@ -1,9 +1,10 @@
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import { API_URL } from "./src/constants/constants";
 
 export const client = new ApolloClient({
-    uri: `${process.env.API_URL}/graphql?nocache`,
-    cache: new InMemoryCache(),
-    headers: { "content-type": "application/json" },
+  uri: `${API_URL}/graphql?nocache`,
+  cache: new InMemoryCache(),
+  headers: { "content-type": "application/json" },
 });
 
 export const QUESTIONNAIRE_EPDS = gql`
