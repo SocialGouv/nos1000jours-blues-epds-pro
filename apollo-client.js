@@ -29,6 +29,7 @@ export const EPDS_ADD_RESPONSE = gql`
     $genre: ENUM_REPONSESEPDS_GENRE!
     $compteur: Int!
     $score: Int!
+    $source: ENUM_REPONSESEPDS_SOURCE!
     $reponseNum1: Int!
     $reponseNum2: Int!
     $reponseNum3: Int!
@@ -46,6 +47,7 @@ export const EPDS_ADD_RESPONSE = gql`
           genre: $genre
           compteur: $compteur
           score: $score
+          source: $source
           reponse_1: $reponseNum1
           reponse_2: $reponseNum2
           reponse_3: $reponseNum3

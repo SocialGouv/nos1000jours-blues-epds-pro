@@ -10,7 +10,7 @@ import { client, EPDS_ADD_RESPONSE, QUESTIONNAIRE_EPDS } from "../apollo-client"
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
 import { EpdsQuestion } from "../src/components/EpdsQuestion";
-import { STORAGE_GENRE_PATIENT, STORAGE_TOTAL_SCORE } from "../src/constants/constants";
+import { EpdsGender, EPDS_SOURCE, STORAGE_GENRE_PATIENT, STORAGE_TOTAL_SCORE } from "../src/constants/constants";
 
 export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
     const { t } = useTranslation('questionnaire-epds');
@@ -33,6 +33,7 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
         setSendScore(true)
 
         localStorage.setItem(STORAGE_TOTAL_SCORE, scoreBoard.reduce((a, b) => a + b, 0));
+        localStorage.removeItem(STORAGE_GENRE_PATIENT)
 
         router.push({
             pathname: "/resultats"
@@ -44,7 +45,9 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
             if (sendScore) {
                 const result = scoreBoard.reduce((a, b) => a + b, 0);
                 const newCounter = 1;
-                const genderValue = localStorage.getItem(STORAGE_GENRE_PATIENT);
+
+                let genderValue = localStorage.getItem(STORAGE_GENRE_PATIENT);
+                if (!genderValue) genderValue = EpdsGender.inconnu.strapiLibelle;
 
                 await addReponseQuery({
                     variables: {
@@ -61,6 +64,7 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
                         reponseNum8: scoreBoard[7],
                         reponseNum9: scoreBoard[8],
                         score: result,
+                        source: EPDS_SOURCE
                     },
                 });
             }
