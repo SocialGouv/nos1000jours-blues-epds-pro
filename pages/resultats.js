@@ -105,8 +105,8 @@ function FormContact(props) {
     }
 
     useEffect(() => {
-        setCanSend(isEmailValid);
-    }, [isEmailValid]);
+        setCanSend(isEmailProValid);
+    }, [isEmailProValid]);
 
     function handleChange(e) {
         switch (e.target.id) {
@@ -126,6 +126,16 @@ function FormContact(props) {
         <div>
             <div className="font-weight-bold" style={{ fontSize: 13, marginBottom: 20 }}>{props.translation("form.intro-contact")}</div>
             <form onSubmit={send}>
+                <div className={`form-group fr-input-group ${isEmailProValid ? "fr-input-group--valid" : ""}`}>
+                    <label className="fr-label" for="text-input-valid">{props.translation("form.email-pro")}</label>
+                    <input type="email"
+                        className={`form-control fr-input custom-input ${isEmailProValid ? "custom-input-valid" : ""}`}
+                        id="inputEmailPro"
+                        name="inputEmailPro"
+                        pattern={PATTERN_EMAIL}
+                        onChange={handleChange}
+                        required />
+                </div>
                 <div className={`form-group fr-input-group ${isEmailValid ? "fr-input-group--valid" : ""}`}>
                     <label className="fr-label" for="text-input-valid">{props.translation("form.email")}</label>
                     <input type="email"
@@ -133,8 +143,7 @@ function FormContact(props) {
                         id="inputEmail"
                         name="inputEmail"
                         pattern={PATTERN_EMAIL}
-                        onChange={handleChange}
-                        required />
+                        onChange={handleChange} />
                 </div>
                 <div className={`form-group fr-input-group ${isPhoneValid ? "fr-input-group--valid" : ""}`}>
                     <label className="fr-label" for="text-input-valid">{props.translation("form.telephone")}</label>
@@ -143,15 +152,6 @@ function FormContact(props) {
                         id="inputTel"
                         name="inputTel"
                         pattern="[0-9]{10}"
-                        onChange={handleChange} />
-                </div>
-                <div className={`form-group fr-input-group ${isEmailProValid ? "fr-input-group--valid" : ""}`}>
-                    <label className="fr-label" for="text-input-valid">{props.translation("form.email-pro")}</label>
-                    <input type="email"
-                        className={`form-control fr-input custom-input ${isEmailProValid ? "custom-input-valid" : ""}`}
-                        id="inputEmailPro"
-                        name="inputEmailPro"
-                        pattern={PATTERN_EMAIL}
                         onChange={handleChange} />
                 </div>
 
