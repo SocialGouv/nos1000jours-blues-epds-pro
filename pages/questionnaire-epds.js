@@ -129,7 +129,7 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
 }
 
 const QuestionsCarousel = ({ questions, refForOnClick, resultsBoard, setEnabledNextButton }) => (
-    <Carousel interval={null} controls={false} indicators={false} ref={refForOnClick}>
+    <Carousel interval={null} controls={false} indicators={false} ref={refForOnClick} touch={false}>
         {questions.map((question, index) => {
             return (
                 <Carousel.Item key={question.ordre}>
@@ -175,7 +175,7 @@ const QuestionsProgressBar = ({ indexNow, size }) => (
         <Row>
             {Array(size + 1).fill(size, 1, 11).map((x, index) => {
                 return <Col key={index}
-                    className={`${index != indexNow && index != size ? "white-number" : "yellow-number"} `}>{index}</Col>;
+                    className={`progress-number ${index != indexNow && index != size ? "white-number" : "yellow-number"} `}>{index}</Col>;
             })}
         </Row>
     </div>
@@ -214,6 +214,12 @@ const ComprendreTestStyle = () => (
     }
     .yellow-number {
         color: var(--jaune);
+    }
+
+    @media screen and (max-width: 450px){
+        .progress-number {
+            padding-right: 0px;
+        }
     }
     `}</style>
 );

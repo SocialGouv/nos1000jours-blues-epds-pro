@@ -36,7 +36,7 @@ export default function Resultats() {
             <Col className="page-content" style={{ alignItems: "center" }}>
                 <h3 className="page-title">{t("resultat")}</h3>
 
-                <Row style={{ diplay: "flex" }}>
+                <Row className="form-contact-smallscreen">
                     <Col>
                         <p className="font-weight-bold resultats-text">{t("oser-parler")}</p>
                         <p className="resultats-text">{t("les-changements")}</p>
@@ -136,7 +136,7 @@ function FormContact(props) {
                         onChange={handleChange}
                         required />
                 </div>
-                <div className={`form-group fr-input-group ${isEmailValid ? "fr-input-group--valid" : ""}`}>
+                <div className={`form-group fr-input-group ${isEmailValid ? "fr-input-group--valid" : ""}`} hidden>
                     <label className="fr-label" for="text-input-valid">{props.translation("form.email")}</label>
                     <input type="email"
                         className={`form-control fr-input custom-input ${isEmailValid ? "custom-input-valid" : ""}`}
@@ -144,9 +144,9 @@ function FormContact(props) {
                         name="inputEmail"
                         pattern={PATTERN_EMAIL}
                         onChange={handleChange} />
-                    <span className="champs-obligatoires">{props.translation("form.email-info")}</span>
+                    <span className="champs-obligatoires" style={{ fontSize: 13 }}>{props.translation("form.email-info")}</span>
                 </div>
-                <div className={`form-group fr-input-group ${isPhoneValid ? "fr-input-group--valid" : ""}`}>
+                <div className={`form-group fr-input-group ${isPhoneValid ? "fr-input-group--valid" : ""}`} hidden>
                     <label className="fr-label" for="text-input-valid">{props.translation("form.telephone")}</label>
                     <input type="tel"
                         className={`form-control fr-input custom-input ${isPhoneValid ? "custom-input-valid" : ""}`}
@@ -156,8 +156,7 @@ function FormContact(props) {
                         onChange={handleChange} />
                 </div>
 
-                <div className="champs-obligatoires" style={{ fontSize: 13 }}>{props.translation("form.email-pro-existe")}</div>
-                <Row>
+                <Row style={{ justifyContent: "center" }}>
                     <button type="submit"
                         className="fr-btn"
                         disabled={!canSend}
@@ -170,7 +169,7 @@ function FormContact(props) {
 }
 
 const AccordionResources = ({ translation, sendEmailOnClick }) => (
-    <Accordion>
+    <Accordion className="accordion-smallscreen">
         <AccordionItem title={translation("accordion.professionnels-sante")}>
             <ItemProfessionnelsSante translation={translation} />
         </AccordionItem>
@@ -320,11 +319,17 @@ const ComprendreTestStyle = () => (
 
     .resultats-item-resources {
         text-align: justify;
-        padding-top: 10px;
-        padding-bottom: 10px;
+        padding-top: 20px;
+        padding-bottom: 20px;
     }
     .resultats-item-resources-border {
         border-top: 2px solid var(--gris)
+    }
+
+    @media screen and (max-width: 450px){
+        .form-contact-smallscreen {
+            display: initial;
+        }
     }
     `}</style>
 );

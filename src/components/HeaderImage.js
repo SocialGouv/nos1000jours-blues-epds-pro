@@ -31,6 +31,7 @@ const HeaderImageStyle = () => (
         align-self: center;
         font-size: 35px;
         font-weight: bold;
+        line-height: 48px;
     }
     `}</style>
 );
