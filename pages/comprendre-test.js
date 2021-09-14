@@ -44,11 +44,13 @@ const Pourquoi = ({ translation }) => (
 );
 
 const Step = ({ number, title, image }) => (
-    <Row style={{ width: "fit-content", marginLeft: "10px !important", marginRight: "10px !important" }}>
-        <div className="comprendre-test-step-number">{number}</div>
+    <Row className="comprendre-test-step">
         <Col style={{ padding: "0px" }}>
             <img src={image} className="comprendre-test-step-image" />
-            <div className="text-center comprendre-test-step-text" >{title}</div>
+            <div style={{ alignItems: "flex-start", display: "flex", justifyContent: "center" }}>
+                <div className="comprendre-test-step-number">{number}</div>
+                <div className="text-center comprendre-test-step-text" >{title}</div>
+            </div>
         </Col>
     </Row>
 );
@@ -190,25 +192,36 @@ const ComprendreTestStyle = () => (
         margin-bottom: 25px;
     }
 
+    .comprendre-test-step {
+        width: fit-content;
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+    }
+
     .comprendre-test-step-number {
         font-weight: 900;
         font-size: 35px;
         color: var(--bleu-clair);
-        margin-bottom: -3px;
         display: flex;
         align-items: flex-end;
+        margin-top: 2px;
     }
 
     .comprendre-test-step-image {
-        height: 54px;
+        height: 70px;
         width: inherit;
     }
 
     .comprendre-test-step-text {
         margin-left: -7px !important;
-        width: fit-content;
         color: var(--bleu-texte);
-        font-size: 12px;
+        font-size: 16px;
+    }
+
+    @media screen and (max-width: 450px){
+        .comprendre-test-step {
+            width: -webkit-fill-available !important;
+        }
     }
     `}</style>
 );
