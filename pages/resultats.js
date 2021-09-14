@@ -144,7 +144,7 @@ function FormContact(props) {
                         name="inputEmail"
                         pattern={PATTERN_EMAIL}
                         onChange={handleChange} />
-                    <span className="champs-obligatoires">{props.translation("form.email-info")}</span>
+                    <span className="champs-obligatoires" style={{ fontSize: 13 }}>{props.translation("form.email-info")}</span>
                 </div>
                 <div className={`form-group fr-input-group ${isPhoneValid ? "fr-input-group--valid" : ""}`}>
                     <label className="fr-label" for="text-input-valid">{props.translation("form.telephone")}</label>
@@ -156,7 +156,6 @@ function FormContact(props) {
                         onChange={handleChange} />
                 </div>
 
-                <div className="champs-obligatoires" style={{ fontSize: 13 }}>{props.translation("form.email-pro-existe")}</div>
                 <Row>
                     <button type="submit"
                         className="fr-btn"
@@ -320,8 +319,8 @@ const ComprendreTestStyle = () => (
 
     .resultats-item-resources {
         text-align: justify;
-        padding-top: 10px;
-        padding-bottom: 10px;
+        padding-top: 20px;
+        padding-bottom: 20px;
     }
     .resultats-item-resources-border {
         border-top: 2px solid var(--gris)

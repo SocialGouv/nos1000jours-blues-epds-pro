@@ -10,7 +10,6 @@
         "email-info": "(le mail ne vous sera pas envoyé)",
         "telephone": "Votre numéro de téléphone",
         "email-pro": "Adresse email de votre référent santé *",
-        "email-pro-existe": "(si vous en avez un)",
         "envoyer": "Envoyer"
     },
     "accordion": {
