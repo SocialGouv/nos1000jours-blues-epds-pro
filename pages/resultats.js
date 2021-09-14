@@ -136,7 +136,7 @@ function FormContact(props) {
                         onChange={handleChange}
                         required />
                 </div>
-                <div className={`form-group fr-input-group ${isEmailValid ? "fr-input-group--valid" : ""}`}>
+                <div className={`form-group fr-input-group ${isEmailValid ? "fr-input-group--valid" : ""}`} hidden>
                     <label className="fr-label" for="text-input-valid">{props.translation("form.email")}</label>
                     <input type="email"
                         className={`form-control fr-input custom-input ${isEmailValid ? "custom-input-valid" : ""}`}
@@ -146,7 +146,7 @@ function FormContact(props) {
                         onChange={handleChange} />
                     <span className="champs-obligatoires" style={{ fontSize: 13 }}>{props.translation("form.email-info")}</span>
                 </div>
-                <div className={`form-group fr-input-group ${isPhoneValid ? "fr-input-group--valid" : ""}`}>
+                <div className={`form-group fr-input-group ${isPhoneValid ? "fr-input-group--valid" : ""}`} hidden>
                     <label className="fr-label" for="text-input-valid">{props.translation("form.telephone")}</label>
                     <input type="tel"
                         className={`form-control fr-input custom-input ${isPhoneValid ? "custom-input-valid" : ""}`}
@@ -156,7 +156,7 @@ function FormContact(props) {
                         onChange={handleChange} />
                 </div>
 
-                <Row>
+                <Row style={{ justifyContent: "center" }}>
                     <button type="submit"
                         className="fr-btn"
                         disabled={!canSend}
