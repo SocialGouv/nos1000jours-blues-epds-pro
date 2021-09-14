@@ -97,7 +97,7 @@ function FormInformations(props) {
                     </select>
                 </div>
                 <Row>
-                    <Col className={`form-group fr-input-group ${isLastnameValid ? "fr-input-group--valid" : ""}`}>
+                    <Col className={`form-group fr-input-group input-name ${isLastnameValid ? "fr-input-group--valid" : ""}`}>
                         <label className="fr-label" for="text-input-valid">{props.translation("prenom")}</label>
                         <input type="text"
                             className={`form-control fr-input custom-input ${isLastnameValid ? "custom-input-valid" : ""}`}
@@ -107,7 +107,7 @@ function FormInformations(props) {
                             required />
 
                     </Col>
-                    <Col className={`form-group fr-input-group ${isNameValid ? "fr-input-group--valid" : ""}`}>
+                    <Col className={`form-group fr-input-group input-name ${isNameValid ? "fr-input-group--valid" : ""}`}>
                         <label className="fr-label" for="text-input-valid">{props.translation("nom")}</label>
                         <input type="text"
                             className={`form-control fr-input custom-input ${isNameValid ? "custom-input-valid" : ""}`}
@@ -216,6 +216,10 @@ const ComprendreTestStyle = () => (
         margin-left: -7px !important;
         color: var(--bleu-texte);
         font-size: 16px;
+    }
+
+    .input-name {
+        min-width: fit-content;
     }
 
     @media screen and (max-width: 450px){

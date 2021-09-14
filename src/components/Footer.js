@@ -79,6 +79,7 @@ const FooterStyle = () => (
     font-weight: bold;
     line-height: 33px;
     color: var(--bleu-texte);
+    margin-right: 10px;
   }
   `}</style>
 );
