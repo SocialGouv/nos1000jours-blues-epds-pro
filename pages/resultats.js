@@ -36,7 +36,7 @@ export default function Resultats() {
             <Col className="page-content" style={{ alignItems: "center" }}>
                 <h3 className="page-title">{t("resultat")}</h3>
 
-                <Row style={{ diplay: "flex" }}>
+                <Row className="form-contact-smallscreen">
                     <Col>
                         <p className="font-weight-bold resultats-text">{t("oser-parler")}</p>
                         <p className="resultats-text">{t("les-changements")}</p>
@@ -169,7 +169,7 @@ function FormContact(props) {
 }
 
 const AccordionResources = ({ translation, sendEmailOnClick }) => (
-    <Accordion>
+    <Accordion className="accordion-smallscreen">
         <AccordionItem title={translation("accordion.professionnels-sante")}>
             <ItemProfessionnelsSante translation={translation} />
         </AccordionItem>
@@ -324,6 +324,12 @@ const ComprendreTestStyle = () => (
     }
     .resultats-item-resources-border {
         border-top: 2px solid var(--gris)
+    }
+
+    @media screen and (max-width: 450px){
+        .form-contact-smallscreen {
+            display: initial;
+        }
     }
     `}</style>
 );
