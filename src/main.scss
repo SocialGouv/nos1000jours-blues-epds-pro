@@ -114,3 +114,17 @@ td {
     text-align: justify;
   }
 }
+
+@media screen and (max-width: 450px){
+  .page-content {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .accordion-smallscreen {
+    section {
+        box-shadow: none;
+        border-bottom: 1px solid var(--gris);
+    }
+  }
+}

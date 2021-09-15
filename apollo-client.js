@@ -1,9 +1,10 @@
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import { API_URL } from "./src/constants/constants";
 
 export const client = new ApolloClient({
-    uri: `${process.env.API_URL}/graphql?nocache`,
-    cache: new InMemoryCache(),
-    headers: { "content-type": "application/json" },
+  uri: `${API_URL}/graphql?nocache`,
+  cache: new InMemoryCache(),
+  headers: { "content-type": "application/json" },
 });
 
 export const QUESTIONNAIRE_EPDS = gql`
@@ -28,6 +29,7 @@ export const EPDS_ADD_RESPONSE = gql`
     $genre: ENUM_REPONSESEPDS_GENRE!
     $compteur: Int!
     $score: Int!
+    $source: ENUM_REPONSESEPDS_SOURCE!
     $reponseNum1: Int!
     $reponseNum2: Int!
     $reponseNum3: Int!
@@ -45,6 +47,7 @@ export const EPDS_ADD_RESPONSE = gql`
           genre: $genre
           compteur: $compteur
           score: $score
+          source: $source
           reponse_1: $reponseNum1
           reponse_2: $reponseNum2
           reponse_3: $reponseNum3
@@ -64,3 +67,29 @@ export const EPDS_ADD_RESPONSE = gql`
       }
     }
   }`;
+
+export const EPDS_PARTAGE_INFORMATION = gql`
+  mutation (
+    $email: String!
+    $email_pro: String!
+    $telephone: String
+    $prenom: String
+    $nom: String
+    $score: String
+    $detail_questions: [String]
+    $detail_score: [String]
+    $detail_reponses: [String]
+  ) {
+    epdsPartage(
+      email: $email
+      email_pro: $email_pro
+      telephone: $telephone
+      prenom: $prenom
+      nom: $nom
+      score: $score
+      detail_questions: $detail_questions
+      detail_score: $detail_score
+      detail_reponses: $detail_reponses
+    )
+  }
+`;

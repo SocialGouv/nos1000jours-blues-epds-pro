@@ -10,9 +10,15 @@ import { client, EPDS_ADD_RESPONSE, QUESTIONNAIRE_EPDS } from "../apollo-client"
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
 import { EpdsQuestion } from "../src/components/EpdsQuestion";
-import { STORAGE_GENRE_PATIENT, STORAGE_TOTAL_SCORE } from "../src/constants/constants";
+import {
+    STORAGE_TOTAL_SCORE,
+    EPDS_SOURCE,
+    EpdsGender,
+    STORAGE_RESULTS_BOARD,
+    STORAGE_GENRE_PATIENT
+} from "../src/constants/constants";
 
-export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
+export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
     const { t } = useTranslation('questionnaire-epds');
     const router = useRouter();
     const ref = useRef(null);
@@ -32,7 +38,12 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
         event.preventDefault();
         setSendScore(true)
 
-        localStorage.setItem(STORAGE_TOTAL_SCORE, scoreBoard.reduce((a, b) => a + b, 0));
+        localStorage.setItem(STORAGE_TOTAL_SCORE,
+            resultsBoard
+                .map((data) => data.points)
+                .reduce((a, b) => a + b, 0)
+        );
+        localStorage.setItem(STORAGE_RESULTS_BOARD, JSON.stringify(resultsBoard));
 
         router.push({
             pathname: "/resultats"
@@ -42,25 +53,28 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
     useEffect(() => {
         const saveEpdsResults = async () => {
             if (sendScore) {
-                const result = scoreBoard.reduce((a, b) => a + b, 0);
+                const result = resultsBoard.map((data) => data.points).reduce((a, b) => a + b, 0);
                 const newCounter = 1;
-                const genderValue = localStorage.getItem(STORAGE_GENRE_PATIENT);
+
+                let genderValue = localStorage.getItem(STORAGE_GENRE_PATIENT);
+                if (!genderValue) genderValue = EpdsGender.inconnu.strapiLibelle;
 
                 await addReponseQuery({
                     variables: {
                         compteur: newCounter,
                         genre: genderValue,
-                        reponseNum1: scoreBoard[0],
-                        reponseNum10: scoreBoard[9],
-                        reponseNum2: scoreBoard[1],
-                        reponseNum3: scoreBoard[2],
-                        reponseNum4: scoreBoard[3],
-                        reponseNum5: scoreBoard[4],
-                        reponseNum6: scoreBoard[5],
-                        reponseNum7: scoreBoard[6],
-                        reponseNum8: scoreBoard[7],
-                        reponseNum9: scoreBoard[8],
+                        reponseNum1: resultsBoard[0].points,
+                        reponseNum2: resultsBoard[1].points,
+                        reponseNum3: resultsBoard[2].points,
+                        reponseNum4: resultsBoard[3].points,
+                        reponseNum5: resultsBoard[4].points,
+                        reponseNum6: resultsBoard[5].points,
+                        reponseNum7: resultsBoard[6].points,
+                        reponseNum8: resultsBoard[7].points,
+                        reponseNum9: resultsBoard[8].points,
+                        reponseNum10: resultsBoard[9].points,
                         score: result,
+                        source: EPDS_SOURCE
                     },
                 });
             }
@@ -70,7 +84,7 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
     }, [sendScore]);
 
     useEffect(() => {
-        setEnabledNextButton(scoreBoard[actualIndex - 1] != null);
+        setEnabledNextButton(resultsBoard[actualIndex - 1] != null);
     }, [actualIndex]);
 
     const onPreviousQuestion = () => {
@@ -97,7 +111,7 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
                 <QuestionsCarousel
                     questions={questionsEpds}
                     refForOnClick={ref}
-                    scoreBoard={scoreBoard}
+                    resultsBoard={resultsBoard}
                     setEnabledNextButton={setEnabledNextButton} />
                 <PreviousAndNextButton translation={t}
                     onPrevious={onPreviousQuestion}
@@ -114,14 +128,14 @@ export default function QuestionnaireEPDS({ questionsEpds, scoreBoard }) {
     );
 }
 
-const QuestionsCarousel = ({ questions, refForOnClick, scoreBoard, setEnabledNextButton }) => (
-    <Carousel interval={null} controls={false} indicators={false} ref={refForOnClick}>
+const QuestionsCarousel = ({ questions, refForOnClick, resultsBoard, setEnabledNextButton }) => (
+    <Carousel interval={null} controls={false} indicators={false} ref={refForOnClick} touch={false}>
         {questions.map((question, index) => {
             return (
                 <Carousel.Item key={question.ordre}>
                     <EpdsQuestion className="d-block w-100"
                         question={question}
-                        scoreBoard={scoreBoard}
+                        resultsBoard={resultsBoard}
                         setEnabledNextButton={setEnabledNextButton} />
                 </Carousel.Item>
             )
@@ -161,7 +175,7 @@ const QuestionsProgressBar = ({ indexNow, size }) => (
         <Row>
             {Array(size + 1).fill(size, 1, 11).map((x, index) => {
                 return <Col key={index}
-                    className={`${index != indexNow && index != size ? "white-number" : "yellow-number"} `}>{index}</Col>;
+                    className={`progress-number ${index != indexNow && index != size ? "white-number" : "yellow-number"} `}>{index}</Col>;
             })}
         </Row>
     </div>
@@ -176,7 +190,7 @@ export const getStaticProps = async ({ locale }) => {
         props: {
             ...await serverSideTranslations(locale, ['common', 'footer', 'questionnaire-epds']),
             questionsEpds: data.questionnaireEpds.slice().sort((a, b) => a.ordre - b.ordre),
-            scoreBoard: new Array(data.questionnaireEpds.length),
+            resultsBoard: new Array(data.questionnaireEpds.length)
         },
     })
 }
@@ -200,6 +214,12 @@ const ComprendreTestStyle = () => (
     }
     .yellow-number {
         color: var(--jaune);
+    }
+
+    @media screen and (max-width: 450px){
+        .progress-number {
+            padding-right: 0px;
+        }
     }
     `}</style>
 );
