@@ -60,9 +60,10 @@ export default function Resultats() {
 function FormContact(props) {
     const [canSend, setCanSend] = useState(false);
     const [isEmailValid, setEmailValid] = useState(false);
-    const [isPhoneValid, setPhoneValid] = useState(false);
     const [isEmailProValid, setEmailProValid] = useState(false);
     const [queryShareResponses, setQueryShareResponses] = useState();
+
+    const score = getInLocalStorage(STORAGE_TOTAL_SCORE);
 
     const [sendEmailReponseQuery] = useMutation(EPDS_PARTAGE_INFORMATION, {
         client: client,
@@ -79,17 +80,15 @@ function FormContact(props) {
         if (canSend) {
             const name = localStorage.getItem(STORAGE_NOM_PATIENT);
             const surname = localStorage.getItem(STORAGE_PRENOM_PATIENT);
-            const result = localStorage.getItem(STORAGE_TOTAL_SCORE).toString();
             const resultsBoard = JSON.parse(localStorage.getItem(STORAGE_RESULTS_BOARD));
 
             await sendEmailReponseQuery({
                 variables: {
                     email: inputs.inputEmail.value,
                     email_pro: inputs.inputEmailPro.value,
-                    telephone: inputs.inputTel.value,
                     prenom: surname,
                     nom: name,
-                    score: result,
+                    score: score,
                     detail_questions: resultsBoard.map((data) => data.question),
                     detail_score: resultsBoard.map((data) => data.points).map(String),
                     detail_reponses: resultsBoard.map((data) => data.response),
@@ -113,9 +112,6 @@ function FormContact(props) {
             case "inputEmail":
                 setEmailValid(e.target.validity.valid);
                 break;
-            case "inputTel":
-                setPhoneValid(e.target.validity.valid);
-                break;
             case "inputEmailPro":
                 setEmailProValid(e.target.validity.valid);
                 break;
@@ -124,36 +120,28 @@ function FormContact(props) {
 
     return (
         <div>
-            <div className="font-weight-bold" style={{ fontSize: 13, marginBottom: 20 }}>{props.translation("form.intro-contact")}</div>
+            <div className="font-weight-bold" style={{ marginBottom: 20 }}>{props.translation("form.score")} {score} / 30</div>
             <form onSubmit={send}>
                 <div className={`form-group fr-input-group ${isEmailProValid ? "fr-input-group--valid" : ""}`}>
-                    <label className="fr-label" for="text-input-valid">{props.translation("form.email-pro")}</label>
+                    <label>{props.translation("form.email-pro")}</label>
                     <input type="email"
                         className={`form-control fr-input custom-input ${isEmailProValid ? "custom-input-valid" : ""}`}
                         id="inputEmailPro"
                         name="inputEmailPro"
                         pattern={PATTERN_EMAIL}
                         onChange={handleChange}
+                        placeholder={props.translation("form.email-pro-hint")}
                         required />
                 </div>
-                <div className={`form-group fr-input-group ${isEmailValid ? "fr-input-group--valid" : ""}`} hidden>
-                    <label className="fr-label" for="text-input-valid">{props.translation("form.email")}</label>
+                <div className={`form-group fr-input-group ${isEmailValid ? "fr-input-group--valid" : ""}`} >
+                    <label>{props.translation("form.email")}</label>
                     <input type="email"
                         className={`form-control fr-input custom-input ${isEmailValid ? "custom-input-valid" : ""}`}
                         id="inputEmail"
                         name="inputEmail"
                         pattern={PATTERN_EMAIL}
-                        onChange={handleChange} />
-                    <span className="champs-obligatoires" style={{ fontSize: 13 }}>{props.translation("form.email-info")}</span>
-                </div>
-                <div className={`form-group fr-input-group ${isPhoneValid ? "fr-input-group--valid" : ""}`} hidden>
-                    <label className="fr-label" for="text-input-valid">{props.translation("form.telephone")}</label>
-                    <input type="tel"
-                        className={`form-control fr-input custom-input ${isPhoneValid ? "custom-input-valid" : ""}`}
-                        id="inputTel"
-                        name="inputTel"
-                        pattern="[0-9]{10}"
-                        onChange={handleChange} />
+                        onChange={handleChange}
+                        placeholder={props.translation("form.email-hint")} />
                 </div>
 
                 <Row style={{ justifyContent: "center" }}>
