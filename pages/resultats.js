@@ -35,18 +35,15 @@ export default function Resultats() {
 
             <Col className="page-content" style={{ alignItems: "center" }}>
                 <h3 className="page-title">{t("resultat")}</h3>
+                <FormContact translation={t} />
 
-                <Row className="form-contact-smallscreen">
-                    <Col>
-                        <FormContact translation={t} />
-                    </Col>
-                </Row>
-
-                <p className="font-weight-bold resultats-text">{t("invitation-a-refaire")}</p>
-                <p>
-                    <div className="font-weight-bold resultats-text">{t("oser-parler")}</div><br />
-                    <div className="resultats-text">{t("les-changements")}</div>
-                </p>
+                <Col>
+                    <p className="font-weight-bold resultats-text">{t("invitation-a-refaire")}</p>
+                    <p>
+                        <div className="font-weight-bold resultats-text">{t("oser-parler")}</div><br />
+                        <div className="resultats-text">{t("les-changements")}</div>
+                    </p>
+                </Col>
 
                 <AccordionResources translation={t}
                     sendEmailOnClick={() => router.push(`mailto:${epdsContact.mailContact}&subject=${epdsContact.mailSubject}`)} />
@@ -338,12 +335,6 @@ const ComprendreTestStyle = () => (
     }
     .resultats-item-resources-border {
         border-top: 2px solid var(--gris)
-    }
-
-    @media screen and (max-width: 450px){
-        .form-contact-smallscreen {
-            display: initial;
-        }
     }
     `}</style>
 );
