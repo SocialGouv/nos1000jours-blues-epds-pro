@@ -35,17 +35,15 @@ export default function Resultats() {
 
             <Col className="page-content" style={{ alignItems: "center" }}>
                 <h3 className="page-title">{t("resultat")}</h3>
+                <FormContact translation={t} />
 
-                <Row className="form-contact-smallscreen">
-                    <Col>
-                        <p className="font-weight-bold resultats-text">{t("oser-parler")}</p>
-                        <p className="resultats-text">{t("les-changements")}</p>
-                        <p className="font-weight-bold resultats-text">{t("invitation-a-refaire")}</p>
-                    </Col>
-                    <Col>
-                        <FormContact translation={t} />
-                    </Col>
-                </Row>
+                <Col>
+                    <p className="font-weight-bold resultats-text">{t("invitation-a-refaire")}</p>
+                    <p>
+                        <span className="font-weight-bold resultats-text">{t("oser-parler")}</span><br /><br />
+                        <span className="resultats-text">{t("les-changements")}</span>
+                    </p>
+                </Col>
 
                 <AccordionResources translation={t}
                     sendEmailOnClick={() => router.push(`mailto:${epdsContact.mailContact}&subject=${epdsContact.mailSubject}`)} />
@@ -64,6 +62,8 @@ function FormContact(props) {
     const [isEmailProValid, setEmailProValid] = useState(false);
     const [queryShareResponses, setQueryShareResponses] = useState();
 
+    const score = getInLocalStorage(STORAGE_TOTAL_SCORE);
+
     const [sendEmailReponseQuery] = useMutation(EPDS_PARTAGE_INFORMATION, {
         client: client,
         onError: (err) => {
@@ -79,7 +79,6 @@ function FormContact(props) {
         if (canSend) {
             const name = localStorage.getItem(STORAGE_NOM_PATIENT);
             const surname = localStorage.getItem(STORAGE_PRENOM_PATIENT);
-            const result = localStorage.getItem(STORAGE_TOTAL_SCORE).toString();
             const resultsBoard = JSON.parse(localStorage.getItem(STORAGE_RESULTS_BOARD));
 
             await sendEmailReponseQuery({
@@ -89,7 +88,7 @@ function FormContact(props) {
                     telephone: inputs.inputTel.value,
                     prenom: surname,
                     nom: name,
-                    score: result,
+                    score: score,
                     detail_questions: resultsBoard.map((data) => data.question),
                     detail_score: resultsBoard.map((data) => data.points).map(String),
                     detail_reponses: resultsBoard.map((data) => data.response),
@@ -124,45 +123,53 @@ function FormContact(props) {
 
     return (
         <div>
-            <div className="font-weight-bold" style={{ fontSize: 13, marginBottom: 20 }}>{props.translation("form.intro-contact")}</div>
+            <div className="font-weight-bold" style={{ marginBottom: 20 }}>{props.translation("form.score")} {score} / 30</div>
+
+            <div className="font-weight-bold" style={{ marginBottom: 20 }}>{props.translation("form.email-pro-intro")}</div>
             <form onSubmit={send}>
-                <div className={`form-group fr-input-group ${isEmailProValid ? "fr-input-group--valid" : ""}`}>
-                    <label className="fr-label" for="text-input-valid">{props.translation("form.email-pro")}</label>
+                <div className={`form-group fr-input-group resultats-form-input ${isEmailProValid ? "fr-input-group--valid" : ""}`}>
+                    <label>{props.translation("form.email-pro")}</label>
                     <input type="email"
                         className={`form-control fr-input custom-input ${isEmailProValid ? "custom-input-valid" : ""}`}
                         id="inputEmailPro"
                         name="inputEmailPro"
                         pattern={PATTERN_EMAIL}
                         onChange={handleChange}
+                        placeholder={props.translation("form.email-pro-hint")}
                         required />
                 </div>
-                <div className={`form-group fr-input-group ${isEmailValid ? "fr-input-group--valid" : ""}`} hidden>
-                    <label className="fr-label" for="text-input-valid">{props.translation("form.email")}</label>
+
+                <div className="font-weight-bold" style={{ marginBottom: 20 }}>{props.translation("form.email-intro")}</div>
+                <div className={`form-group fr-input-group resultats-form-input ${isEmailValid ? "fr-input-group--valid" : ""}`} >
+                    <label>{props.translation("form.email")}</label>
                     <input type="email"
                         className={`form-control fr-input custom-input ${isEmailValid ? "custom-input-valid" : ""}`}
                         id="inputEmail"
                         name="inputEmail"
                         pattern={PATTERN_EMAIL}
-                        onChange={handleChange} />
-                    <span className="champs-obligatoires" style={{ fontSize: 13 }}>{props.translation("form.email-info")}</span>
+                        onChange={handleChange}
+                        placeholder={props.translation("form.email-hint")} />
                 </div>
-                <div className={`form-group fr-input-group ${isPhoneValid ? "fr-input-group--valid" : ""}`} hidden>
+                <div className={`form-group fr-input-group resultats-form-input ${isPhoneValid ? "fr-input-group--valid" : ""}`}>
                     <label className="fr-label" for="text-input-valid">{props.translation("form.telephone")}</label>
                     <input type="tel"
                         className={`form-control fr-input custom-input ${isPhoneValid ? "custom-input-valid" : ""}`}
                         id="inputTel"
                         name="inputTel"
                         pattern="[0-9]{10}"
-                        onChange={handleChange} />
+                        onChange={handleChange}
+                        placeholder={props.translation("form.telephone-hint")} />
                 </div>
 
-                <Row style={{ justifyContent: "center" }}>
-                    <button type="submit"
-                        className="fr-btn"
-                        disabled={!canSend}
-                        style={{ marginTop: "23px" }}>{props.translation("form.envoyer")}</button>
-                    <div style={{ alignSelf: "flex-end", marginLeft: 5 }}>{queryShareResponses}</div>
-                </Row>
+                <Col style={{ marginBottom: 20 }}>
+                    <Row style={{ justifyContent: "center" }}>
+                        <button type="submit"
+                            className="fr-btn"
+                            disabled={!canSend}
+                            style={{ marginTop: 23 }}>{props.translation("form.envoyer")}</button>
+                    </Row>
+                    <Row style={{ justifyContent: "center" }}>{queryShareResponses}</Row>
+                </Col>
             </form>
         </div >
     )
@@ -292,6 +299,10 @@ const ComprendreTestStyle = () => (
         font-size: 13px;
     }
 
+    .resultats-form-input {
+        max-width: 400px;
+    }
+
     .resultats-appl-bloc {
         margin-top: 60px;
         padding:20px 30px 20px 30px;
@@ -324,12 +335,6 @@ const ComprendreTestStyle = () => (
     }
     .resultats-item-resources-border {
         border-top: 2px solid var(--gris)
-    }
-
-    @media screen and (max-width: 450px){
-        .form-contact-smallscreen {
-            display: initial;
-        }
     }
     `}</style>
 );

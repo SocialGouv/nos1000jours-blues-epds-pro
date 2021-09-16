@@ -12,47 +12,19 @@ import { STORAGE_GENRE_PATIENT, STORAGE_NOM_PATIENT, STORAGE_PRENOM_PATIENT, Epd
 const Pourquoi = ({ translation }) => (
     <div style={{ textAlign: "justify" }}>
         <p>
-            <span className="comprendre-test-label">{translation("constat")}</span>
-            {translation("constat-content1")}
-            <span className="font-weight-bold">{translation("constat-content2")} </span>
+            {translation("introduction.invitation")}<span className="font-weight-bold">EPDS</span>
         </p>
         <p>
-            <span className="comprendre-test-label">{translation("objectif")}</span>
-            <span className="font-weight-bold">{translation("objectif-content1")}</span>
-            {translation("objectif-content2")}
+            <span className="font-weight-bold">{translation("introduction.explication.partie1")} </span>
+            {translation("introduction.explication.partie2")}
         </p>
         <p>
-            <span className="comprendre-test-label">{translation("comment")}</span>
-            {translation("comment-content1")}
-            <span className="font-weight-bold">{translation("comment-content2")}</span>
-            {translation("comment-content3")}
+            {translation("introduction.diagnostic.partie1")}
+            <span className="font-weight-bold">{translation("introduction.diagnostic.partie2")}</span>
+            {translation("introduction.diagnostic.partie3")}
+            <span className="font-weight-bold">{translation("introduction.diagnostic.partie4")}</span>
         </p>
-        <p>
-            <span className="comprendre-test-label">{translation("informations")}</span>
-            {translation("informations-content1")}
-            <span className="font-weight-bold">{translation("informations-content2")}</span>
-            {translation("informations-content3")}
-            <span className="font-weight-bold">{translation("informations-content4")}</span>
-        </p>
-        <p>
-            <span className="comprendre-test-label">{translation("recommandations")}</span>
-            {translation("recommandations-content1")}
-            <span className="font-weight-bold">{translation("recommandations-content2")}</span>
-        </p>
-        <span className="font-weight-bold">{translation("conclusion")}</span>
     </div >
-);
-
-const Step = ({ number, title, image }) => (
-    <Row className="comprendre-test-step">
-        <Col style={{ padding: "0px" }}>
-            <img src={image} className="comprendre-test-step-image" />
-            <div style={{ alignItems: "flex-start", display: "flex", justifyContent: "center" }}>
-                <div className="comprendre-test-step-number">{number}</div>
-                <div className="text-center comprendre-test-step-text" >{title}</div>
-            </div>
-        </Col>
-    </Row>
 );
 
 function FormInformations(props) {
@@ -149,18 +121,8 @@ export default function ComprendreTest() {
             <HeaderImage image="/img/bg-espace-pro.png" title={t("comprendre-test")} />
 
             <Col className="page-content" style={{ alignItems: "center" }}>
-                <h3 className="page-title">{t("pourquoi-test")}</h3>
+                <h3 className="page-title">{t("comprendre-test")}</h3>
                 <Pourquoi translation={t} />
-
-                <div style={{ marginTop: "15px" }}>
-                    <div className="comprendre-test-label" style={{ marginBottom: "10px" }}>{t("etapes")}</div>
-                    <Row>
-                        <Step number="1" title={t("etape-questionner")} image="./img/icone-questionner.svg" />
-                        <Step number="2" title={t("etape-ressources")} image="./img/icone-ressources.svg" />
-                        <Step number="3" title={t("etape-aide")} image="./img/icone-aide.svg" />
-                        <Step number="4" title={t("etape-planning")} image="./img/icone-planning.svg" />
-                    </Row>
-                </div>
 
                 <FormInformations
                     translation={t}
@@ -192,40 +154,8 @@ const ComprendreTestStyle = () => (
         margin-bottom: 25px;
     }
 
-    .comprendre-test-step {
-        width: fit-content;
-        margin-left: 10px !important;
-        margin-right: 10px !important;
-    }
-
-    .comprendre-test-step-number {
-        font-weight: 900;
-        font-size: 35px;
-        color: var(--bleu-clair);
-        display: flex;
-        align-items: flex-end;
-        margin-top: 2px;
-    }
-
-    .comprendre-test-step-image {
-        height: 70px;
-        width: inherit;
-    }
-
-    .comprendre-test-step-text {
-        margin-left: -7px !important;
-        color: var(--bleu-texte);
-        font-size: 16px;
-    }
-
     .input-name {
         min-width: fit-content;
-    }
-
-    @media screen and (max-width: 450px){
-        .comprendre-test-step {
-            width: -webkit-fill-available !important;
-        }
     }
     `}</style>
 );
