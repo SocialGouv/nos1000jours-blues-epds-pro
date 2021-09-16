@@ -164,13 +164,15 @@ function FormContact(props) {
                         placeholder={props.translation("form.telephone-hint")} />
                 </div>
 
-                <Row style={{ justifyContent: "center" }}>
-                    <button type="submit"
-                        className="fr-btn"
-                        disabled={!canSend}
-                        style={{ marginTop: 23, marginBottom: 20 }}>{props.translation("form.envoyer")}</button>
-                    <div style={{ alignSelf: "flex-end", marginLeft: 5 }}>{queryShareResponses}</div>
-                </Row>
+                <Col style={{ marginBottom: 20 }}>
+                    <Row style={{ justifyContent: "center" }}>
+                        <button type="submit"
+                            className="fr-btn"
+                            disabled={!canSend}
+                            style={{ marginTop: 23 }}>{props.translation("form.envoyer")}</button>
+                    </Row>
+                    <Row style={{ justifyContent: "center" }}>{queryShareResponses}</Row>
+                </Col>
             </form>
         </div >
     )
