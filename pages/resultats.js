@@ -40,8 +40,8 @@ export default function Resultats() {
                 <Col>
                     <p className="font-weight-bold resultats-text">{t("invitation-a-refaire")}</p>
                     <p>
-                        <div className="font-weight-bold resultats-text">{t("oser-parler")}</div><br />
-                        <div className="resultats-text">{t("les-changements")}</div>
+                        <span className="font-weight-bold resultats-text">{t("oser-parler")}</span><br /><br />
+                        <span className="resultats-text">{t("les-changements")}</span>
                     </p>
                 </Col>
 
