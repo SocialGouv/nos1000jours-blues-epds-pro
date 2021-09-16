@@ -38,14 +38,15 @@ export default function Resultats() {
 
                 <Row className="form-contact-smallscreen">
                     <Col>
-                        <p className="font-weight-bold resultats-text">{t("oser-parler")}</p>
-                        <p className="resultats-text">{t("les-changements")}</p>
-                        <p className="font-weight-bold resultats-text">{t("invitation-a-refaire")}</p>
-                    </Col>
-                    <Col>
                         <FormContact translation={t} />
                     </Col>
                 </Row>
+
+                <p className="font-weight-bold resultats-text">{t("invitation-a-refaire")}</p>
+                <p>
+                    <div className="font-weight-bold resultats-text">{t("oser-parler")}</div><br />
+                    <div className="resultats-text">{t("les-changements")}</div>
+                </p>
 
                 <AccordionResources translation={t}
                     sendEmailOnClick={() => router.push(`mailto:${epdsContact.mailContact}&subject=${epdsContact.mailSubject}`)} />
@@ -60,6 +61,7 @@ export default function Resultats() {
 function FormContact(props) {
     const [canSend, setCanSend] = useState(false);
     const [isEmailValid, setEmailValid] = useState(false);
+    const [isPhoneValid, setPhoneValid] = useState(false);
     const [isEmailProValid, setEmailProValid] = useState(false);
     const [queryShareResponses, setQueryShareResponses] = useState();
 
@@ -86,6 +88,7 @@ function FormContact(props) {
                 variables: {
                     email: inputs.inputEmail.value,
                     email_pro: inputs.inputEmailPro.value,
+                    telephone: inputs.inputTel.value,
                     prenom: surname,
                     nom: name,
                     score: score,
@@ -112,6 +115,9 @@ function FormContact(props) {
             case "inputEmail":
                 setEmailValid(e.target.validity.valid);
                 break;
+            case "inputTel":
+                setPhoneValid(e.target.validity.valid);
+                break;
             case "inputEmailPro":
                 setEmailProValid(e.target.validity.valid);
                 break;
@@ -121,8 +127,10 @@ function FormContact(props) {
     return (
         <div>
             <div className="font-weight-bold" style={{ marginBottom: 20 }}>{props.translation("form.score")} {score} / 30</div>
+
+            <div className="font-weight-bold" style={{ marginBottom: 20 }}>{props.translation("form.email-pro-intro")}</div>
             <form onSubmit={send}>
-                <div className={`form-group fr-input-group ${isEmailProValid ? "fr-input-group--valid" : ""}`}>
+                <div className={`form-group fr-input-group resultats-form-input ${isEmailProValid ? "fr-input-group--valid" : ""}`}>
                     <label>{props.translation("form.email-pro")}</label>
                     <input type="email"
                         className={`form-control fr-input custom-input ${isEmailProValid ? "custom-input-valid" : ""}`}
@@ -133,7 +141,9 @@ function FormContact(props) {
                         placeholder={props.translation("form.email-pro-hint")}
                         required />
                 </div>
-                <div className={`form-group fr-input-group ${isEmailValid ? "fr-input-group--valid" : ""}`} >
+
+                <div className="font-weight-bold" style={{ marginBottom: 20 }}>{props.translation("form.email-intro")}</div>
+                <div className={`form-group fr-input-group resultats-form-input ${isEmailValid ? "fr-input-group--valid" : ""}`} >
                     <label>{props.translation("form.email")}</label>
                     <input type="email"
                         className={`form-control fr-input custom-input ${isEmailValid ? "custom-input-valid" : ""}`}
@@ -143,12 +153,22 @@ function FormContact(props) {
                         onChange={handleChange}
                         placeholder={props.translation("form.email-hint")} />
                 </div>
+                <div className={`form-group fr-input-group resultats-form-input ${isPhoneValid ? "fr-input-group--valid" : ""}`}>
+                    <label className="fr-label" for="text-input-valid">{props.translation("form.telephone")}</label>
+                    <input type="tel"
+                        className={`form-control fr-input custom-input ${isPhoneValid ? "custom-input-valid" : ""}`}
+                        id="inputTel"
+                        name="inputTel"
+                        pattern="[0-9]{10}"
+                        onChange={handleChange}
+                        placeholder={props.translation("form.telephone-hint")} />
+                </div>
 
                 <Row style={{ justifyContent: "center" }}>
                     <button type="submit"
                         className="fr-btn"
                         disabled={!canSend}
-                        style={{ marginTop: "23px" }}>{props.translation("form.envoyer")}</button>
+                        style={{ marginTop: 23, marginBottom: 20 }}>{props.translation("form.envoyer")}</button>
                     <div style={{ alignSelf: "flex-end", marginLeft: 5 }}>{queryShareResponses}</div>
                 </Row>
             </form>
@@ -278,6 +298,10 @@ const ComprendreTestStyle = () => (
     <style jsx="true">{`
     .resultats-text {
         font-size: 13px;
+    }
+
+    .resultats-form-input {
+        max-width: 400px;
     }
 
     .resultats-appl-bloc {

@@ -6,10 +6,14 @@
     "invitation-a-refaire": "Nous vous invitons à vous questionner de nouveau dans les 14 jours.",
     "form": {
         "score": "Votre score : ",
-        "email": "Pour recevoir une copie du résultat de votre test, renseignez ici votre adresse mail. (optionel)",
-        "email-hint": "Email de la patiente",
-        "email-pro": "Partager le résultat de votre test avec le professionnel qui vous accompagne en ce moment.",
+        "email-pro-intro": "Partager le résultat de votre test avec le professionnel qui vous accompagne en ce moment.",
+        "email-pro": "Adresse email du professionnel présent *",
         "email-pro-hint": "Email du professionnel",
+        "email-intro": "Pour recevoir une copie du résultat de votre test, renseignez ici votre adresse mail. (optionnel)",
+        "email": "Votre adresse email",
+        "email-hint": "Email de la patiente",
+        "telephone": "Votre numéro de téléphone",
+        "telephone-hint": "Téléphone de la patiente",
         "envoyer": "Envoyer"
     },
     "accordion": {
