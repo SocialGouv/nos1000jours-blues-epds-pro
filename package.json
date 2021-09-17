@@ -9,7 +9,6 @@
     "build": "next build",
     "export": "next export",
     "start": "next start",
-    "start:ci": "next build; next start",
     "test": "jest"
   },
   "dependencies": {
