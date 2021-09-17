@@ -10,5 +10,8 @@ module.exports = {
                 permanent: true,
             },
         ]
+    },
+    env: {
+        API_URL2: process.env.NEXT_PUBLIC_API_URL
     }
 }

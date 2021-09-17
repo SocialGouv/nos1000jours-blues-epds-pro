@@ -21,6 +21,7 @@ import {
 
 console.log("EPDS API_URL", API_URL);
 console.log("EPDS process.env.NEXT_PUBLIC_API_URL", process.env.NEXT_PUBLIC_API_URL);
+console.log("EPDS API_URL2", process.env.API_URL2);
 
 export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
     const { t } = useTranslation('questionnaire-epds');
