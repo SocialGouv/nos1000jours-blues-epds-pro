@@ -30,6 +30,8 @@ jobs:
         project: ${{ env.project }}
         token: ${{ secrets.GITHUB_TOKEN }}
         imageName: nos1000jours/${{ env.project }}
+        dockerbuildargs: |
+          NEXT_PUBLIC_API_URL="https://backoffice-develop-dev-les1000jours.dev.fabrique.social.gouv.fr"
 
   ##############################################################################
   ## GENERATE KUBERNETES MANIFESTS
