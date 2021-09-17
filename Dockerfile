@@ -12,4 +12,5 @@ USER node
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
-CMD ["yarn", "start"]
+# CMD ["yarn", "start"]
+CMD yarn build; yarn start
