@@ -29,7 +29,7 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         imageName: nos1000jours/${{ env.project }}
         dockerbuildargs: |
-          NEXT_PUBLIC_API_URL=https://backoffice-env-1000jours-alpha-60pfav.dev.fabrique.social.gouv.fr
+          NEXT_PUBLIC_API_URL=https://backoffice-preprod-les1000jours.dev.fabrique.social.gouv.fr
 
   ##############################################################################
   ## GENERATE PREPRODUCTION MANIFESTS
