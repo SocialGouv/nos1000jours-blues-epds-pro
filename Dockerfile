@@ -2,13 +2,14 @@ FROM node:15.9-alpine
 
 WORKDIR /app
 
+COPY . .
+
 RUN chown node: /app
 
 USER node
 
-COPY . .
-
-RUN yarn --production --frozen-lockfile --prefer-offline && yarn cache clean
+RUN yarn --frozen-lockfile --prefer-offline && yarn cache clean
+# RUN yarn --production --frozen-lockfile --prefer-offline && yarn cache clean
 # RUN yarn build
 
 ENV NODE_ENV=production
