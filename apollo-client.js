@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import { API_URL } from "./src/constants/constants";
-console.log("API_URL", API_URL);
-console.log("process.env.NEXT_PUBLIC_API_URL", process.env.NEXT_PUBLIC_API_URL);
+console.log("APOLLO API_URL", API_URL);
+console.log("APOLLO process.env.NEXT_PUBLIC_API_URL", process.env.NEXT_PUBLIC_API_URL);
 export const client = new ApolloClient({
   uri: `${API_URL}/graphql?nocache`,
   cache: new InMemoryCache(),
