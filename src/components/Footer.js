@@ -1,85 +1,56 @@
 import React from "react";
-import Link from "next/link";
 
 import { useTranslation } from 'next-i18next';
-import { Row, Col } from "react-bootstrap";
-
-const LightLink = ({ href, children }) => (
-  <Link href={href} passHref>
-    <a style={{
-      color: "black",
-      fontSize: "12px",
-      lineHeight: "22px"
-    }} href={href}>{children}</a>
-  </Link >
-);
-
-const Separator = () => (
-  <span style={{ color: "black", marginRight: 5 }}>-</span>
-);
 
 export function Footer() {
   const { t } = useTranslation('footer');
 
   return (
-    <footer className="content-footer">
-
-      <Row className="content-row">
-        <img
-          src="/img/logo-republique-francaise.png"
-          height={60}
-          alt="Ministère des solidarités et de la santé"
-        />
-
-        <Col>
-          <div className="title">{t('la-fabrique')}</div>
-          <div className="container text-center box3">
-            <ul className="list-inline">
-              <li className="list-inline-item">
-                <LightLink href="/annexes/cgu">{t('cgu')}</LightLink>
+    <footer className="fr-footer" role="contentinfo" id="footer" style={{ marginTop: 30 }}>
+      <div className="fr-container">
+        <div className="fr-footer__body">
+          <div className="fr-footer__brand fr-enlarge-link">
+            <a href="/" title="Retour à l’accueil">
+              <p className="fr-logo" title="république française">{t('republique')}<br />{t('francaise')}</p>
+            </a>
+          </div>
+          <div className="fr-footer__content">
+            <p className="fr-footer__content-desc">{t('la-fabrique')}</p>
+            <ul className="fr-footer__content-list">
+              <li className="fr-footer__content-item">
+                <a className="fr-footer__content-link" href="https://legifrance.gouv.fr">legifrance.gouv.fr</a>
               </li>
-              <Separator />
-              <li className="list-inline-item">
-                <LightLink href="/annexes/mentions-legales">{t('mentions-legales')}</LightLink>
+              <li className="fr-footer__content-item">
+                <a className="fr-footer__content-link" href="https://gouvernement.fr">gouvernement.fr</a>
               </li>
-              <Separator />
-              <li className="list-inline-item">
-                <LightLink href="/annexes/politique-confidentialite">
-                  {t('politique-confidentialite')}
-                </LightLink>
+              <li className="fr-footer__content-item">
+                <a className="fr-footer__content-link" href="https://service-public.fr">service-public.fr</a>
+              </li>
+              <li className="fr-footer__content-item">
+                <a className="fr-footer__content-link" href="https://data.gouv.fr">data.gouv.fr</a>
               </li>
             </ul>
           </div>
-        </Col>
-      </Row>
-
-      <FooterStyle />
+        </div>
+        <div className="fr-footer__bottom">
+          <ul className="fr-footer__bottom-list">
+            <li className="fr-footer__bottom-item">
+              <a className="fr-footer__bottom-link" href="/annexes/cgu">{t('cgu')}</a>
+            </li>
+            <li className="fr-footer__bottom-item">
+              <a className="fr-footer__bottom-link" href="/annexes/mentions-legales">{t('mentions-legales')}</a>
+            </li>
+            <li className="fr-footer__bottom-item">
+              <a className="fr-footer__bottom-link" href="/annexes/politique-confidentialite">{t('politique-confidentialite')}</a>
+            </li>
+          </ul>
+          <div className="fr-footer__bottom-copy">
+            <p>{t('licence')} <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank">licence etalab-2.0</a>
+            </p>
+          </div>
+        </div>
+      </div>
     </footer >
+
   );
 }
-
-const FooterStyle = () => (
-  <style jsx="true">{`
-  .content-footer {
-    background-color: var(--bleu-clair);
-    border-radius: 25px 25px 0 0;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-top: 20px;
-  }
-
-  .content-row {
-    align-items: center;
-    margin-left: 20px;
-  }
-
-  .title {
-    font-size: 20px;
-    text-align: center;
-    font-weight: bold;
-    line-height: 33px;
-    color: var(--bleu-texte);
-    margin-right: 10px;
-  }
-  `}</style>
-);
