@@ -200,7 +200,6 @@ const ComprendreTestStyle = () => (
     .questionnaire {
         margin-top: 20px;
         font-style: italic;
-        font-size: 13px;
     }
 
     .questionnaire-buttons {
