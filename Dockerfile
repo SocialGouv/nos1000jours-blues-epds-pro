@@ -5,11 +5,13 @@ WORKDIR /app
 COPY . .
 
 RUN yarn --production --frozen-lockfile --prefer-offline && yarn cache clean
+
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+
 RUN yarn build
 
 USER node
 
-ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
