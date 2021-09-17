@@ -101,7 +101,7 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
         <ContentLayout title={t("questionnaire-epds")}>
             <HeaderImage image="/img/bg-espace-pro.png" title={t("questionnaire-epds")} />
 
-            <div className="page-content" style={{ alignItems: "center" }}>
+            <div className="page-content questionnaire-content" style={{ alignItems: "center" }}>
                 <div className="questionnaire">
                     {t("introduction1")}
                     <span className="font-weight-bold">{t("introduction2")}</span>
@@ -219,6 +219,11 @@ const ComprendreTestStyle = () => (
     @media screen and (max-width: 450px){
         .progress-number {
             padding-right: 0px;
+        }
+
+        .questionnaire-content {
+            margin-left: 15px;
+            margin-right: 15px;
         }
     }
     `}</style>

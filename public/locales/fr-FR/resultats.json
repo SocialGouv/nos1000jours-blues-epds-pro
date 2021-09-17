@@ -5,11 +5,15 @@
     "les-changements": "Les changements importants liés à l’arrivée d’un bébé sont des facteurs de stress dont certains signes évocateurs sont normaux durant cette période. Parlez de vos difficultés des premiers mois, est essentiel pour que le professionnel de santé qui vous suit puisse à tout moment vous accompagner. Des aides et un accompagnement peuvent être mis en place pour vous aider durant cette période qui nécessite du soutien. En parler avec un professionnel de santé et votre entourage, c’est se soigner. Parce que vous n’êtes pas seul(e) et qu’en parler a permis à de nombreux parents d’aller mieux.",
     "invitation-a-refaire": "Nous vous invitons à vous questionner de nouveau dans les 14 jours.",
     "form": {
-        "intro-contact": "Si vous souhaitez être contacté par le professionnel de santé, renseignez votre adresse email ou votre numéro de téléphone :",
+        "score": "Votre score : ",
+        "email-pro-intro": "Partager le résultat de votre test avec le professionnel qui vous accompagne en ce moment.",
+        "email-pro": "Adresse email du professionnel présent *",
+        "email-pro-hint": "Email du professionnel",
+        "email-intro": "Pour recevoir une copie du résultat de votre test, renseignez ici votre adresse mail. (optionnel)",
         "email": "Votre adresse email",
-        "email-info": "(le mail ne vous sera pas envoyé)",
+        "email-hint": "Votre email",
         "telephone": "Votre numéro de téléphone",
-        "email-pro": "Adresse email de votre référent santé *",
+        "telephone-hint": "Votre telephone",
         "envoyer": "Envoyer"
     },
     "accordion": {
