@@ -38,10 +38,10 @@ export default function Resultats() {
                 <FormContact translation={t} />
 
                 <Col>
-                    <p className="font-weight-bold resultats-text">{t("invitation-a-refaire")}</p>
+                    <p className="font-weight-bold">{t("invitation-a-refaire")}</p>
                     <p>
-                        <span className="font-weight-bold resultats-text">{t("oser-parler")}</span><br /><br />
-                        <span className="resultats-text">{t("les-changements")}</span>
+                        <span className="font-weight-bold">{t("oser-parler")}</span><br /><br />
+                        {t("les-changements")}
                     </p>
                 </Col>
 
@@ -295,10 +295,6 @@ export const getStaticProps = async ({ locale }) => ({
 
 const ComprendreTestStyle = () => (
     <style jsx="true">{`
-    .resultats-text {
-        font-size: 13px;
-    }
-
     .resultats-form-input {
         max-width: 400px;
     }

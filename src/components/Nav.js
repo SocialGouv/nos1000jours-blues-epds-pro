@@ -42,7 +42,6 @@ const NavStyle = () => (
   .nav-link {
     margin: 0 10px;
     color: var(--bleu-texte) !important;
-    font-size: 13px;
   }
   `}</style>
 );
