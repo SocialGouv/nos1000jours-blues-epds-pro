@@ -11,13 +11,15 @@ import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
 import { EpdsQuestion } from "../src/components/EpdsQuestion";
 import {
+    API_URL,
     STORAGE_TOTAL_SCORE,
     EPDS_SOURCE,
     EpdsGender,
     STORAGE_RESULTS_BOARD,
     STORAGE_GENRE_PATIENT
 } from "../src/constants/constants";
-
+console.log("API_URL:", API_URL);
+console.log("process.env.NEXT_PUBLIC_API_URL:", process.env.NEXT_PUBLIC_API_URL);
 export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
     const { t } = useTranslation('questionnaire-epds');
     const router = useRouter();
