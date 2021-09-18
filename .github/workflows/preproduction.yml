@@ -1,15 +1,13 @@
-name: Review
+name: Preproduction
 
 on:
   push:
-    branches:
-      - "**"
-    tags-ignore:
+    tags:
       - v*
 
 concurrency:
+  group: preproduction
   cancel-in-progress: true
-  group: ${{ github.ref }}
 
 jobs:
   ##############################################################################
@@ -31,60 +29,36 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         imageName: nos1000jours/${{ env.project }}
         dockerbuildargs: |
-          NEXT_PUBLIC_API_URL=https://backoffice-develop-dev-les1000jours.dev.fabrique.social.gouv.fr
+          NEXT_PUBLIC_API_URL=https://backoffice-preprod-les1000jours.dev.fabrique.social.gouv.fr
 
   ##############################################################################
-  ## GENERATE KUBERNETES MANIFESTS
+  ## GENERATE PREPRODUCTION MANIFESTS
   ##############################################################################
   manifests:
-    name: Generate k8s manifests
+    name: Preproduction manifests
     runs-on: ubuntu-latest
     steps:
 
     - name: Use autodevops manifests generation
       uses: SocialGouv/actions/autodevops-manifests@master
       with:
-        environment: "dev"
-
-    - name: ⛑ Debug manifests ⛑
-      id: debug-manifests
-      run: |
-        TEXT=$(cat manifests.yml | npx @socialgouv/parse-manifests --text)
-        echo "${TEXT}"
-        MARKDOWN=$(cat manifests.yml | npx @socialgouv/parse-manifests --markdown)
-        MARKDOWN="${MARKDOWN//$'\n'/'%0A'}"
-        MARKDOWN="${MARKDOWN//$'\r'/'%0D'}"
-        echo "::set-output name=markdown::$MARKDOWN"
-      env:
-        RANCHER_PROJECT_ID: ${{ secrets.RANCHER_PROJECT_ID }}
-
-    # necessary to find the PR on push events
-    - uses: jwalton/gh-find-current-pr@v1
-      id: finder
-
-    - name: ⛑ Comment PR
-      uses: marocchino/sticky-pull-request-comment@v2
-      with:
-        number: ${{ steps.finder.outputs.pr }}
-        message: |
-
-          Deployment ${{ github.sha }}.
-
-          ${{ steps.debug-manifests.outputs.markdown }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        environment: "preprod"
 
   ##############################################################################
-  ## DEPLOY APPLICATION OVER KUBERNETES
+  ## DEPLOY PREPRODUCTION APPLICATION
   ##############################################################################
   deploy:
-    name: Deploy application
+    name: Deploy preproduction
     runs-on: ubuntu-latest
     needs: [register, manifests]
+    environment:
+      name: preproduction
+      url: https://${{ env.namespace }}.${{ env.SOCIALGOUV_BASE_DOMAIN }}
     steps:
-
+  
     - name: Use autodevops deployment
       uses: SocialGouv/actions/autodevops-deploy@master
       with:
-        environment: "dev"
+        environment: "preprod"
         token: ${{ secrets.GITHUB_TOKEN }}
-        kubeconfig: ${{ secrets.KUBECONFIG }} # TODO: use SOCIALGOUV_KUBE_CONFIG_DEV
+        kubeconfig: ${{ secrets.KUBECONFIG }}
