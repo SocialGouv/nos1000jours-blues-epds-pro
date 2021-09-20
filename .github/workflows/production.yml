@@ -32,9 +32,41 @@ jobs:
           NEXT_PUBLIC_API_URL=https://backoffice-preprod-les1000jours.dev.fabrique.social.gouv.fr
 
   ##############################################################################
-  ## GENERATE PRODUCTION MANIFESTS
+  ## GENERATE PREPRODUCTION MANIFESTS
   ##############################################################################
   manifests:
+    name: Preproduction manifests
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Use autodevops manifests generation
+      uses: SocialGouv/actions/autodevops-manifests@master
+      with:
+        environment: "preprod"
+
+  ##############################################################################
+  ## DEPLOY PREPRODUCTION APPLICATION
+  ##############################################################################
+  deploy-preprod:
+    name: Deploy application
+    runs-on: ubuntu-latest
+    needs: [register, manifests]
+    environment:
+      name: preproduction
+      url: https://${{ env.namespace }}.${{ env.SOCIALGOUV_BASE_DOMAIN }}
+    steps:
+  
+    - name: Use autodevops deployment
+      uses: SocialGouv/actions/autodevops-deploy@master
+      with:
+        environment: "preprod"
+        token: ${{ secrets.GITHUB_TOKEN }}
+        kubeconfig: ${{ secrets.KUBECONFIG }}
+
+  ##############################################################################
+  ## GENERATE PRODUCTION MANIFESTS
+  ##############################################################################
+  manifests-prod:
     name: Production manifests
     runs-on: ubuntu-latest
     steps:
@@ -47,10 +79,10 @@ jobs:
   ##############################################################################
   ## DEPLOY PRODUCTION APPLICATION
   ##############################################################################
-  deploy:
-    name: Deploy production
+  deploy-prod:
+    name: Deploy application
     runs-on: ubuntu-latest
-    needs: [register, manifests]
+    needs: [deploy-preprod, manifests-prod]
     environment:
       name: production
       url: https://${{ env.namespace }}.${{ env.SOCIALGOUV_BASE_DOMAIN }}
