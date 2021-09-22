@@ -37,14 +37,6 @@ export default function Resultats() {
                 <h3 className="page-title">{t("resultat")}</h3>
                 <FormContact translation={t} />
 
-                <Col>
-                    <p className="font-weight-bold">{t("invitation-a-refaire")}</p>
-                    <p>
-                        <span className="font-weight-bold">{t("oser-parler")}</span><br /><br />
-                        {t("les-changements")}
-                    </p>
-                </Col>
-
                 <AccordionResources translation={t}
                     sendEmailOnClick={() => router.push(`mailto:${epdsContact.mailContact}&subject=${epdsContact.mailSubject}`)} />
                 <AdsForApp translation={t} />
