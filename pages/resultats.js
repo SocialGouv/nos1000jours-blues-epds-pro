@@ -123,7 +123,7 @@ function FormContact(props) {
 
     return (
         <div>
-            <div className="font-weight-bold" style={{ marginBottom: 20 }}>{props.translation("tab.score")} {score} / 30</div>
+            <div className="font-weight-bold resultats-score">{props.translation("tab.score")} {score} / 30</div>
             <ResultsTab translation={props.translation} resultsBoard={resultsBoard} />
 
 
@@ -328,6 +328,12 @@ const ComprendreTestStyle = () => (
     <style jsx="true">{`
     .resultats-form-input {
         max-width: 400px;
+    }
+
+    .resultats-score {
+        margin-bottom: 40px;
+        text-align: center;
+        font-size: 24px
     }
 
     .resultats-appl-bloc {
