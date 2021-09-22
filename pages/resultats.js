@@ -63,11 +63,12 @@ function FormContact(props) {
     const [queryShareResponses, setQueryShareResponses] = useState();
 
     const score = getInLocalStorage(STORAGE_TOTAL_SCORE);
+    const resultsBoard = jsonParse(getInLocalStorage(STORAGE_RESULTS_BOARD));
 
     const [sendEmailReponseQuery] = useMutation(EPDS_PARTAGE_INFORMATION, {
         client: client,
         onError: (err) => {
-            console.log(err);
+            console.warn(err);
             setQueryShareResponses(err.toString());
         },
         onCompleted: () => {
@@ -79,7 +80,6 @@ function FormContact(props) {
         if (canSend) {
             const name = localStorage.getItem(STORAGE_NOM_PATIENT);
             const surname = localStorage.getItem(STORAGE_PRENOM_PATIENT);
-            const resultsBoard = JSON.parse(localStorage.getItem(STORAGE_RESULTS_BOARD));
 
             await sendEmailReponseQuery({
                 variables: {
@@ -123,7 +123,9 @@ function FormContact(props) {
 
     return (
         <div>
-            <div className="font-weight-bold" style={{ marginBottom: 20 }}>{props.translation("form.score")} {score} / 30</div>
+            <div className="font-weight-bold" style={{ marginBottom: 20 }}>{props.translation("tab.score")} {score} / 30</div>
+            <ResultsTab translation={props.translation} resultsBoard={resultsBoard} />
+
 
             <div className="font-weight-bold" style={{ marginBottom: 20 }}>{props.translation("form.email-pro-intro")}</div>
             <form onSubmit={send}>
@@ -281,10 +283,39 @@ const AdsForApp = ({ translation }) => (
     </div >
 )
 
+const ResultsTab = ({ translation, resultsBoard }) => (
+    <div className="fr-table fr-table--bordered">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">{translation("tab.question")}</th>
+                    <th scope="col">{translation("tab.reponse")}</th>
+                    <th scope="col">{translation("tab.point")}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {(typeof resultsBoard == 'object') ? resultsBoard.map(data => buildDetailScore(data)) : ""}
+            </tbody>
+        </table>
+    </div >
+);
+
+const buildDetailScore = (info) => (
+    <tr key={info.question}>
+        <td>{info.question}</td>
+        <td>{info.response}</td>
+        <td>{info.points}</td>
+    </tr>
+);
+
 function getInLocalStorage(key) {
     if (typeof window !== "undefined") {
         return localStorage.getItem(key);
     }
+}
+
+function jsonParse(data) {
+    if (typeof data !== 'undefined') { return JSON.parse(data); }
 }
 
 export const getStaticProps = async ({ locale }) => ({
