@@ -47,7 +47,7 @@ export default function Resultats() {
     );
 }
 
-function FormContact(props) {
+const FormContact = (props) => {
     const [canSend, setCanSend] = useState(false);
     const [isEmailValid, setEmailValid] = useState(false);
     const [isPhoneValid, setPhoneValid] = useState(false);
@@ -301,13 +301,11 @@ const buildDetailScore = (info) => (
 );
 
 function getInLocalStorage(key) {
-    if (typeof window !== "undefined") {
-        return localStorage.getItem(key);
-    }
+    if (typeof window !== "undefined") return localStorage.getItem(key);
 }
 
 function jsonParse(data) {
-    if (typeof data !== 'undefined') { return JSON.parse(data); }
+    if (typeof data !== 'undefined') return JSON.parse(data);
 }
 
 export const getStaticProps = async ({ locale }) => ({
