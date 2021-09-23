@@ -51,7 +51,8 @@ const FormContact = (props) => {
     const [canSend, setCanSend] = useState(false);
     const [isEmailValid, setEmailValid] = useState(false);
     const [isPhoneValid, setPhoneValid] = useState(false);
-    const [isEmailProValid, setEmailProValid] = useState(false);
+    const [isEmailPro1Valid, setEmailPro1Valid] = useState(false);
+    const [isEmailPro2Valid, setEmailPro2Valid] = useState(false);
     const [queryShareResponses, setQueryShareResponses] = useState();
 
     const score = getInLocalStorage(STORAGE_TOTAL_SCORE);
@@ -76,7 +77,8 @@ const FormContact = (props) => {
             await sendEmailReponseQuery({
                 variables: {
                     email: inputs.inputEmail.value,
-                    email_pro: inputs.inputEmailPro.value,
+                    email_pro1: inputs.inputEmailPro1.value,
+                    email_pro2: inputs.inputEmailPro2.value,
                     telephone: inputs.inputTel.value,
                     prenom: surname,
                     nom: name,
@@ -96,8 +98,8 @@ const FormContact = (props) => {
     }
 
     useEffect(() => {
-        setCanSend(isEmailProValid);
-    }, [isEmailProValid]);
+        setCanSend(isEmailPro1Valid);
+    }, [isEmailPro1Valid]);
 
     function handleChange(e) {
         switch (e.target.id) {
@@ -107,8 +109,11 @@ const FormContact = (props) => {
             case "inputTel":
                 setPhoneValid(e.target.validity.valid);
                 break;
-            case "inputEmailPro":
-                setEmailProValid(e.target.validity.valid);
+            case "inputEmailPro1":
+                setEmailPro1Valid(e.target.validity.valid);
+                break;
+            case "inputEmailPro2":
+                setEmailPro2Valid(e.target.validity.valid);
                 break;
         }
     }
@@ -119,21 +124,30 @@ const FormContact = (props) => {
             <ResultsTab translation={props.translation} resultsBoard={resultsBoard} />
 
 
-            <div className="font-weight-bold" style={{ marginBottom: 20 }}>{props.translation("form.email-pro-intro")}</div>
+            <div className="font-weight-bold" style={{ marginBottom: 20 }}>{props.translation("form.email-pro1-intro")}</div>
             <form onSubmit={send}>
-                <div className={`form-group fr-input-group resultats-form-input ${isEmailProValid ? "fr-input-group--valid" : ""}`}>
-                    <label>{props.translation("form.email-pro")}</label>
+                <div className={`form-group fr-input-group resultats-form-input ${isEmailPro1Valid ? "fr-input-group--valid" : ""}`}>
+                    <label>{props.translation("form.email-pro1")}</label>
                     <input type="email"
-                        className={`form-control fr-input custom-input ${isEmailProValid ? "custom-input-valid" : ""}`}
-                        id="inputEmailPro"
-                        name="inputEmailPro"
+                        className={`form-control fr-input custom-input ${isEmailPro1Valid ? "custom-input-valid" : ""}`}
+                        id="inputEmailPro1"
+                        name="inputEmailPro1"
                         pattern={PATTERN_EMAIL}
                         onChange={handleChange}
-                        placeholder={props.translation("form.email-pro-hint")}
+                        placeholder={props.translation("form.email-pro1-hint")}
                         required />
                 </div>
-
-                <div className="font-weight-bold" style={{ marginBottom: 20 }}>{props.translation("form.email-intro")}</div>
+                <div className={`form-group fr-input-group resultats-form-input ${isEmailPro2Valid ? "fr-input-group--valid" : ""}`}>
+                    <label>{props.translation("form.email-pro2")}</label>
+                    <input type="email"
+                        className={`form-control fr-input custom-input ${isEmailPro2Valid ? "custom-input-valid" : ""}`}
+                        id="inputEmailPro2"
+                        name="inputEmailPro2"
+                        pattern={PATTERN_EMAIL}
+                        onChange={handleChange}
+                        placeholder={props.translation("form.email-pro2-hint")}
+                    />
+                </div>
                 <div className={`form-group fr-input-group resultats-form-input ${isEmailValid ? "fr-input-group--valid" : ""}`} >
                     <label>{props.translation("form.email")}</label>
                     <input type="email"

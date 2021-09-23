@@ -8,14 +8,15 @@
         "point": "Score"
     },
     "form": {
-        "email-pro-intro": "Partager le résultat de votre test avec le professionnel qui vous accompagne en ce moment.",
-        "email-pro": "Adresse email du professionnel présent *",
-        "email-pro-hint": "Email du professionnel",
-        "email-intro": "Pour recevoir une copie du résultat de votre test, renseignez ici votre adresse mail. (optionnel)",
-        "email": "Votre adresse email",
-        "email-hint": "Votre email",
-        "telephone": "Votre numéro de téléphone",
-        "telephone-hint": "Votre telephone",
+        "email-pro1-intro": "Recevez les résultats du test par mail",
+        "email-pro1": "Adresse email du professionnel présent *",
+        "email-pro1-hint": "Email du professionnel",
+        "email-pro2": "Adresse email d'un second professionnel",
+        "email-pro2-hint": "Email du second professionnel",
+        "email": "Adresse email du patient",
+        "email-hint": "Email du patient",
+        "telephone": "Numéro de téléphone du patient",
+        "telephone-hint": "Numéro du patient",
         "envoyer": "Envoyer"
     },
     "accordion": {
