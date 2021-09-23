@@ -148,7 +148,7 @@ const FormContact = (props) => {
                         placeholder={props.translation("form.email-hint")} />
                 </div>
                 <div className={`form-group fr-input-group resultats-form-input ${isPhoneValid ? "fr-input-group--valid" : ""}`}>
-                    <label className="fr-label" for="text-input-valid">{props.translation("form.telephone")}</label>
+                    <label>{props.translation("form.telephone")}</label>
                     <input type="tel"
                         className={`form-control fr-input custom-input ${isPhoneValid ? "custom-input-valid" : ""}`}
                         id="inputTel"
