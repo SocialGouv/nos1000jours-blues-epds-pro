@@ -11,6 +11,7 @@ import {
   epdsRessourcesPremiersMois,
   epdsSitesInformation
 } from "../../src/constants/epdsResultInformation";
+import { Col } from "react-bootstrap";
 
 
 export default function RessourcesParents() {
@@ -22,6 +23,11 @@ export default function RessourcesParents() {
         <div className="cgu-title">
           <h1>{t("ressources")}</h1>
         </div>
+
+        <Col>
+          <span className="font-weight-bold">{t("oser-parler")}</span><br /><br />
+          <p>{t("les-changements")}</p>
+        </Col>
 
         <AccordionResources translation={t}
           sendEmailOnClick={() => router.push(`mailto:${epdsContact.mailContact}&subject=${epdsContact.mailSubject}`)} />
