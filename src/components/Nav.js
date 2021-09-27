@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Nav as BSNav, Navbar } from "react-bootstrap";
 import { useTranslation } from 'next-i18next';
 
 export function Nav() {
   const { t } = useTranslation('common');
+  const [isResourcesPage, setResourcesPage] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const href = window.location.href;
+      setResourcesPage(href.includes("annexes/ressources-parents"))
+    }
+  }, []);
 
   return (
     <Navbar sticky="top" bg="white" expand="lg">
       <Container>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <div>
-          <a href="/comprendre-test" alt="Retour à l'accueil">
+          <a href="/comprendre-test" alt="Retour à l'accueil" style={isResourcesPage ? { pointerEvents: "none" } : { pointerEvents: "auto" }}>
             <img
               src="/img/logo-1000j.png"
               height={100}
@@ -23,17 +31,14 @@ export function Nav() {
           id="responsive-navbar-nav"
           className="justify-content-end">
           <BSNav>
-            <a className="nav-link" href="/pourquoi" hidden>{t('nav-pourquoi')}</a>
-            <a className="nav-link" href="/comment" hidden>{t('nav-comment')}</a>
-            <a className="nav-link" href="/qui" hidden>{t('nav-qui')}</a>
             <a className="nav-link" href="mailto:contact-nos1000jours@fabrique.social.gouv.fr&subject=Démarrage">{t('nav-contact')}</a>
-            <a className="nav-link" href="/comprendre-test">{t('nav-professionnel')}</a>
+            <a className="nav-link" href="/comprendre-test" hidden={isResourcesPage}>{t('nav-professionnel')}</a>
           </BSNav>
         </Navbar.Collapse>
 
       </Container>
       <NavStyle />
-    </Navbar>
+    </Navbar >
   );
 }
 
