@@ -86,8 +86,8 @@ const ItemSitesInformation = () => (
 const ItemLignesTelephoniques = () => (
   <div style={{ fontSize: 14 }}>
     <div className="ressources-contact-item" >
-      {epdsLignes.map((contact, index) => {
-        return <div style={{ marginBottom: 30 }} key={index}>
+      {epdsLignes.map((contact, index) => (
+        <div style={{ marginBottom: 30 }} key={index}>
           <div className="ressources-contact-title">{contact.contactName}</div>
           <div>{contact.thematic}</div>
           <div className="font-weight-bold">{contact.openingTime}</div>
@@ -96,19 +96,19 @@ const ItemLignesTelephoniques = () => (
             <div className="font-weight-bold">{contact.phoneNumber}</div>
           </div>
         </div>
-      })}
+      ))}
     </div>
   </div >
 )
 
 const ItemResources = () => (
   <div>
-    {epdsRessourcesPremiersMois.map((resource, index) => {
-      return <div className={`ressources-item ${index > 0 ? "ressources-item-border" : ""}`} key={index} >
+    {epdsRessourcesPremiersMois.map((resource, index) => (
+      <div className={`ressources-item ${index > 0 ? "ressources-item-border" : ""}`} key={index} >
         <b>{resource.name}</b>
         {resource.description}
       </div>
-    })}
+    ))}
   </div>
 )
 
