@@ -70,8 +70,9 @@ export const EPDS_ADD_RESPONSE = gql`
 
 export const EPDS_PARTAGE_INFORMATION = gql`
   mutation (
-    $email: String!
+    $email: String
     $email_pro: String!
+    $email_pro_secondaire: String
     $telephone: String
     $prenom: String
     $nom: String
@@ -83,6 +84,7 @@ export const EPDS_PARTAGE_INFORMATION = gql`
     epdsPartage(
       email: $email
       email_pro: $email_pro
+      email_pro_secondaire: $email_pro_secondaire
       telephone: $telephone
       prenom: $prenom
       nom: $nom

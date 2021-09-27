@@ -2,20 +2,13 @@ import { React, useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { AccordionItem, Accordion } from '@dataesr/react-dsfr';
-import { useRouter } from 'next/router';
 import { useMutation } from "@apollo/client";
+import { } from '@dataesr/react-dsfr';
+
 
 import { ContentLayout } from "../src/components/Layout";
 import { HeaderImage } from "../src/components/HeaderImage";
 import { client, EPDS_PARTAGE_INFORMATION } from "../apollo-client";
-import {
-    epdsContact,
-    epdsLignes,
-    epdsProfessionnelsSante,
-    epdsRessourcesPremiersMois,
-    epdsSitesInformation
-} from "../src/constants/epdsResultInformation";
 import {
     PATTERN_EMAIL,
     STORAGE_NOM_PATIENT,
@@ -27,7 +20,6 @@ import {
 
 export default function Resultats() {
     const { t } = useTranslation('resultats');
-    const router = useRouter();
 
     return (
         <ContentLayout title={t("header")}>
@@ -36,17 +28,6 @@ export default function Resultats() {
             <Col className="page-content" style={{ alignItems: "center" }}>
                 <h3 className="page-title">{t("resultat")}</h3>
                 <FormContact translation={t} />
-
-                <Col>
-                    <p className="font-weight-bold">{t("invitation-a-refaire")}</p>
-                    <p>
-                        <span className="font-weight-bold">{t("oser-parler")}</span><br /><br />
-                        {t("les-changements")}
-                    </p>
-                </Col>
-
-                <AccordionResources translation={t}
-                    sendEmailOnClick={() => router.push(`mailto:${epdsContact.mailContact}&subject=${epdsContact.mailSubject}`)} />
                 <AdsForApp translation={t} />
             </Col >
 
@@ -55,19 +36,21 @@ export default function Resultats() {
     );
 }
 
-function FormContact(props) {
+const FormContact = (props) => {
     const [canSend, setCanSend] = useState(false);
     const [isEmailValid, setEmailValid] = useState(false);
     const [isPhoneValid, setPhoneValid] = useState(false);
     const [isEmailProValid, setEmailProValid] = useState(false);
+    const [isEmailProSecondaireValid, setEmailProSecondaireValid] = useState(false);
     const [queryShareResponses, setQueryShareResponses] = useState();
 
     const score = getInLocalStorage(STORAGE_TOTAL_SCORE);
+    const resultsBoard = jsonParse(getInLocalStorage(STORAGE_RESULTS_BOARD));
 
     const [sendEmailReponseQuery] = useMutation(EPDS_PARTAGE_INFORMATION, {
         client: client,
         onError: (err) => {
-            console.log(err);
+            console.warn(err);
             setQueryShareResponses(err.toString());
         },
         onCompleted: () => {
@@ -79,12 +62,12 @@ function FormContact(props) {
         if (canSend) {
             const name = localStorage.getItem(STORAGE_NOM_PATIENT);
             const surname = localStorage.getItem(STORAGE_PRENOM_PATIENT);
-            const resultsBoard = JSON.parse(localStorage.getItem(STORAGE_RESULTS_BOARD));
 
             await sendEmailReponseQuery({
                 variables: {
                     email: inputs.inputEmail.value,
                     email_pro: inputs.inputEmailPro.value,
+                    email_pro_secondaire: inputs.inputEmailProSecondaire.value,
                     telephone: inputs.inputTel.value,
                     prenom: surname,
                     nom: name,
@@ -118,28 +101,42 @@ function FormContact(props) {
             case "inputEmailPro":
                 setEmailProValid(e.target.validity.valid);
                 break;
+            case "inputEmailProSecondaire":
+                setEmailProSecondaireValid(e.target.validity.valid);
+                break;
         }
     }
 
     return (
         <div>
-            <div className="font-weight-bold" style={{ marginBottom: 20 }}>{props.translation("form.score")} {score} / 30</div>
+            <div className="font-weight-bold resultats-score">{props.translation("tab.score")} {score} / 30</div>
+            <ResultsTab translation={props.translation} resultsBoard={resultsBoard} />
 
-            <div className="font-weight-bold" style={{ marginBottom: 20 }}>{props.translation("form.email-pro-intro")}</div>
+
+            <div className="font-weight-bold" style={{ marginBottom: 20 }}>{props.translation("form.email-pro1-intro")}</div>
             <form onSubmit={send}>
                 <div className={`form-group fr-input-group resultats-form-input ${isEmailProValid ? "fr-input-group--valid" : ""}`}>
-                    <label>{props.translation("form.email-pro")}</label>
+                    <label>{props.translation("form.email-pro1")}</label>
                     <input type="email"
                         className={`form-control fr-input custom-input ${isEmailProValid ? "custom-input-valid" : ""}`}
                         id="inputEmailPro"
                         name="inputEmailPro"
                         pattern={PATTERN_EMAIL}
                         onChange={handleChange}
-                        placeholder={props.translation("form.email-pro-hint")}
+                        placeholder={props.translation("form.email-pro1-hint")}
                         required />
                 </div>
-
-                <div className="font-weight-bold" style={{ marginBottom: 20 }}>{props.translation("form.email-intro")}</div>
+                <div className={`form-group fr-input-group resultats-form-input ${isEmailProSecondaireValid ? "fr-input-group--valid" : ""}`}>
+                    <label>{props.translation("form.email-pro2")}</label>
+                    <input type="email"
+                        className={`form-control fr-input custom-input ${isEmailProSecondaireValid ? "custom-input-valid" : ""}`}
+                        id="inputEmailProSecondaire"
+                        name="inputEmailProSecondaire"
+                        pattern={PATTERN_EMAIL}
+                        onChange={handleChange}
+                        placeholder={props.translation("form.email-pro2-hint")}
+                    />
+                </div>
                 <div className={`form-group fr-input-group resultats-form-input ${isEmailValid ? "fr-input-group--valid" : ""}`} >
                     <label>{props.translation("form.email")}</label>
                     <input type="email"
@@ -151,7 +148,7 @@ function FormContact(props) {
                         placeholder={props.translation("form.email-hint")} />
                 </div>
                 <div className={`form-group fr-input-group resultats-form-input ${isPhoneValid ? "fr-input-group--valid" : ""}`}>
-                    <label className="fr-label" for="text-input-valid">{props.translation("form.telephone")}</label>
+                    <label>{props.translation("form.telephone")}</label>
                     <input type="tel"
                         className={`form-control fr-input custom-input ${isPhoneValid ? "custom-input-valid" : ""}`}
                         id="inputTel"
@@ -175,90 +172,6 @@ function FormContact(props) {
     )
 }
 
-const AccordionResources = ({ translation, sendEmailOnClick }) => (
-    <Accordion className="accordion-smallscreen">
-        <AccordionItem title={translation("accordion.professionnels-sante")}>
-            <ItemProfessionnelsSante translation={translation} />
-        </AccordionItem>
-        <AccordionItem title={translation("accordion.lignes-telephoniques")}>
-            <ItemLignesTelephoniques />
-        </AccordionItem>
-        <AccordionItem title={translation("accordion.sites-information")}>
-            <ItemSitesInformation />
-        </AccordionItem>
-        <AccordionItem title={translation("accordion.ressouces")}>
-            <ItemResources />
-        </AccordionItem>
-        <AccordionItem title={translation("accordion.contacter")}>
-            <ItemContacter sendEmailOnClick={sendEmailOnClick} />
-        </AccordionItem>
-    </Accordion >
-)
-
-const ItemProfessionnelsSante = ({ translation }) => (
-    <div>
-        {epdsProfessionnelsSante.map((resource, index) =>
-            <div className={`resultats-item-resources ${index > 0 ? "resultats-item-resources-border" : ""}`} key={index} >
-                <b>{resource.name}</b>
-                <br />{resource.description}
-                <br />{resource.url ? showUrl(resource.url, translation("accordion.consulter-document")) : ''}
-            </div>
-        )}
-    </div>
-)
-
-const showUrl = (url, text) => (
-    <a href={url} target="_blank" style={{ textDecoration: "underline" }}>{text}</a>
-)
-
-const ItemSitesInformation = () => (
-    <div>
-        {epdsSitesInformation.map((site, index) =>
-            <div key={index}>
-                {showUrl(site.url, site.url)}<br />
-            </div>
-        )}
-    </div >
-)
-
-const ItemLignesTelephoniques = () => (
-    <div className="resultats-contact">
-        <div className="resultats-contact-item" >
-            {epdsLignes.map((contact, index) => {
-                return <div style={{ marginBottom: 30 }} key={index}>
-                    <div className="resultats-contact-title">{contact.contactName}</div>
-                    <div>{contact.thematic}</div>
-                    <div className="font-weight-bold">{contact.openingTime}</div>
-                    <div style={{ display: "-webkit-inline-box" }}>
-                        <img src="/img/icone-telephone.svg" height={17} style={{ marginRight: 10 }} />
-                        <div className="font-weight-bold">{contact.phoneNumber}</div>
-                    </div>
-                </div>
-            })}
-        </div>
-    </div >
-)
-
-const ItemResources = () => (
-    <div>
-        {epdsRessourcesPremiersMois.map((resource, index) => {
-            return <div className={`resultats-item-resources ${index > 0 ? "resultats-item-resources-border" : ""}`} key={index} >
-                <b>{resource.name}</b>
-                {resource.description}
-            </div>
-        })}
-    </div>
-)
-
-const ItemContacter = ({ sendEmailOnClick }) => (
-    <div style={{ textAlign: "center" }}>
-        <p style={{ textAlign: "justify" }}>{epdsContact.content}</p>
-        <button className="fr-btn" onClick={sendEmailOnClick}>
-            {epdsContact.button}
-        </button>
-    </div>
-)
-
 const AdsForApp = ({ translation }) => (
     <div className="resultats-appl-bloc">
         <span className="font-weight-bold" style={{ fontSize: 24 }}>{translation("appli.app-1000j")}</span>
@@ -281,10 +194,37 @@ const AdsForApp = ({ translation }) => (
     </div >
 )
 
+const ResultsTab = ({ translation, resultsBoard }) => (
+    <div className="fr-table fr-table--bordered">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">{translation("tab.question")}</th>
+                    <th scope="col">{translation("tab.reponse")}</th>
+                    <th scope="col">{translation("tab.point")}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {(typeof resultsBoard == 'object') ? resultsBoard.map(data => buildDetailScore(data)) : ""}
+            </tbody>
+        </table>
+    </div >
+);
+
+const buildDetailScore = (info) => (
+    <tr key={info.question}>
+        <td>{info.question}</td>
+        <td>{info.response}</td>
+        <td>{info.points}</td>
+    </tr>
+);
+
 function getInLocalStorage(key) {
-    if (typeof window !== "undefined") {
-        return localStorage.getItem(key);
-    }
+    if (typeof window !== "undefined") return localStorage.getItem(key);
+}
+
+function jsonParse(data) {
+    if (typeof data !== 'undefined') return JSON.parse(data);
 }
 
 export const getStaticProps = async ({ locale }) => ({
@@ -299,38 +239,17 @@ const ComprendreTestStyle = () => (
         max-width: 400px;
     }
 
+    .resultats-score {
+        margin-bottom: 40px;
+        text-align: center;
+        font-size: 24px
+    }
+
     .resultats-appl-bloc {
         margin-top: 60px;
         padding:20px 30px 20px 30px;
         background-color: var(--gris);
         border-left: 4px solid var(--bleu-france);
-    }
-
-    .resultats-contact {
-        font-size: 14px;
-    }
-
-    .resultats-contact-title {
-        color: var(--jaune-courant);
-        font-weight: bold;
-        line-height: 19px;
-    }
-
-    .resultats-contact-item {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .resultats-contact-item div {
-        padding-right: 10px;
-    }
-
-    .resultats-item-resources {
-        text-align: justify;
-        padding-top: 20px;
-        padding-bottom: 20px;
-    }
-    .resultats-item-resources-border {
-        border-top: 2px solid var(--gris)
     }
     `}</style>
 );
