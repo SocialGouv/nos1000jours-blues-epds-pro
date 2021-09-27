@@ -17,14 +17,15 @@ export default function RessourcesParents() {
   const { t } = useTranslation('ressources-parents');
 
   return (
-    <ContentLayout title={t("ressources-parents")} >
-      <div className="cgu-title">
-        <h1>{t("ressources")}</h1>
+    <ContentLayout title={t("ressources-parents")} style={{ marginInline: 20 }}>
+      <div className="container-small-screen">
+        <div className="cgu-title">
+          <h1>{t("ressources")}</h1>
+        </div>
+
+        <AccordionResources translation={t}
+          sendEmailOnClick={() => router.push(`mailto:${epdsContact.mailContact}&subject=${epdsContact.mailSubject}`)} />
       </div>
-
-      <AccordionResources translation={t}
-        sendEmailOnClick={() => router.push(`mailto:${epdsContact.mailContact}&subject=${epdsContact.mailSubject}`)} />
-
       <RessourcesParentsStyle />
     </ContentLayout>
   );
@@ -137,6 +138,16 @@ const RessourcesParentsStyle = () => (
   }
   .ressources-item-border {
       border-top: 2px solid var(--gris)
+  }
+
+  @media screen and (max-width: 450px){
+    .container-small-screen {
+      margin-inline: 20px;
+    }
+
+    .ressources-contact-item {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 
   `}</style>
