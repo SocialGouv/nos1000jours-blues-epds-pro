@@ -7,7 +7,9 @@ export function Nav() {
   const [isResourcesPage, setResourcesPage] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') setResourcesPage(window.location.href.includes("annexes/ressources-parents"))
+    if (typeof window === 'undefined') return;
+
+    setResourcesPage(window.location.href.includes("annexes/ressources-parents"))
   }, []);
 
   return (
