@@ -1,9 +1,15 @@
 {
-    "questionnaire-epds": "Mon suivi après bébé",
-    "introduction1": "Veuillez cocher la réponse qui vous semble décrire le mieux comment vous vous êtes senti(e) ",
-    "introduction2": "au cours des 7 derniers jours ",
-    "introduction3": "et pas seulement au jour d’aujourd’hui.",
-    "suivant": "Suivant",
-    "precedent": "Précédent",
-    "terminer": "Terminer"
+  "questionnaire-epds": "Mon suivi après bébé",
+  "introduction1": "Veuillez cocher la réponse qui vous semble décrire le mieux comment vous vous êtes senti(e) ",
+  "introduction2": "au cours des 7 derniers jours ",
+  "introduction3": "et pas seulement au jour d’aujourd’hui.",
+  "suivant": "Suivant",
+  "precedent": "Précédent",
+  "terminer": "Terminer",
+  "modal": {
+    "title": "Test terminé",
+    "content1": "Votre test est terminé. Vous allez être redirigé vers les résultats du test.",
+    "content2": "Rapprochez-vous de votre professionnel de santé.",
+    "button": "CONFIRMER"
+  }
 }
