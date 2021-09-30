@@ -205,7 +205,7 @@ const ModalEndOfQuestionnaire = (props) => {
           {props.translation("modal.content1")} <br />
           {props.translation("modal.content2")}
         </Modal.Body>
-        <Modal.Footer style={{ borderTop: "none" }}>
+        <Modal.Footer style={{ borderTop: "none", alignSelf: "center" }}>
           <button variant="primary" className="fr-btn" onClick={handleConfirm}>
             {props.translation("modal.button")}
           </button>
@@ -250,8 +250,8 @@ const ComprendreTestStyle = () => (
     }
 
     .check-icon {
-      width: -webkit-fill-available;
-      height: 60px;
+      width: auto;
+      height: 100px;
       color: green;
       margin-bottom: 15px;
     }
