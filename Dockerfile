@@ -4,6 +4,9 @@ WORKDIR /app
 
 COPY . /app/
 
+ARG API_URL
+ENV API_URL=$API_URL
+
 RUN yarn --production --frozen-lockfile --prefer-offline && yarn cache clean
 RUN yarn build
 
