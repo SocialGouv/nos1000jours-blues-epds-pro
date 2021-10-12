@@ -4,8 +4,8 @@ WORKDIR /app
 
 COPY . /app/
 
-ARG API_URL
-ENV API_URL=$API_URL
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
 RUN yarn --production --frozen-lockfile --prefer-offline && yarn cache clean
 RUN yarn build
