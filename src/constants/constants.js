@@ -11,9 +11,6 @@ export const PATTERN_EMAIL = "[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}";
 
 export const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-console.log("API_URL:", API_URL);
-console.log("API_URL:", process.env);
-
 export const URL_1000J = "https://1000jours.fabrique.social.gouv.fr";
 export const EPDS_SOURCE = "SiteWebPro"
 
