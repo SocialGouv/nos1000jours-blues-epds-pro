@@ -2,8 +2,8 @@ name: Review
 
 on:
   push:
-    branches:
-      - "**"
+    branches-ignore:
+      - develop
     tags-ignore:
       - v*
 
@@ -30,6 +30,8 @@ jobs:
         project: ${{ env.project }}
         token: ${{ secrets.GITHUB_TOKEN }}
         imageName: nos1000jours/${{ env.project }}
+        dockerbuildargs: |
+          NEXT_PUBLIC_API_URL=https://backoffice-1000jours-preprod.dev.fabrique.social.gouv.fr
 
   ##############################################################################
   ## GENERATE KUBERNETES MANIFESTS
