@@ -6,4 +6,3 @@ data:
   NODE_ENV: "production"
   MATOMO_SITE_ID: "47"
   MATOMO_URL: "https://matomo.fabrique.social.gouv.fr/"
-  API_URL: "backoffice-1000jours-preprod.dev.fabrique.social.gouv.fr"

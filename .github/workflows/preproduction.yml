@@ -1,12 +1,12 @@
-name: Production
+name: Preproduction
 
 on:
+  workflow_dispatch:
   push:
-    tags:
-      - v*
+    branches: [develop]
 
 concurrency:
-  group: production
+  group: preproduction
   cancel-in-progress: true
 
 jobs:
@@ -29,36 +29,36 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         imageName: nos1000jours/${{ env.project }}
         dockerbuildargs: |
-          API_URL=backoffice-les1000jours.fabrique.social.gouv.fr
+          API_URL=backoffice-1000jours-preprod.dev.fabrique.social.gouv.fr
 
   ##############################################################################
-  ## GENERATE PRODUCTION MANIFESTS
+  ## GENERATE PREPRODUCTION MANIFESTS
   ##############################################################################
-  manifests-prod:
-    name: Production manifests
+  manifests:
+    name: Preproduction manifests
     runs-on: ubuntu-latest
     steps:
 
     - name: Use autodevops manifests generation
       uses: SocialGouv/actions/autodevops-manifests@master
       with:
-        environment: "prod"
+        environment: "preprod"
 
   ##############################################################################
-  ## DEPLOY PRODUCTION APPLICATION
+  ## DEPLOY PREPRODUCTION APPLICATION
   ##############################################################################
-  deploy-prod:
-    name: Deploy application
+  deploy-preprod:
+    name: Deploy preproduction
     runs-on: ubuntu-latest
-    needs: [deploy-preprod, manifests-prod]
+    needs: [register, manifests]
     environment:
-      name: production
+      name: preproduction
       url: https://${{ env.namespace }}.${{ env.SOCIALGOUV_BASE_DOMAIN }}
     steps:
-
+  
     - name: Use autodevops deployment
       uses: SocialGouv/actions/autodevops-deploy@master
       with:
-        environment: "prod"
+        environment: "preprod"
         token: ${{ secrets.GITHUB_TOKEN }}
         kubeconfig: ${{ secrets.KUBECONFIG }}
