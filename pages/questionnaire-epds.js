@@ -1,9 +1,9 @@
 import { useMutation } from "@apollo/client"
 import {} from "@dataesr/react-dsfr"
 import { useRouter } from "next/router"
+import * as React from "react"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import { React, useEffect, useRef, useState } from "react"
 import { Carousel, Col, Modal, ProgressBar, Row } from "react-bootstrap"
 import { Check2Circle } from "react-bootstrap-icons"
 
@@ -22,11 +22,13 @@ import {
 export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
   const { t } = useTranslation("questionnaire-epds")
   const router = useRouter()
-  const ref = useRef(null)
+  const ref = React.useRef(null)
 
-  const [actualIndex, setActualIndex] = useState(1)
-  const [isEnabledNextButton, setEnabledNextButton] = useState(false)
-  const [sendScore, setSendScore] = useState(false)
+  const [actualIndex, setActualIndex] = React.useState(1)
+  const [isEnabledNextButton, setEnabledNextButton] = React.useState(false)
+  const [sendScore, setSendScore] = React.useState(false)
+
+  checkQuestionsOrder(questionsEpds)
 
   const [addReponseQuery] = useMutation(EPDS_ADD_RESPONSE, {
     client: client,
@@ -35,7 +37,7 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
     },
   })
 
-  const nextPage = async () => {
+  const nextPage = async (event) => {
     setSendScore(true)
 
     localStorage.setItem(
@@ -49,7 +51,7 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
     })
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     const saveEpdsResults = async () => {
       if (sendScore) {
         const result = resultsBoard
@@ -84,7 +86,7 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
     saveEpdsResults()
   }, [sendScore])
 
-  useEffect(() => {
+  React.useEffect(() => {
     setEnabledNextButton(resultsBoard[actualIndex - 1] != null)
   }, [actualIndex])
 
@@ -139,6 +141,16 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
       <ComprendreTestStyle />
     </ContentLayout>
   )
+}
+
+export const checkQuestionsOrder = (questionsEpds) => {
+  for (const [index, value] of questionsEpds.entries()) {
+    if (value.ordre != index + 1) {
+      return questionsEpds.sort((a, b) => a.ordre - b.ordre)
+    }
+  }
+
+  return questionsEpds
 }
 
 const QuestionsCarousel = ({
@@ -239,7 +251,7 @@ const QuestionsProgressBar = ({ indexNow, size }) => (
 )
 
 const ModalEndOfQuestionnaire = (props) => {
-  const [show, setShow] = useState(false)
+  const [show, setShow] = React.useState(false)
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)

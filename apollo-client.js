@@ -1,11 +1,12 @@
-import { ApolloClient, gql, InMemoryCache } from "@apollo/client"
+import { ApolloClient, gql, InMemoryCache, HttpLink } from "@apollo/client"
 
 import { API_URL } from "./src/constants/constants"
+import fetch from "cross-fetch"
 
 export const client = new ApolloClient({
   cache: new InMemoryCache(),
   headers: { "content-type": "application/json" },
-  uri: `${API_URL}/graphql?nocache`,
+  link: new HttpLink({ uri: `${API_URL}/graphql?nocache`, fetch }),
 })
 
 export const QUESTIONNAIRE_EPDS = gql`
