@@ -8,3 +8,9 @@ Cloner le repo puis :
 yarn
 yarn dev
 ```
+
+## Pour exécuter les tests :
+
+```
+yarn test
+```
