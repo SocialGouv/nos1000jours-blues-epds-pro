@@ -1,6 +1,6 @@
 import { checkQuestionsOrder } from "../pages/questionnaire-epds"
 
-describe("Page questinnaire EPDS", () => {
+describe("Questionnaire", () => {
   const questionsEpdsValid = [
     { ordre: 1 },
     { ordre: 2 },
@@ -14,7 +14,7 @@ describe("Page questinnaire EPDS", () => {
     { ordre: 10 },
   ]
 
-  test("Les questions sont dans le bon ordre", () => {
+  test("Les questions ne changent pas d'ordre", () => {
     const questionsEpds = [
       { ordre: 1 },
       { ordre: 2 },
@@ -31,7 +31,7 @@ describe("Page questinnaire EPDS", () => {
     expect(checkQuestionsOrder(questionsEpds)).toEqual(questionsEpdsValid)
   })
 
-  test("Les questions ne sont pas dans le bon ordre", () => {
+  test("Les questions sont mises dans le bon ordre", () => {
     const questionsEpds = [
       { ordre: 1 },
       { ordre: 2 },
