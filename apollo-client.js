@@ -1,28 +1,31 @@
-import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
-import { API_URL } from "./src/constants/constants";
+import { ApolloClient, gql, InMemoryCache, HttpLink } from "@apollo/client"
+
+import { API_URL } from "./src/constants/constants"
+import fetch from "cross-fetch"
 
 export const client = new ApolloClient({
-  uri: `${API_URL}/graphql?nocache`,
   cache: new InMemoryCache(),
   headers: { "content-type": "application/json" },
-});
+  link: new HttpLink({ uri: `${API_URL}/graphql?nocache`, fetch }),
+})
 
 export const QUESTIONNAIRE_EPDS = gql`
-    query QuestionnaireEpds {
-        questionnaireEpds {
-        libelle,
-        ordre,
-        locale,
-        reponse_1_libelle,
-        reponse_1_points,
-        reponse_2_libelle,
-        reponse_2_points,
-        reponse_3_libelle,
-        reponse_3_points,
-        reponse_4_libelle,
-        reponse_4_points,
+  query QuestionnaireEpds {
+    questionnaireEpds {
+      libelle
+      ordre
+      locale
+      reponse_1_libelle
+      reponse_1_points
+      reponse_2_libelle
+      reponse_2_points
+      reponse_3_libelle
+      reponse_3_points
+      reponse_4_libelle
+      reponse_4_points
     }
-}`;
+  }
+`
 
 export const EPDS_ADD_RESPONSE = gql`
   mutation (
@@ -66,12 +69,14 @@ export const EPDS_ADD_RESPONSE = gql`
         created_at
       }
     }
-  }`;
+  }
+`
 
 export const EPDS_PARTAGE_INFORMATION = gql`
   mutation (
-    $email: String!
+    $email: String
     $email_pro: String!
+    $email_pro_secondaire: String
     $telephone: String
     $prenom: String
     $nom: String
@@ -83,6 +88,7 @@ export const EPDS_PARTAGE_INFORMATION = gql`
     epdsPartage(
       email: $email
       email_pro: $email_pro
+      email_pro_secondaire: $email_pro_secondaire
       telephone: $telephone
       prenom: $prenom
       nom: $nom
@@ -92,4 +98,4 @@ export const EPDS_PARTAGE_INFORMATION = gql`
       detail_reponses: $detail_reponses
     )
   }
-`;
+`
