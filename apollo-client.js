@@ -1,28 +1,30 @@
-import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
-import { API_URL } from "./src/constants/constants";
+import { ApolloClient, gql, InMemoryCache } from "@apollo/client"
+
+import { API_URL } from "./src/constants/constants"
 
 export const client = new ApolloClient({
-  uri: `${API_URL}/graphql?nocache`,
   cache: new InMemoryCache(),
   headers: { "content-type": "application/json" },
-});
+  uri: `${API_URL}/graphql?nocache`,
+})
 
 export const QUESTIONNAIRE_EPDS = gql`
-    query QuestionnaireEpds {
-        questionnaireEpds {
-        libelle,
-        ordre,
-        locale,
-        reponse_1_libelle,
-        reponse_1_points,
-        reponse_2_libelle,
-        reponse_2_points,
-        reponse_3_libelle,
-        reponse_3_points,
-        reponse_4_libelle,
-        reponse_4_points,
+  query QuestionnaireEpds {
+    questionnaireEpds {
+      libelle
+      ordre
+      locale
+      reponse_1_libelle
+      reponse_1_points
+      reponse_2_libelle
+      reponse_2_points
+      reponse_3_libelle
+      reponse_3_points
+      reponse_4_libelle
+      reponse_4_points
     }
-}`;
+  }
+`
 
 export const EPDS_ADD_RESPONSE = gql`
   mutation (
@@ -66,7 +68,8 @@ export const EPDS_ADD_RESPONSE = gql`
         created_at
       }
     }
-  }`;
+  }
+`
 
 export const EPDS_PARTAGE_INFORMATION = gql`
   mutation (
@@ -94,4 +97,4 @@ export const EPDS_PARTAGE_INFORMATION = gql`
       detail_reponses: $detail_reponses
     )
   }
-`;
+`
