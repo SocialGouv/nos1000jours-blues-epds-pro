@@ -7,8 +7,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "export": "next export",
     "start": "next start",
+    "lint": "next lint",
     "test": "jest"
   },
   "dependencies": {
@@ -27,9 +27,13 @@
     "styled-components": "^5.2.3"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^11.1.2",
     "@socialgouv/eslint-config-react": "^1.61.0",
     "eslint": "^7.32.0",
+    "eslint-config-next": "^11.1.2",
+    "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.0.6",
+    "prettier": "^2.4.1",
     "tempy": "^1.0.1"
   },
   "eslintConfig": {

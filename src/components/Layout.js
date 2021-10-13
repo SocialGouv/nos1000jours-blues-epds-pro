@@ -1,26 +1,25 @@
-import React from "react";
-import Head from "next/head";
-import { Container, Row } from "react-bootstrap";
-import { useTranslation } from 'next-i18next';
+import Head from "next/head"
+import { useTranslation } from "next-i18next"
+import React from "react"
+import { Container, Row } from "react-bootstrap"
 
-import { Nav } from "./Nav";
-import { Footer } from "./Footer";
+import { Footer } from "./Footer"
+import { Nav } from "./Nav"
 
 export function Layout({ children }) {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common")
 
   return (
     <React.Fragment>
       <Head>
-        <title>{t('header-name')}</title>
+        <title>{t("header-name")}</title>
       </Head>
 
       <Nav />
-      <Container >{children}</Container>
+      <Container>{children}</Container>
       <Footer />
-
     </React.Fragment>
-  );
+  )
 }
 
 export function ContentLayout({ title, children }) {
@@ -29,9 +28,7 @@ export function ContentLayout({ title, children }) {
       <Head>
         <title>{title}</title>
       </Head>
-      <Row style={{ minHeight: "80vh", alignContent: "start" }}>
-        {children}
-      </Row>
+      <Row style={{ alignContent: "start", minHeight: "80vh" }}>{children}</Row>
     </Layout>
-  );
+  )
 }
