@@ -3,7 +3,7 @@ name: Preproduction
 on:
   workflow_dispatch:
   push:
-    branches: [develop]
+    branches: [master]
 
 concurrency:
   group: preproduction
@@ -23,7 +23,7 @@ jobs:
         echo "project=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
 
     - name: Use autodevops build and register
-      uses: SocialGouv/actions/autodevops-build-register@master
+      uses: SocialGouv/actions/autodevops-build-register@v1
       with:
         project: ${{ env.project }}
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -40,14 +40,16 @@ jobs:
     steps:
 
     - name: Use autodevops manifests generation
-      uses: SocialGouv/actions/autodevops-manifests@master
+      uses: SocialGouv/actions/autodevops-manifests@v1
       with:
         environment: "preprod"
+        rancherId: ${{ secrets.RANCHER_PROJECT_ID }}
+        socialgouvBaseDomain: ${{ secrets.SOCIALGOUV_BASE_DOMAIN }}
 
   ##############################################################################
   ## DEPLOY PREPRODUCTION APPLICATION
   ##############################################################################
-  deploy-preprod:
+  deploy:
     name: Deploy preproduction
     runs-on: ubuntu-latest
     needs: [register, manifests]
@@ -57,8 +59,9 @@ jobs:
     steps:
   
     - name: Use autodevops deployment
-      uses: SocialGouv/actions/autodevops-deploy@master
+      uses: SocialGouv/actions/autodevops-deploy@v1
       with:
         environment: "preprod"
         token: ${{ secrets.GITHUB_TOKEN }}
         kubeconfig: ${{ secrets.KUBECONFIG }}
+        rancherId: ${{ secrets.RANCHER_PROJECT_ID }}
