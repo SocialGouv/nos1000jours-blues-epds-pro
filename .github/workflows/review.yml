@@ -3,7 +3,7 @@ name: Review
 on:
   push:
     branches-ignore:
-      - develop
+      - master
     tags-ignore:
       - v*
 
@@ -25,7 +25,7 @@ jobs:
         echo "project=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
 
     - name: Use autodevops build and register
-      uses: SocialGouv/actions/autodevops-build-register@master
+      uses: SocialGouv/actions/autodevops-build-register@v1
       with:
         project: ${{ env.project }}
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -42,36 +42,11 @@ jobs:
     steps:
 
     - name: Use autodevops manifests generation
-      uses: SocialGouv/actions/autodevops-manifests@master
+      uses: SocialGouv/actions/autodevops-manifests@v1
       with:
         environment: "dev"
-
-    - name: ⛑ Debug manifests ⛑
-      id: debug-manifests
-      run: |
-        TEXT=$(cat manifests.yml | npx @socialgouv/parse-manifests --text)
-        echo "${TEXT}"
-        MARKDOWN=$(cat manifests.yml | npx @socialgouv/parse-manifests --markdown)
-        MARKDOWN="${MARKDOWN//$'\n'/'%0A'}"
-        MARKDOWN="${MARKDOWN//$'\r'/'%0D'}"
-        echo "::set-output name=markdown::$MARKDOWN"
-      env:
-        RANCHER_PROJECT_ID: ${{ secrets.RANCHER_PROJECT_ID }}
-
-    # necessary to find the PR on push events
-    - uses: jwalton/gh-find-current-pr@v1
-      id: finder
-
-    - name: ⛑ Comment PR
-      uses: marocchino/sticky-pull-request-comment@v2
-      with:
-        number: ${{ steps.finder.outputs.pr }}
-        message: |
-
-          Deployment ${{ github.sha }}.
-
-          ${{ steps.debug-manifests.outputs.markdown }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        rancherId: ${{ secrets.RANCHER_PROJECT_ID }}
+        socialgouvBaseDomain: ${{ secrets.SOCIALGOUV_BASE_DOMAIN }}
 
   ##############################################################################
   ## DEPLOY APPLICATION OVER KUBERNETES
@@ -83,8 +58,9 @@ jobs:
     steps:
 
     - name: Use autodevops deployment
-      uses: SocialGouv/actions/autodevops-deploy@master
+      uses: SocialGouv/actions/autodevops-deploy@v1
       with:
         environment: "dev"
         token: ${{ secrets.GITHUB_TOKEN }}
-        kubeconfig: ${{ secrets.KUBECONFIG }} # TODO: use SOCIALGOUV_KUBE_CONFIG_DEV
+        kubeconfig: ${{ secrets.KUBECONFIG }}
+        rancherId: ${{ secrets.RANCHER_PROJECT_ID }}
