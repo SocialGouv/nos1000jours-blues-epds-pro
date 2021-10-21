@@ -3,7 +3,10 @@ name: Preproduction
 on:
   workflow_dispatch:
   push:
-    branches: [master]
+    branches:
+      - master
+    tags-ignore:
+      - v*
 
 concurrency:
   group: preproduction
@@ -58,11 +61,12 @@ jobs:
     needs: [register, manifests]
     environment:
       name: preproduction
-      url: https://${{ env.namespace }}.${{ env.SOCIALGOUV_BASE_DOMAIN }}
+      url: ${{ steps.deploy.outputs.url }}
     steps:
   
     - name: Use autodevops deployment
       uses: SocialGouv/actions/autodevops-deploy@v1
+      id: deploy
       with:
         environment: "preprod"
         token: ${{ secrets.GITHUB_TOKEN }}

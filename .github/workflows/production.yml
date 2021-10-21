@@ -58,11 +58,12 @@ jobs:
     needs: [register, manifests]
     environment:
       name: production
-      url: https://${{ env.namespace }}.${{ env.SOCIALGOUV_BASE_DOMAIN }}
+      url: ${{ steps.deploy.outputs.url }}
     steps:
 
     - name: Use autodevops deployment
       uses: SocialGouv/actions/autodevops-deploy@v1
+      id: deploy
       with:
         environment: "prod"
         token: ${{ secrets.GITHUB_TOKEN }}
