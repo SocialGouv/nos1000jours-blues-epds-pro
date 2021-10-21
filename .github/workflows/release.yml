@@ -11,18 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    - uses: SocialGouv/actions/autodevops-release@v1
       with:
-        fetch-depth: 0
-        persist-credentials: false
-
-    - name: Semantic Release
-      uses: cycjimmy/semantic-release-action@v2
-      with:
-        semantic_version: 17
-        extra_plugins: |
-          @semantic-release/changelog@5.0.1
-          @semantic-release/git@9.0.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.SOCIALGROOVYBOT_BOTO_PAT }}
+        author-name: ${{ secrets.SOCIALGROOVYBOT_NAME }}
+        author-email: ${{ secrets.SOCIALGROOVYBOT_EMAIL }}
+        github-token: ${{ secrets.SOCIALGROOVYBOT_BOTO_PAT }}
