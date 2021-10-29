@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.5.1...v1.5.2) (2021-10-29)
+
+
+### Bug Fixes
+
+* **workflows:** Generate prod manifests with Github production env vars ([274e3d0](https://github.com/SocialGouv/nos1000jours-web-pro/commit/274e3d0a8dc0ba87a1c3c0a05eb295ff9b68b542))
+
 ## [1.5.1-alpha.3](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.5.1-alpha.2...v1.5.1-alpha.3) (2021-10-29)
 
 
