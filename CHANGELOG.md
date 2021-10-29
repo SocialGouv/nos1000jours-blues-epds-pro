@@ -1,3 +1,10 @@
+## [1.5.1-alpha.3](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.5.1-alpha.2...v1.5.1-alpha.3) (2021-10-29)
+
+
+### Bug Fixes
+
+* Add sha to preprod image tag ([47a2af4](https://github.com/SocialGouv/nos1000jours-web-pro/commit/47a2af428dee1d23c601d750f5a83bcd7b31d808))
+
 ## [1.5.1-alpha.2](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.5.1-alpha.1...v1.5.1-alpha.2) (2021-10-21)
 
 
