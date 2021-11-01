@@ -1,3 +1,10 @@
+## [1.5.3](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.5.2...v1.5.3) (2021-11-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bootstrap to ^4.6.1 ([bf97bf0](https://github.com/SocialGouv/nos1000jours-web-pro/commit/bf97bf06ae9d4ab356fd38d33e0aab6120b19052))
+
 ## [1.5.2](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.5.1...v1.5.2) (2021-10-29)
 
 
