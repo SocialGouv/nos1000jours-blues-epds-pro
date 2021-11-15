@@ -1,3 +1,10 @@
+## [1.5.4](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.5.3...v1.5.4) (2021-11-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @apollo/client to ^3.4.17 ([827a0bf](https://github.com/SocialGouv/nos1000jours-web-pro/commit/827a0bf5261f45ef2b8ee3c2c01bac5b1693bad1))
+
 ## [1.5.3](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.5.2...v1.5.3) (2021-11-01)
 
 
