@@ -17,6 +17,7 @@ import {
   STORAGE_GENRE_PATIENT,
   STORAGE_RESULTS_BOARD,
   STORAGE_TOTAL_SCORE,
+  STORAGE_RESULTS_ID,
 } from "../src/constants/constants"
 
 export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
@@ -34,6 +35,12 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
     client: client,
     onError: (err) => {
       console.log(err)
+    },
+    onCompleted: (data) => {
+      localStorage.setItem(
+        STORAGE_RESULTS_ID,
+        data.createReponsesEpd.reponsesEpd.id
+      )
     },
   })
 

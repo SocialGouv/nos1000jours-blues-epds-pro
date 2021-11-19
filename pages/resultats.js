@@ -13,6 +13,7 @@ import {
   STORAGE_NOM_PATIENT,
   STORAGE_PRENOM_PATIENT,
   STORAGE_RESULTS_BOARD,
+  STORAGE_RESULTS_ID,
   STORAGE_TOTAL_SCORE,
   URL_1000J,
 } from "../src/constants/constants"
@@ -45,6 +46,7 @@ const FormContact = (props) => {
   const [queryShareResponses, setQueryShareResponses] = useState()
 
   const score = getInLocalStorage(STORAGE_TOTAL_SCORE)
+  const resultsId = getInLocalStorage(STORAGE_RESULTS_ID)
   const resultsBoard = jsonParse(getInLocalStorage(STORAGE_RESULTS_BOARD))
 
   const [sendEmailReponseQuery] = useMutation(EPDS_PARTAGE_INFORMATION, {
@@ -75,6 +77,7 @@ const FormContact = (props) => {
           prenom: surname,
           score: score,
           telephone: inputs.inputTel.value,
+          id_reponses: resultsId,
         },
       })
     }
@@ -111,7 +114,11 @@ const FormContact = (props) => {
       <div className="font-weight-bold resultats-score">
         {props.translation("tab.score")} {score} / 30
       </div>
-      <ResultsTab translation={props.translation} resultsBoard={resultsBoard} />
+      <ResultsTab
+        translation={props.translation}
+        resultsBoard={resultsBoard}
+        resultsId={resultsId}
+      />
 
       <div className="font-weight-bold" style={{ marginBottom: 20 }}>
         {props.translation("form.email-pro1-intro")}
@@ -266,7 +273,7 @@ const AdsForApp = ({ translation }) => (
   </div>
 )
 
-const ResultsTab = ({ translation, resultsBoard }) => (
+const ResultsTab = ({ translation, resultsBoard, resultsId }) => (
   <div className="fr-table fr-table--bordered">
     <table>
       <thead>
@@ -281,6 +288,15 @@ const ResultsTab = ({ translation, resultsBoard }) => (
           ? resultsBoard.map((data) => buildDetailScore(data))
           : ""}
       </tbody>
+      <tfoot>
+        <tr>
+          <td colSpan="3">
+            <i>
+              {translation("tab.id")} {resultsId}
+            </i>
+          </td>
+        </tr>
+      </tfoot>
     </table>
   </div>
 )
