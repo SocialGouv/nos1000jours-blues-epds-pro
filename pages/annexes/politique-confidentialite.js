@@ -363,7 +363,8 @@ const PolitiqueConfidentialiteStyle = () => (
       background-color: #dee2e6;
     }
 
-    td {
+    td,
+    th {
       text-align: start;
     }
   `}</style>
