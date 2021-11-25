@@ -148,31 +148,33 @@ export default function PolitiqueConfidentialite() {
 
         <h3>Durée de conservation</h3>
         <p>
-          <table className="table table-bordered">
-            <thead>
-              <tr>
-                <th>Types de données</th>
-                <th>Durée de conservation</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Données relatives au questionnaire</td>
-                <td>
-                  à compter de l’utilisation du droit d’opposition lors du
-                  contact par mail ou <strong>1 an</strong>, à compter de la
-                  réalisation du questionnaire.
-                </td>
-              </tr>
-              <tr>
-                <td>Données d’hébergeur</td>
-                <td>
-                  <strong>1 an</strong>, conformément au décret n°2011-219 du 25
-                  février 2011.
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div style={{ overflowX: "auto" }}>
+            <table className="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Types de données</th>
+                  <th>Durée de conservation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Données relatives au questionnaire</td>
+                  <td>
+                    à compter de l’utilisation du droit d’opposition lors du
+                    contact par mail ou <strong>1 an</strong>, à compter de la
+                    réalisation du questionnaire.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Données d’hébergeur</td>
+                  <td>
+                    <strong>1 an</strong>, conformément au décret n°2011-219 du
+                    25 février 2011.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </p>
 
         <h3>Droit des personnes concernées</h3>
@@ -251,28 +253,30 @@ export default function PolitiqueConfidentialite() {
           mise en œuvre par ses sous-traitants de garanties adéquates et du
           respect de conditions strictes de confidentialité, d’usage et de
           protection des données.
-          <table className="table table-bordered">
-            <thead>
-              <tr>
-                <th>Partenaire</th>
-                <th>Pays destinataire</th>
-                <th>Traitement réalisé</th>
-                <th>Garanties</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Microsoft Azure</td>
-                <td>France</td>
-                <td>Hébergement</td>
-                <td>
-                  <a href="https://privacy.microsoft.com/fr-fr/privacystatement">
-                    https://privacy.microsoft.com/fr-fr/privacystatement
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div style={{ overflowX: "auto" }}>
+            <table className="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Partenaire</th>
+                  <th>Pays destinataire</th>
+                  <th>Traitement réalisé</th>
+                  <th>Garanties</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Microsoft Azure</td>
+                  <td>France</td>
+                  <td>Hébergement</td>
+                  <td>
+                    <a href="https://privacy.microsoft.com/fr-fr/privacystatement">
+                      https://privacy.microsoft.com/fr-fr/privacystatement
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </p>
 
         <h3>Cookies</h3>
