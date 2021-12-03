@@ -1,3 +1,20 @@
+# [1.6.0](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.5.4...v1.6.0) (2021-12-03)
+
+
+### Bug Fixes
+
+* **rgpd:** scroll ([359f48d](https://github.com/SocialGouv/nos1000jours-web-pro/commit/359f48d7d50eca6570fc1ee71f5a96f8cc91e470))
+* **RGPD:** affichage responsive ([bcbc3bd](https://github.com/SocialGouv/nos1000jours-web-pro/commit/bcbc3bd373d7d26ce85ac613daf6e73dfc438959))
+
+
+### Features
+
+* **RGPD:** mentions légales ([ea60c0a](https://github.com/SocialGouv/nos1000jours-web-pro/commit/ea60c0aa0fcd7a91c48da1fe6dd3f38cb9945885))
+* **RGPD:** politique de confidentialité ([a6b8b83](https://github.com/SocialGouv/nos1000jours-web-pro/commit/a6b8b83cc690b126963f7c3718b3243d04b5b4b2))
+* **RGPD:** suppression des CGU ([2d11c65](https://github.com/SocialGouv/nos1000jours-web-pro/commit/2d11c6531307cbeac9eb8b0ae395aff882dde57e))
+* **RGPD:** texte ([4bb49d1](https://github.com/SocialGouv/nos1000jours-web-pro/commit/4bb49d16004f32af8ff19890fd193f0fc5878c74))
+* **RGPD:** ui responsive ([93fb0f5](https://github.com/SocialGouv/nos1000jours-web-pro/commit/93fb0f54c2f1120de81ecf2335e90fbe8a8d3383))
+
 ## [1.5.4](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.5.3...v1.5.4) (2021-11-15)
 
 
