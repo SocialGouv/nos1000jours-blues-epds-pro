@@ -15,71 +15,66 @@ export default function Mentions() {
       </div>
 
       <div className="cgu-content">
-        <h3>Éditeur du site</h3>
+        <h3>Éditeur</h3>
         <p>
-          L’application 1000 premiers jours est éditée par la Direction Générale
-          de la Santé au sein de la Fabrique numérique des Ministères sociaux
-          située :
-        </p>
-        <p>
-          Tour Mirabeau
+          Ce site est édité par la Direction générale de la Cohésion sociale au
+          sein de la Fabrique numérique des ministères sociaux :
           <br />
-          39-43 Quai André Citroën
           <br />
-          75015 PARIS
-          <br />
-          Tél. : 01 40 56 60 00
-          <br />
-        </p>
-        <p>
-          <b>Directeur de la publication</b>
-          <br />
-          Madame Virginie Lassère, Directrice générale de le Cohésion Sociale
+          18 place des 5-Martyrs-du-Lycée-Buffon <br />
+          75014 Paris
         </p>
 
-        <h3>Hébergement du site</h3>
+        <h3>Directrice de la publication</h3>
         <p>
-          Cette application est hébergée par Microsoft Azure France (région
-          France centre) :
+          Madame Virginie LASSERRE, Directrice générale de la cohésion sociale
         </p>
+
+        <h3>Hébergement de l’application</h3>
         <p>
-          Microsoft France
+          Ce site est hébergé par :
           <br />
-          37 Quai du Président Roosevelt
+          Microsoft Azure
           <br />
-          92130 ISSY-LES-MOULINEAUX
+          39 quai du président Roosevelt
+          <br />
+          92130 Issy les Moulineaux
         </p>
 
         <h3>Accessibilité</h3>
         <p>
           La conformité aux normes d’accessibilité numérique est un objectif
-          ultérieur mais nous tâchons de rendre cette application accessible à
-          toutes et à tous.
+          ultérieur mais nous tâchons de rendre ce site accessible à toutes et à
+          tous.
         </p>
 
-        <h3> Signaler un dysfonctionnement</h3>
+        <h3>Signaler un dysfonctionnement</h3>
         <p>
           Si vous rencontrez un défaut d’accessibilité vous empêchant d’accéder
           à un contenu ou une fonctionnalité du site, merci de nous en faire
-          part. Si vous n’obtenez pas de réponse rapide de notre part, vous êtes
-          en droit de faire parvenir vos doléances ou une demande de saisine au
+          part. <br />
+          Si vous n’obtenez pas de réponse rapide de notre part, vous êtes en
+          droit de faire parvenir vos doléances ou une demande de saisine au
           Défenseur des droits.
-        </p>
-
-        <h3> En savoir plus</h3>
-        <p>
+          <br />
+          <br />
+          En savoir plus <br />
           Pour en savoir plus sur la politique d’accessibilité numérique de
-          l’État
-          : http://references.modernisation.gouv.fr/accessibilite-numerique
+          l’État :&nbsp;
+          <a href="http://references.modernisation.gouv.fr/accessibilite-numerique">
+            http://references.modernisation.gouv.fr/accessibilite-numerique
+          </a>
         </p>
 
         <h3>Sécurité</h3>
         <p>
           L’application est protégée par un certificat électronique, matérialisé
           pour la grande majorité des navigateurs par un cadenas. Cette
-          protection participe à la confidentialité des échanges. En aucun cas
-          les services associés à au site ne seront à l’origine d’envoi de
-          courriels pour demander la saisie d’informations personnelles.
+          protection participe à la confidentialité des échanges.
+          <br />
+          En aucun cas les services associés à la plateforme ne seront à
+          l’origine d’envoi de courriels pour demander la saisie d’informations
+          personnelles.
         </p>
       </div>
     </ContentLayout>

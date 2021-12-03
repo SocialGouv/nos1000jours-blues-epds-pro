@@ -127,4 +127,8 @@ td {
         border-bottom: 1px solid var(--gris);
     }
   }
+  .cgu-content {
+    padding-inline: 20px;
+    width: -webkit-fill-available;
+  }
 }

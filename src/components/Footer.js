@@ -63,11 +63,6 @@ export function Footer() {
         <div className="fr-footer__bottom">
           <ul className="fr-footer__bottom-list">
             <li className="fr-footer__bottom-item">
-              <a className="fr-footer__bottom-link" href="/annexes/cgu">
-                {t("cgu")}
-              </a>
-            </li>
-            <li className="fr-footer__bottom-item">
               <a
                 className="fr-footer__bottom-link"
                 href="/annexes/mentions-legales"
