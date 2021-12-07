@@ -4,7 +4,14 @@ import { useRouter } from "next/router"
 import * as React from "react"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import { Carousel, Col, Modal, ProgressBar, Row } from "react-bootstrap"
+import {
+  Carousel,
+  Col,
+  Modal,
+  ProgressBar,
+  Row,
+  Spinner,
+} from "react-bootstrap"
 import { Check2Circle } from "react-bootstrap-icons"
 
 import { client, EPDS_ADD_RESPONSE, QUESTIONNAIRE_EPDS } from "../apollo-client"
@@ -28,6 +35,7 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
   const [actualIndex, setActualIndex] = React.useState(1)
   const [isEnabledNextButton, setEnabledNextButton] = React.useState(false)
   const [sendScore, setSendScore] = React.useState(false)
+  const [isIdReturned, setIdReturned] = React.useState(false)
 
   checkQuestionsOrder(questionsEpds)
 
@@ -41,12 +49,11 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
         STORAGE_RESULTS_ID,
         data.createReponsesEpd.reponsesEpd.id
       )
+      setIdReturned(true)
     },
   })
 
   const nextPage = async (event) => {
-    setSendScore(true)
-
     localStorage.setItem(
       STORAGE_TOTAL_SCORE,
       resultsBoard.map((data) => data.points).reduce((a, b) => a + b, 0)
@@ -138,6 +145,8 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
           isEnabledNext={isEnabledNextButton}
           showNext={actualIndex < questionsEpds.length}
           nextPage={nextPage}
+          sendScore={setSendScore}
+          isIdReturned={isIdReturned}
         />
         <QuestionsProgressBar
           indexNow={actualIndex}
@@ -229,6 +238,8 @@ const PreviousAndNextButton = (props) => (
       nextPage={props.nextPage}
       isEnabledNext={props.isEnabledNext}
       showNext={props.showNext}
+      sendScore={props.sendScore}
+      isIdReturned={props.isIdReturned}
     />
   </div>
 )
@@ -261,17 +272,18 @@ const ModalEndOfQuestionnaire = (props) => {
   const [show, setShow] = React.useState(false)
 
   const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
   const handleConfirm = () => {
     props.nextPage()
-    setShow(false)
   }
 
   return (
     <>
       <button
         className="fr-btn"
-        onClick={handleShow}
+        onClick={() => {
+          props.sendScore(true)
+          setShow(true)
+        }}
         style={{ display: props.showNext ? "none" : "block" }}
         disabled={!props.isEnabledNext}
       >
@@ -290,7 +302,13 @@ const ModalEndOfQuestionnaire = (props) => {
           {props.translation("modal.content2")}
         </Modal.Body>
         <Modal.Footer style={{ alignSelf: "center", borderTop: "none" }}>
-          <button variant="primary" className="fr-btn" onClick={handleConfirm}>
+          <Spinner animation="border" hidden={props.isIdReturned} />
+          <button
+            variant="primary"
+            className="fr-btn"
+            disabled={!props.isIdReturned}
+            onClick={handleConfirm}
+          >
             {props.translation("modal.button")}
           </button>
         </Modal.Footer>
