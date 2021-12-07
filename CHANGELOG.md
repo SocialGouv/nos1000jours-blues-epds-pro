@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.7.0...v1.7.1) (2021-12-07)
+
+
+### Bug Fixes
+
+* **resultats:** loader d'envoi ([12cacbc](https://github.com/SocialGouv/nos1000jours-web-pro/commit/12cacbcab88ec9bddd0d7d403b92874f0b59c97e))
+
 # [1.7.0](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.6.0...v1.7.0) (2021-12-07)
 
 
