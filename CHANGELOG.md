@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.6.0...v1.7.0) (2021-12-07)
+
+
+### Features
+
+* **resultats:** ajout de l'id du test ([f4c043e](https://github.com/SocialGouv/nos1000jours-web-pro/commit/f4c043e3d5f03851f8f3b1ba4a4fbb3ed217422c))
+
 # [1.6.0](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.5.4...v1.6.0) (2021-12-03)
 
 
