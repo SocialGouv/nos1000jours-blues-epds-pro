@@ -5,7 +5,8 @@
     "score": "Score : ",
     "question": "Question",
     "reponse": "Réponse",
-    "point": "Score"
+    "point": "Score",
+    "id":"Id questionnaire : "
   },
   "form": {
     "email-pro1-intro": "Recevez les résultats du test par mail",

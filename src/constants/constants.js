@@ -6,6 +6,7 @@ export const STORAGE_PRENOM_PATIENT = "prenomPatient"
 export const STORAGE_GENRE_PATIENT = "genrePatient"
 export const STORAGE_TOTAL_SCORE = "totalScore"
 export const STORAGE_RESULTS_BOARD = "resultsBoard"
+export const STORAGE_RESULTS_ID = "resultsId"
 
 export const PATTERN_EMAIL = "[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z.]{2,15}"
 

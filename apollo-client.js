@@ -84,6 +84,7 @@ export const EPDS_PARTAGE_INFORMATION = gql`
     $detail_questions: [String]
     $detail_score: [String]
     $detail_reponses: [String]
+    $id_reponses: String
   ) {
     epdsPartage(
       email: $email
@@ -96,6 +97,7 @@ export const EPDS_PARTAGE_INFORMATION = gql`
       detail_questions: $detail_questions
       detail_score: $detail_score
       detail_reponses: $detail_reponses
+      id_reponses: $id_reponses
     )
   }
 `
