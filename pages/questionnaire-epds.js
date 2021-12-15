@@ -26,6 +26,7 @@ import {
   STORAGE_TOTAL_SCORE,
   STORAGE_RESULTS_ID,
 } from "../src/constants/constants"
+import { ChooseEpdsLocale } from "../src/modal/ChooseEpdsLocale"
 
 export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
   const { t } = useTranslation("questionnaire-epds")
@@ -36,6 +37,8 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
   const [isEnabledNextButton, setEnabledNextButton] = React.useState(false)
   const [sendScore, setSendScore] = React.useState(false)
   const [isIdReturned, setIdReturned] = React.useState(false)
+
+  const [showSelectLocal, setShowSelectLocal] = React.useState(true)
 
   checkQuestionsOrder(questionsEpds)
 
@@ -104,6 +107,12 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
     setEnabledNextButton(resultsBoard[actualIndex - 1] != null)
   }, [actualIndex])
 
+  React.useEffect(() => {
+    if (!showSelectLocal) {
+      // TODO: refresh
+    }
+  }, [showSelectLocal])
+
   const onPreviousQuestion = () => {
     ref.current.prev()
     setActualIndex(actualIndex - 1)
@@ -120,6 +129,8 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
         image="/img/bg-espace-pro.png"
         title={t("questionnaire-epds")}
       />
+
+      <ChooseEpdsLocale show={showSelectLocal} setShow={setShowSelectLocal} />
 
       <div
         className="page-content questionnaire-content"
