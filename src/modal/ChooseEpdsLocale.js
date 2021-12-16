@@ -2,10 +2,9 @@ import { useQuery } from "@apollo/client"
 import React from "react"
 import { Button, ButtonGroup, Col, Modal, Row, Spinner } from "react-bootstrap"
 import { client, GET_LOCALES } from "../../apollo-client"
+import { LOCAL_IDENTIFIANT_FRANCAIS } from "../constants/constants"
 
-const LOCAL_IDENTIFIANT_FRANCAIS = "FR"
-
-export function ChooseEpdsLocale({ show, setShow }) {
+export function ChooseEpdsLocale({ show, setShow, setLocaleSelected }) {
   const getLocalesInDatabase = () => {
     const { loading, error, data } = useQuery(GET_LOCALES, {
       client: client,
@@ -23,7 +22,10 @@ export function ChooseEpdsLocale({ show, setShow }) {
 
   const FlagButton = ({ locale }) => {
     return (
-      <Button className="fr-btn fr-btn--secondary flag-button">
+      <Button
+        className="fr-btn fr-btn--secondary flag-button"
+        value={locale.identifiant}
+      >
         <img
           alt="Drapeau"
           src={process.env.NEXT_PUBLIC_API_URL + locale.drapeau.url}
@@ -36,6 +38,10 @@ export function ChooseEpdsLocale({ show, setShow }) {
           : null}
       </Button>
     )
+  }
+
+  const handleClick = (e) => {
+    setLocaleSelected(e.target.value)
   }
 
   return (
@@ -51,7 +57,7 @@ export function ChooseEpdsLocale({ show, setShow }) {
             faire passer l’EPDS :
           </div>
 
-          <ButtonGroup>
+          <ButtonGroup toggle={true} onClick={handleClick}>
             <Row style={{ marginTop: 20 }}>{getLocalesInDatabase()}</Row>
           </ButtonGroup>
         </Modal.Body>
@@ -61,12 +67,17 @@ export function ChooseEpdsLocale({ show, setShow }) {
         >
           <button
             className="fr-btn fr-btn--secondary"
-            onClick={() => setShow(false)}
+            onClick={() => {
+              setLocaleSelected("")
+              setShow(false)
+            }}
           >
             Annuler
           </button>
           <div style={{ width: 20 }} />
-          <button className="fr-btn">Valider</button>
+          <button className="fr-btn" onClick={() => setShow(false)}>
+            Valider
+          </button>
         </Modal.Footer>
       </Modal>
 

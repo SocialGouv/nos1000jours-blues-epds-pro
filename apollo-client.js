@@ -27,27 +27,25 @@ export const QUESTIONNAIRE_EPDS = gql`
   }
 `
 
-export const QUESTIONNAIRE_EPDS_TRADUCTION = (local) => {
-  return gql`
-    query QuestionnaireEpdsTraductions {
-      questionnaireEpdsTraductions(where: { locale: { identifiant: "${local}" } }) {
-        libelle
-        ordre
-        locale {
-          identifiant
-        }
-        reponse_1_libelle
-        reponse_1_points
-        reponse_2_libelle
-        reponse_2_points
-        reponse_3_libelle
-        reponse_3_points
-        reponse_4_libelle
-        reponse_4_points
+export const QUESTIONNAIRE_EPDS_TRADUCTION = gql`
+  query QuestionnaireEpdsTraductions($locale: String) {
+    questionnaireEpdsTraductions(where: { locale: { identifiant: $locale } }) {
+      libelle
+      ordre
+      locale {
+        identifiant
       }
+      reponse_1_libelle
+      reponse_1_points
+      reponse_2_libelle
+      reponse_2_points
+      reponse_3_libelle
+      reponse_3_points
+      reponse_4_libelle
+      reponse_4_points
     }
-  `
-}
+  }
+`
 
 export const GET_LOCALES = gql`
   query Locales {

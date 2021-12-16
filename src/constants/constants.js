@@ -14,6 +14,8 @@ export const API_URL = process.env.NEXT_PUBLIC_API_URL
 export const URL_1000J = "https://1000jours.fabrique.social.gouv.fr"
 export const EPDS_SOURCE = "SiteWebPro"
 
+export const LOCAL_IDENTIFIANT_FRANCAIS = "FR"
+
 export const EpdsGender = {
   masculin: {
     key: "gender.masculin",

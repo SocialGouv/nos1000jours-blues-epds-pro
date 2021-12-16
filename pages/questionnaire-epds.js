@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client"
+import { useLazyQuery, useMutation } from "@apollo/client"
 import {} from "@dataesr/react-dsfr"
 import { useRouter } from "next/router"
 import * as React from "react"
@@ -14,7 +14,12 @@ import {
 } from "react-bootstrap"
 import { Check2Circle } from "react-bootstrap-icons"
 
-import { client, EPDS_ADD_RESPONSE, QUESTIONNAIRE_EPDS } from "../apollo-client"
+import {
+  client,
+  EPDS_ADD_RESPONSE,
+  QUESTIONNAIRE_EPDS,
+  QUESTIONNAIRE_EPDS_TRADUCTION,
+} from "../apollo-client"
 import { EpdsQuestion } from "../src/components/EpdsQuestion"
 import { HeaderImage } from "../src/components/HeaderImage"
 import { ContentLayout } from "../src/components/Layout"
@@ -25,6 +30,7 @@ import {
   STORAGE_RESULTS_BOARD,
   STORAGE_TOTAL_SCORE,
   STORAGE_RESULTS_ID,
+  LOCAL_IDENTIFIANT_FRANCAIS,
 } from "../src/constants/constants"
 import { ChooseEpdsLocale } from "../src/modal/ChooseEpdsLocale"
 
@@ -39,13 +45,16 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
   const [isIdReturned, setIdReturned] = React.useState(false)
 
   const [showSelectLocal, setShowSelectLocal] = React.useState(true)
+  const [localeSelected, setLocaleSelected] = React.useState()
+  const [updatedQuestionsEpds, setUpdatedQuestionsEpds] =
+    React.useState(questionsEpds)
 
   checkQuestionsOrder(questionsEpds)
 
   const [addReponseQuery] = useMutation(EPDS_ADD_RESPONSE, {
     client: client,
     onError: (err) => {
-      console.log(err)
+      console.warn(err)
     },
     onCompleted: (data) => {
       localStorage.setItem(
@@ -53,6 +62,19 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
         data.createReponsesEpd.reponsesEpd.id
       )
       setIdReturned(true)
+    },
+  })
+
+  const [getTranslationsQuery] = useLazyQuery(QUESTIONNAIRE_EPDS_TRADUCTION, {
+    client: client,
+    onCompleted: (data) => {
+      const dataSorted = checkQuestionsOrder([
+        ...data.questionnaireEpdsTraductions,
+      ])
+      setUpdatedQuestionsEpds(dataSorted)
+    },
+    onError: (err) => {
+      console.warn(err)
     },
   })
 
@@ -108,9 +130,19 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
   }, [actualIndex])
 
   React.useEffect(() => {
-    if (!showSelectLocal) {
-      // TODO: refresh
+    const translationsQuery = async () => {
+      if (!showSelectLocal && localeSelected) {
+        if (localeSelected == LOCAL_IDENTIFIANT_FRANCAIS) {
+          setUpdatedQuestionsEpds(questionsEpds)
+        } else {
+          await getTranslationsQuery({
+            variables: { locale: localeSelected },
+          })
+        }
+      }
     }
+
+    translationsQuery()
   }, [showSelectLocal])
 
   const onPreviousQuestion = () => {
@@ -130,7 +162,11 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
         title={t("questionnaire-epds")}
       />
 
-      <ChooseEpdsLocale show={showSelectLocal} setShow={setShowSelectLocal} />
+      <ChooseEpdsLocale
+        show={showSelectLocal}
+        setShow={setShowSelectLocal}
+        setLocaleSelected={setLocaleSelected}
+      />
 
       <div
         className="page-content questionnaire-content"
@@ -143,7 +179,7 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
         </div>
 
         <QuestionsCarousel
-          questions={questionsEpds}
+          questions={updatedQuestionsEpds}
           refForOnClick={ref}
           resultsBoard={resultsBoard}
           setEnabledNextButton={setEnabledNextButton}
@@ -154,14 +190,14 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
           onNext={onNextQuestion}
           showPrevious={actualIndex > 1}
           isEnabledNext={isEnabledNextButton}
-          showNext={actualIndex < questionsEpds.length}
+          showNext={actualIndex < updatedQuestionsEpds.length}
           nextPage={nextPage}
           sendScore={setSendScore}
           isIdReturned={isIdReturned}
         />
         <QuestionsProgressBar
           indexNow={actualIndex}
-          size={questionsEpds.length}
+          size={updatedQuestionsEpds.length}
         />
       </div>
 
