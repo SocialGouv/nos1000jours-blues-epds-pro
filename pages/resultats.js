@@ -9,11 +9,13 @@ import { client, EPDS_PARTAGE_INFORMATION } from "../apollo-client"
 import { HeaderImage } from "../src/components/HeaderImage"
 import { ContentLayout } from "../src/components/Layout"
 import {
+  LOCAL_IDENTIFIANT_FRANCAIS,
   PATTERN_EMAIL,
   STORAGE_NOM_PATIENT,
   STORAGE_PRENOM_PATIENT,
   STORAGE_RESULTS_BOARD,
   STORAGE_RESULTS_ID,
+  STORAGE_RESULTS_LOCALE,
   STORAGE_TOTAL_SCORE,
   URL_1000J,
 } from "../src/constants/constants"
@@ -48,6 +50,7 @@ const FormContact = (props) => {
   const score = getInLocalStorage(STORAGE_TOTAL_SCORE)
   const resultsId = getInLocalStorage(STORAGE_RESULTS_ID)
   const resultsBoard = jsonParse(getInLocalStorage(STORAGE_RESULTS_BOARD))
+  const resultsLocale = jsonParse(getInLocalStorage(STORAGE_RESULTS_LOCALE))
 
   const [sendEmailReponseQuery] = useMutation(EPDS_PARTAGE_INFORMATION, {
     client: client,
@@ -114,10 +117,17 @@ const FormContact = (props) => {
       <div className="font-weight-bold resultats-score">
         {props.translation("tab.score")} {score} / 30
       </div>
+      <p>
+        {resultsLocale &&
+        resultsLocale.identifiant != LOCAL_IDENTIFIANT_FRANCAIS
+          ? `Le test a été passé dans la langue : ${resultsLocale.libelle_francais}`
+          : null}
+      </p>
       <ResultsTab
         translation={props.translation}
         resultsBoard={resultsBoard}
         resultsId={resultsId}
+        resultsLocale={resultsLocale}
       />
 
       <div className="font-weight-bold" style={{ marginBottom: 20 }}>
@@ -273,7 +283,12 @@ const AdsForApp = ({ translation }) => (
   </div>
 )
 
-const ResultsTab = ({ translation, resultsBoard, resultsId }) => (
+const ResultsTab = ({
+  translation,
+  resultsBoard,
+  resultsId,
+  resultsLocale,
+}) => (
   <div className="fr-table fr-table--bordered">
     <table>
       <thead>
@@ -285,7 +300,13 @@ const ResultsTab = ({ translation, resultsBoard, resultsId }) => (
       </thead>
       <tbody>
         {typeof resultsBoard == "object"
-          ? resultsBoard.map((data) => buildDetailScore(data))
+          ? resultsBoard.map((data, index) => (
+              <BuildDetailScore
+                key={index}
+                info={data}
+                resultsLocale={resultsLocale}
+              />
+            ))
           : ""}
       </tbody>
       <tfoot>
@@ -301,10 +322,30 @@ const ResultsTab = ({ translation, resultsBoard, resultsId }) => (
   </div>
 )
 
-const buildDetailScore = (info) => (
+const BuildDetailScore = ({ info, resultsLocale }) => (
   <tr key={info.question}>
-    <td>{info.question}</td>
-    <td>{info.response}</td>
+    <td>
+      {info.question}
+      {resultsLocale &&
+      resultsLocale.identifiant != LOCAL_IDENTIFIANT_FRANCAIS ? (
+        <div>
+          -----
+          <br />
+          Ma question en français
+        </div>
+      ) : null}
+    </td>
+    <td>
+      {info.response}
+      {resultsLocale &&
+      resultsLocale.identifiant != LOCAL_IDENTIFIANT_FRANCAIS ? (
+        <div>
+          -----
+          <br />
+          Ma réponse en français
+        </div>
+      ) : null}
+    </td>
     <td>{info.points}</td>
   </tr>
 )

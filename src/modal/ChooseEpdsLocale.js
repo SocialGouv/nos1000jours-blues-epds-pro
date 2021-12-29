@@ -5,6 +5,8 @@ import { client, GET_LOCALES } from "../../apollo-client"
 import { LOCAL_IDENTIFIANT_FRANCAIS } from "../constants/constants"
 
 export function ChooseEpdsLocale({ show, setShow, setLocaleSelected }) {
+  let locales
+
   const getLocalesInDatabase = () => {
     const { loading, error, data } = useQuery(GET_LOCALES, {
       client: client,
@@ -12,6 +14,7 @@ export function ChooseEpdsLocale({ show, setShow, setLocaleSelected }) {
 
     if (loading) return <Spinner animation="border" />
     if (error) return <p>Error</p>
+    locales = data.locales
 
     return data.locales.map((locale, index) => (
       <Col key={index} md="6">
@@ -41,7 +44,10 @@ export function ChooseEpdsLocale({ show, setShow, setLocaleSelected }) {
   }
 
   const handleClick = (e) => {
-    setLocaleSelected(e.target.value)
+    const locale = locales.find((element) => {
+      return element.identifiant === e.target.value
+    })
+    setLocaleSelected(locale)
   }
 
   return (

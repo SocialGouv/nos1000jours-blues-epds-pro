@@ -50,6 +50,7 @@ export const QUESTIONNAIRE_EPDS_TRADUCTION = gql`
 export const GET_LOCALES = gql`
   query Locales {
     locales {
+      id
       identifiant
       libelle_francais
       libelle_langue

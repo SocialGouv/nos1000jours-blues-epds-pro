@@ -31,6 +31,7 @@ import {
   STORAGE_TOTAL_SCORE,
   STORAGE_RESULTS_ID,
   LOCAL_IDENTIFIANT_FRANCAIS,
+  STORAGE_RESULTS_LOCALE,
 } from "../src/constants/constants"
 import { ChooseEpdsLocale } from "../src/modal/ChooseEpdsLocale"
 
@@ -84,6 +85,7 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
       resultsBoard.map((data) => data.points).reduce((a, b) => a + b, 0)
     )
     localStorage.setItem(STORAGE_RESULTS_BOARD, JSON.stringify(resultsBoard))
+    localStorage.setItem(STORAGE_RESULTS_LOCALE, JSON.stringify(localeSelected))
 
     router.push({
       pathname: "/resultats",
@@ -101,6 +103,7 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
         let genderValue = localStorage.getItem(STORAGE_GENRE_PATIENT)
         if (!genderValue) genderValue = EpdsGender.inconnu.strapiLibelle
 
+        // TODO: ajouter la locale (STORAGE_RESULTS_LOCALE)
         await addReponseQuery({
           variables: {
             compteur: newCounter,
@@ -132,11 +135,11 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
   React.useEffect(() => {
     const translationsQuery = async () => {
       if (!showSelectLocal && localeSelected) {
-        if (localeSelected == LOCAL_IDENTIFIANT_FRANCAIS) {
+        if (localeSelected.identifiant == LOCAL_IDENTIFIANT_FRANCAIS) {
           setUpdatedQuestionsEpds(questionsEpds)
         } else {
           await getTranslationsQuery({
-            variables: { locale: localeSelected },
+            variables: { locale: localeSelected.identifiant },
           })
         }
       }
