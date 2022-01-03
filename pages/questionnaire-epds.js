@@ -307,6 +307,7 @@ export const resultsBoardInFrench = (questionsEpds, resultsBoard) =>
 
     return {
       order: frenchQuestion.ordre,
+      points: question.points,
       question: frenchQuestion.libelle,
       response: frenchResponse,
     }

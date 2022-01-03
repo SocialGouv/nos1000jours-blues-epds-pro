@@ -8,6 +8,7 @@ import { Col, Row } from "react-bootstrap"
 import { client, EPDS_PARTAGE_INFORMATION } from "../apollo-client"
 import { HeaderImage } from "../src/components/HeaderImage"
 import { ContentLayout } from "../src/components/Layout"
+import { ResultsTab } from "../src/components/ResultsTab"
 import {
   LOCAL_IDENTIFIANT_FRANCAIS,
   PATTERN_EMAIL,
@@ -129,9 +130,10 @@ const FormContact = (props) => {
       </p>
       <ResultsTab
         translation={props.translation}
-        resultsBoard={resultsBoard}
+        resultsBoard={resultsBoardInFrench}
         resultsId={resultsId}
-        resultsLocale={resultsLocale}
+        locale={resultsLocale}
+        resultsBoardTranslated={resultsBoard}
       />
 
       <div className="font-weight-bold" style={{ marginBottom: 20 }}>
@@ -285,73 +287,6 @@ const AdsForApp = ({ translation }) => (
       </tbody>
     </table>
   </div>
-)
-
-const ResultsTab = ({
-  translation,
-  resultsBoard,
-  resultsId,
-  resultsLocale,
-}) => (
-  <div className="fr-table fr-table--bordered">
-    <table>
-      <thead>
-        <tr>
-          <th scope="col">{translation("tab.question")}</th>
-          <th scope="col">{translation("tab.reponse")}</th>
-          <th scope="col">{translation("tab.point")}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {typeof resultsBoard == "object"
-          ? resultsBoard.map((data, index) => (
-              <BuildDetailScore
-                key={index}
-                info={data}
-                resultsLocale={resultsLocale}
-              />
-            ))
-          : ""}
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colSpan="3">
-            <i>
-              {translation("tab.id")} {resultsId}
-            </i>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
-)
-
-const BuildDetailScore = ({ info, resultsLocale }) => (
-  <tr key={info.question}>
-    <td>
-      {info.question}
-      {resultsLocale &&
-      resultsLocale.identifiant != LOCAL_IDENTIFIANT_FRANCAIS ? (
-        <div>
-          -----
-          <br />
-          Ma question en français
-        </div>
-      ) : null}
-    </td>
-    <td>
-      {info.response}
-      {resultsLocale &&
-      resultsLocale.identifiant != LOCAL_IDENTIFIANT_FRANCAIS ? (
-        <div>
-          -----
-          <br />
-          Ma réponse en français
-        </div>
-      ) : null}
-    </td>
-    <td>{info.points}</td>
-  </tr>
 )
 
 function getInLocalStorage(key) {

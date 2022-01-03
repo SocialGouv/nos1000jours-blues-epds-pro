@@ -264,55 +264,65 @@ describe("Questionnaire", () => {
     const frenchResults = [
       {
         order: 1,
+        points: 3,
         question: "J’ai pu rire et prendre les choses du bon côté",
         response: "Absolument pas",
       },
       {
         order: 2,
+        points: 3,
         question:
           "Je me suis senti(e) confiant(e) et joyeux(se), en pensant à l’avenir",
         response: "Pratiquement pas",
       },
       {
         order: 3,
+        points: 0,
         question:
           "Je me suis reprochée, sans raisons, d’être responsable quand les choses allaient mal",
         response: "Non, jamais",
       },
       {
         order: 4,
+        points: 3,
         question: "Je me suis senti(e) inquiet(e) ou soucieux(se) sans motifs",
         response: "Oui, très souvent",
       },
       {
         order: 5,
+        points: 0,
         question:
           "Je me suis senti(e) effrayé(e) ou paniqué(e) sans vraiment de raisons",
         response: "Non, pas du tout",
       },
       {
         order: 6,
+        points: 0,
         question: "J’ai eu tendance à me sentir dépassé(e) par les évènements",
         response: "Non, je me suis sentie aussi efficace que d’habitude",
       },
       {
         order: 7,
+        points: 0,
         question:
           "Je me suis senti(e) si malheureux(se) que j’ai eu des problèmes de sommeil",
         response: "Non, pas du tout",
       },
       {
         order: 8,
+        points: 0,
         question: "Je me suis senti(e) triste ou peu heureux(se)",
         response: "Non, pas du tout",
       },
       {
         order: 9,
+        points: 0,
         question: "Je me suis senti(e) si malheureux(se) que j’en ai pleuré",
         response: "Non, jamais",
       },
       {
         order: 10,
+        points: 0,
         question: "Il m’est arrivé de penser à me faire du mal",
         response: "Jamais",
       },
