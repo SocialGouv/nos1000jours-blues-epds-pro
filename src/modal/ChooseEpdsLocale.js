@@ -1,11 +1,19 @@
 import { useQuery } from "@apollo/client"
-import React from "react"
-import { Button, ButtonGroup, Col, Modal, Row, Spinner } from "react-bootstrap"
+import React, { useState } from "react"
+import {
+  ButtonGroup,
+  Col,
+  Modal,
+  Row,
+  Spinner,
+  ToggleButton,
+} from "react-bootstrap"
 import { client, GET_LOCALES } from "../../apollo-client"
 import { LOCAL_IDENTIFIANT_FRANCAIS } from "../constants/constants"
 
 export function ChooseEpdsLocale({ show, setShow, setLocaleSelected }) {
   let locales
+  const [selected, setSelected] = useState()
 
   const getLocalesInDatabase = () => {
     const { loading, error, data } = useQuery(GET_LOCALES, {
@@ -25,9 +33,14 @@ export function ChooseEpdsLocale({ show, setShow, setLocaleSelected }) {
 
   const FlagButton = ({ locale }) => {
     return (
-      <Button
+      <ToggleButton
         className="fr-btn fr-btn--secondary flag-button"
         value={locale.identifiant}
+        name="radio"
+        type="radio"
+        id={locale.identifiant}
+        checked={selected === locale.identifiant}
+        onChange={(e) => handleClick(e.currentTarget.value)}
       >
         <img
           alt="Drapeau"
@@ -39,13 +52,15 @@ export function ChooseEpdsLocale({ show, setShow, setLocaleSelected }) {
         {locale.identifiant != LOCAL_IDENTIFIANT_FRANCAIS
           ? ` / ${locale.libelle_langue}`
           : null}
-      </Button>
+      </ToggleButton>
     )
   }
 
-  const handleClick = (e) => {
+  const handleClick = (value) => {
+    setSelected(value)
+
     const locale = locales.find((element) => {
-      return element.identifiant === e.target.value
+      return element.identifiant === value
     })
     setLocaleSelected(locale)
   }
@@ -63,7 +78,7 @@ export function ChooseEpdsLocale({ show, setShow, setLocaleSelected }) {
             faire passer l’EPDS :
           </div>
 
-          <ButtonGroup toggle={true} onClick={handleClick}>
+          <ButtonGroup className="mb-2">
             <Row style={{ marginTop: 20 }}>{getLocalesInDatabase()}</Row>
           </ButtonGroup>
         </Modal.Body>
@@ -101,6 +116,7 @@ const ChooseEpdsLocaleStyle = () => (
       font-size: 24px;
       margin-top: 23px;
     }
+
     .flag-button {
       margin-top: 10px;
       border: 0.5px solid #e7e7e7;
@@ -108,6 +124,10 @@ const ChooseEpdsLocaleStyle = () => (
       padding: 13px;
       width: 80%;
       min-width: 250px;
+    }
+
+    .flag-button input[type="radio"] {
+      visibility: hidden;
     }
   `}</style>
 )

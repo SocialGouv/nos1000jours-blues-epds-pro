@@ -15,12 +15,13 @@ import {
   STORAGE_NOM_PATIENT,
   STORAGE_PRENOM_PATIENT,
   STORAGE_RESULTS_BOARD,
-  STORAGE_RESULTS_BOARD_IN_FRENCH,
+  STORAGE_RESULTS_BOARD_TRANSLATED,
   STORAGE_RESULTS_ID,
   STORAGE_RESULTS_LOCALE,
   STORAGE_TOTAL_SCORE,
   URL_1000J,
 } from "../src/constants/constants"
+import { getInLocalStorage, jsonParse } from "../src/constants/utils"
 
 export default function Resultats() {
   const { t } = useTranslation("resultats")
@@ -52,8 +53,8 @@ const FormContact = (props) => {
   const score = getInLocalStorage(STORAGE_TOTAL_SCORE)
   const resultsId = getInLocalStorage(STORAGE_RESULTS_ID)
   const resultsBoard = jsonParse(getInLocalStorage(STORAGE_RESULTS_BOARD))
-  const resultsBoardInFrench = jsonParse(
-    getInLocalStorage(STORAGE_RESULTS_BOARD_IN_FRENCH)
+  const resultsBoardTranslated = jsonParse(
+    getInLocalStorage(STORAGE_RESULTS_BOARD_TRANSLATED)
   )
   const resultsLocale = jsonParse(getInLocalStorage(STORAGE_RESULTS_LOCALE))
 
@@ -73,6 +74,7 @@ const FormContact = (props) => {
       const name = localStorage.getItem(STORAGE_NOM_PATIENT)
       const surname = localStorage.getItem(STORAGE_PRENOM_PATIENT)
 
+      // TODO: revoir les Questions/Réponses envoyées par mail si besoin d'une traduction
       await sendEmailReponseQuery({
         variables: {
           detail_questions: resultsBoard.map((data) => data.question),
@@ -130,10 +132,10 @@ const FormContact = (props) => {
       </p>
       <ResultsTab
         translation={props.translation}
-        resultsBoard={resultsBoardInFrench}
+        resultsBoard={resultsBoard}
         resultsId={resultsId}
         locale={resultsLocale}
-        resultsBoardTranslated={resultsBoard}
+        resultsBoardTranslated={resultsBoardTranslated}
       />
 
       <div className="font-weight-bold" style={{ marginBottom: 20 }}>
@@ -288,14 +290,6 @@ const AdsForApp = ({ translation }) => (
     </table>
   </div>
 )
-
-function getInLocalStorage(key) {
-  if (typeof window !== "undefined") return localStorage.getItem(key)
-}
-
-function jsonParse(data) {
-  if (typeof data !== "undefined") return JSON.parse(data)
-}
 
 export const getStaticProps = async ({ locale }) => ({
   props: {

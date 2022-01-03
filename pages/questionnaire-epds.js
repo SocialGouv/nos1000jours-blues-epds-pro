@@ -32,7 +32,7 @@ import {
   STORAGE_RESULTS_ID,
   LOCAL_IDENTIFIANT_FRANCAIS,
   STORAGE_RESULTS_LOCALE,
-  STORAGE_RESULTS_BOARD_IN_FRENCH,
+  STORAGE_RESULTS_BOARD_TRANSLATED,
 } from "../src/constants/constants"
 import { ChooseEpdsLocale } from "../src/modal/ChooseEpdsLocale"
 
@@ -50,6 +50,9 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
   const [localeSelected, setLocaleSelected] = React.useState()
   const [updatedQuestionsEpds, setUpdatedQuestionsEpds] =
     React.useState(questionsEpds)
+  const [resultsBoardTranslated, setResultsBoardTranslated] =
+    React.useState(resultsBoard)
+  const [isFR, setFR] = React.useState(true)
 
   checkQuestionsOrder(questionsEpds)
 
@@ -63,8 +66,11 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
         STORAGE_RESULTS_ID,
         data.createReponsesEpd.reponsesEpd.id
       )
-      buildResultsBoardInFrench(questionsEpds, resultsBoard, localeSelected)
-
+      buildResultsBoardInFrench(
+        questionsEpds,
+        resultsBoardTranslated,
+        localeSelected
+      )
       setIdReturned(true)
     },
   })
@@ -87,7 +93,10 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
       STORAGE_TOTAL_SCORE,
       resultsBoard.map((data) => data.points).reduce((a, b) => a + b, 0)
     )
-    localStorage.setItem(STORAGE_RESULTS_BOARD, JSON.stringify(resultsBoard))
+    localStorage.setItem(
+      STORAGE_RESULTS_BOARD_TRANSLATED,
+      JSON.stringify(resultsBoard)
+    )
     localStorage.setItem(STORAGE_RESULTS_LOCALE, JSON.stringify(localeSelected))
 
     router.push({
@@ -140,7 +149,9 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
       if (!showSelectLocal && localeSelected) {
         if (localeSelected.identifiant == LOCAL_IDENTIFIANT_FRANCAIS) {
           setUpdatedQuestionsEpds(questionsEpds)
+          setFR(true)
         } else {
+          setFR(false)
           await getTranslationsQuery({
             variables: { locale: localeSelected.identifiant },
           })
@@ -187,7 +198,7 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
         <QuestionsCarousel
           questions={updatedQuestionsEpds}
           refForOnClick={ref}
-          resultsBoard={resultsBoard}
+          resultsBoard={isFR ? resultsBoard : resultsBoardTranslated}
           setEnabledNextButton={setEnabledNextButton}
         />
         <PreviousAndNextButton
@@ -252,12 +263,12 @@ const QuestionsCarousel = ({
 
 /**
  * @param {*} questionsEpds : Questions en FR
- * @param {*} resultsBoard : Resultats dans la langue passée
+ * @param {*} results : Resultats dans la langue passée
  * @param {*} localeSelected : Locale de la langue utilisée
  */
 const buildResultsBoardInFrench = async (
   questionsEpds,
-  resultsBoard,
+  results,
   localeSelected
 ) => {
   /* Lorsque l'on utilisera uniiquement la collection Question_EPDS_Traduction, 
@@ -267,21 +278,18 @@ const buildResultsBoardInFrench = async (
     localeSelected &&
     localeSelected.identifiant != LOCAL_IDENTIFIANT_FRANCAIS
   ) {
-    const resultsInFrench = resultsBoardInFrench(questionsEpds, resultsBoard)
-    localStorage.setItem(
-      STORAGE_RESULTS_BOARD_IN_FRENCH,
-      JSON.stringify(resultsInFrench)
-    )
+    const resultsInFrench = resultsBoardInFrench(questionsEpds, results)
+    localStorage.setItem(STORAGE_RESULTS_BOARD, JSON.stringify(resultsInFrench))
   }
 }
 
 /**
  * @param {*} questionsEpds : Questions en FR
- * @param {*} resultsBoard : Resultats dans la langue passée
+ * @param {*} results : Resultats dans la langue passée
  * @returns Les questions et réponses du résultat en FR
  */
-export const resultsBoardInFrench = (questionsEpds, resultsBoard) =>
-  resultsBoard.map((question) => {
+export const resultsBoardInFrench = (questionsEpds, results) =>
+  results.map((question) => {
     const frenchQuestion = questionsEpds.find((element) => {
       return question.order === element.ordre
     })
