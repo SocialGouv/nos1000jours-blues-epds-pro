@@ -14,6 +14,7 @@ import {
   STORAGE_NOM_PATIENT,
   STORAGE_PRENOM_PATIENT,
   STORAGE_RESULTS_BOARD,
+  STORAGE_RESULTS_BOARD_IN_FRENCH,
   STORAGE_RESULTS_ID,
   STORAGE_RESULTS_LOCALE,
   STORAGE_TOTAL_SCORE,
@@ -50,6 +51,9 @@ const FormContact = (props) => {
   const score = getInLocalStorage(STORAGE_TOTAL_SCORE)
   const resultsId = getInLocalStorage(STORAGE_RESULTS_ID)
   const resultsBoard = jsonParse(getInLocalStorage(STORAGE_RESULTS_BOARD))
+  const resultsBoardInFrench = jsonParse(
+    getInLocalStorage(STORAGE_RESULTS_BOARD_IN_FRENCH)
+  )
   const resultsLocale = jsonParse(getInLocalStorage(STORAGE_RESULTS_LOCALE))
 
   const [sendEmailReponseQuery] = useMutation(EPDS_PARTAGE_INFORMATION, {

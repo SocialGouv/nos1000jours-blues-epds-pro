@@ -18,6 +18,7 @@ export function EpdsQuestion({ question, resultsBoard, setEnabledNextButton }) {
     const responseIndex = Number(e.target.id.split(prefix + "-radio")[1])
 
     resultsBoard[question.ordre - 1] = {
+      order: question.ordre,
       points: arrayResponses[responseIndex - 1].points,
       question: question.libelle,
       response: arrayResponses[responseIndex - 1].libelle,

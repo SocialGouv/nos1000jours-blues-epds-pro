@@ -32,6 +32,7 @@ import {
   STORAGE_RESULTS_ID,
   LOCAL_IDENTIFIANT_FRANCAIS,
   STORAGE_RESULTS_LOCALE,
+  STORAGE_RESULTS_BOARD_IN_FRENCH,
 } from "../src/constants/constants"
 import { ChooseEpdsLocale } from "../src/modal/ChooseEpdsLocale"
 
@@ -62,6 +63,8 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
         STORAGE_RESULTS_ID,
         data.createReponsesEpd.reponsesEpd.id
       )
+      buildResultsBoardInFrench(questionsEpds, resultsBoard, localeSelected)
+
       setIdReturned(true)
     },
   })
@@ -246,6 +249,68 @@ const QuestionsCarousel = ({
     })}
   </Carousel>
 )
+
+/**
+ * @param {*} questionsEpds : Questions en FR
+ * @param {*} resultsBoard : Resultats dans la langue passée
+ * @param {*} localeSelected : Locale de la langue utilisée
+ */
+const buildResultsBoardInFrench = async (
+  questionsEpds,
+  resultsBoard,
+  localeSelected
+) => {
+  /* Lorsque l'on utilisera uniiquement la collection Question_EPDS_Traduction, 
+  il faudra adapter la fonction de récupération du questionnaire en français */
+
+  if (
+    localeSelected &&
+    localeSelected.identifiant != LOCAL_IDENTIFIANT_FRANCAIS
+  ) {
+    const resultsInFrench = resultsBoardInFrench(questionsEpds, resultsBoard)
+    localStorage.setItem(
+      STORAGE_RESULTS_BOARD_IN_FRENCH,
+      JSON.stringify(resultsInFrench)
+    )
+  }
+}
+
+/**
+ * @param {*} questionsEpds : Questions en FR
+ * @param {*} resultsBoard : Resultats dans la langue passée
+ * @returns Les questions et réponses du résultat en FR
+ */
+export const resultsBoardInFrench = (questionsEpds, resultsBoard) =>
+  resultsBoard.map((question) => {
+    const frenchQuestion = questionsEpds.find((element) => {
+      return question.order === element.ordre
+    })
+
+    let frenchResponse = ""
+    switch (question.points) {
+      case frenchQuestion.reponse_1_points:
+        frenchResponse = frenchQuestion.reponse_1_libelle
+        break
+      case frenchQuestion.reponse_2_points:
+        frenchResponse = frenchQuestion.reponse_2_libelle
+        break
+      case frenchQuestion.reponse_3_points:
+        frenchResponse = frenchQuestion.reponse_3_libelle
+        break
+      case frenchQuestion.reponse_4_points:
+        frenchResponse = frenchQuestion.reponse_4_libelle
+        break
+      default:
+        frenchResponse = "error"
+        break
+    }
+
+    return {
+      order: frenchQuestion.ordre,
+      question: frenchQuestion.libelle,
+      response: frenchResponse,
+    }
+  })
 
 const PreviousAndNextButton = (props) => (
   <div
