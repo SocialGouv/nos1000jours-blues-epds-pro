@@ -126,7 +126,9 @@ const FormContact = (props) => {
       <p>
         {resultsLocale &&
         resultsLocale.identifiant != LOCAL_IDENTIFIANT_FRANCAIS
-          ? `Le test a été passé dans la langue : ${resultsLocale.libelle_francais}`
+          ? `${props.translation("test-completed-in-language")} : ${
+              resultsLocale.libelle_francais
+            }`
           : null}
       </p>
       <ResultsTab

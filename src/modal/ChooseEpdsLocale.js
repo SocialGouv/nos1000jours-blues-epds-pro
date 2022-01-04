@@ -11,7 +11,12 @@ import {
 import { client, GET_LOCALES } from "../../apollo-client"
 import { LOCAL_IDENTIFIANT_FRANCAIS } from "../constants/constants"
 
-export function ChooseEpdsLocale({ show, setShow, setLocaleSelected }) {
+export function ChooseEpdsLocale({
+  show,
+  setShow,
+  setLocaleSelected,
+  translation,
+}) {
   let locales
   const [selected, setSelected] = useState()
 
@@ -69,14 +74,11 @@ export function ChooseEpdsLocale({ show, setShow, setLocaleSelected }) {
     <>
       <Modal show={show} centered size="lg">
         <Modal.Header className="fr-modal__header header-choose-modal">
-          <b>Changer de langue</b>
+          <b>{translation("choose-locale.change-language")}</b>
         </Modal.Header>
 
         <Modal.Body style={{ textAlign: "center" }}>
-          <div>
-            Choississez parmi cette liste, la langue que vous souhaitez pour
-            faire passer l’EPDS :
-          </div>
+          <div>{translation("choose-locale.find-language")}</div>
 
           <ButtonGroup className="mb-2">
             <Row style={{ marginTop: 20 }}>{getLocalesInDatabase()}</Row>
@@ -93,11 +95,11 @@ export function ChooseEpdsLocale({ show, setShow, setLocaleSelected }) {
               setShow(false)
             }}
           >
-            Annuler
+            {translation("choose-locale.cancel")}
           </button>
           <div style={{ width: 20 }} />
           <button className="fr-btn" onClick={() => setShow(false)}>
-            Valider
+            {translation("choose-locale.validate")}
           </button>
         </Modal.Footer>
       </Modal>

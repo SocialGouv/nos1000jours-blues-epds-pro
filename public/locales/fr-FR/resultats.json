@@ -1,6 +1,7 @@
 {
   "header": "Mon suivi après bébé",
   "resultat": "Résultat",
+
   "tab": {
     "score": "Score : ",
     "question": "Question",
@@ -8,6 +9,7 @@
     "point": "Score",
     "id":"Id questionnaire : "
   },
+  "test-completed-in-language": "Le test a été passé dans la langue",
   "form": {
     "email-pro1-intro": "Recevez les résultats du test par mail",
     "email-pro1": "Adresse email du professionnel présent *",

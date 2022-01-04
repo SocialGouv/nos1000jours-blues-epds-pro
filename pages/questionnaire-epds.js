@@ -183,6 +183,7 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
         show={showSelectLocal}
         setShow={setShowSelectLocal}
         setLocaleSelected={setLocaleSelected}
+        translation={t}
       />
 
       <div
