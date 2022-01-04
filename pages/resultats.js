@@ -74,7 +74,6 @@ const FormContact = (props) => {
       const name = localStorage.getItem(STORAGE_NOM_PATIENT)
       const surname = localStorage.getItem(STORAGE_PRENOM_PATIENT)
 
-      // TODO: revoir les Questions/Réponses envoyées par mail si besoin d'une traduction
       await sendEmailReponseQuery({
         variables: {
           detail_questions: resultsBoard.map((data) => data.question),

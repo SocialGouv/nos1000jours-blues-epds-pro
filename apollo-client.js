@@ -77,6 +77,7 @@ export const EPDS_ADD_RESPONSE = gql`
     $reponseNum8: Int!
     $reponseNum9: Int!
     $reponseNum10: Int!
+    $locale: ID
   ) {
     createReponsesEpd(
       input: {
@@ -95,6 +96,7 @@ export const EPDS_ADD_RESPONSE = gql`
           reponse_8: $reponseNum8
           reponse_9: $reponseNum9
           reponse_10: $reponseNum10
+          locale: $locale
         }
       }
     ) {

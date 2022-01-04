@@ -115,7 +115,6 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
         let genderValue = localStorage.getItem(STORAGE_GENRE_PATIENT)
         if (!genderValue) genderValue = EpdsGender.inconnu.strapiLibelle
 
-        // TODO: ajouter la locale (STORAGE_RESULTS_LOCALE)
         await addReponseQuery({
           variables: {
             compteur: newCounter,
@@ -132,6 +131,7 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
             reponseNum9: resultsBoard[8].points,
             score: result,
             source: EPDS_SOURCE,
+            locale: localeSelected.id,
           },
         })
       }
