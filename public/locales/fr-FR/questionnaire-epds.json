@@ -13,8 +13,8 @@
     "button": "CONFIRMER"
   },
   "choose-locale": {
-    "change-language":"Changer de langue",
-    "find-language":"Choississez parmi cette liste, la langue que vous souhaitez pour faire passer l’EPDS :",
+    "change-language": "Changer de langue",
+    "find-language": "Choisissez parmi cette liste la langue que vous souhaitez pour faire passer l’EPDS :",
     "validate": "Valider",
     "cancel": "Annuler"
   }

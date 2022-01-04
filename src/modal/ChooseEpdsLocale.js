@@ -64,9 +64,7 @@ export function ChooseEpdsLocale({
   const handleClick = (value) => {
     setSelected(value)
 
-    const locale = locales.find((element) => {
-      return element.identifiant === value
-    })
+    const locale = locales.find((element) => element.identifiant === value)
     setLocaleSelected(locale)
   }
 
