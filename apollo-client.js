@@ -29,10 +29,10 @@ export const QUESTIONNAIRE_EPDS = gql`
 
 export const QUESTIONNAIRE_EPDS_TRADUCTION = gql`
   query QuestionnaireEpdsTraductions($locale: String) {
-    questionnaireEpdsTraductions(where: { locale: { identifiant: $locale } }) {
+    questionnaireEpdsTraductions(where: { langue: { identifiant: $locale } }) {
       libelle
       ordre
-      locale {
+      langue {
         identifiant
       }
       reponse_1_libelle
@@ -77,7 +77,7 @@ export const EPDS_ADD_RESPONSE = gql`
     $reponseNum8: Int!
     $reponseNum9: Int!
     $reponseNum10: Int!
-    $locale: ID
+    $langue: ID
   ) {
     createReponsesEpd(
       input: {
@@ -96,7 +96,7 @@ export const EPDS_ADD_RESPONSE = gql`
           reponse_8: $reponseNum8
           reponse_9: $reponseNum9
           reponse_10: $reponseNum10
-          locale: $locale
+          langue: $langue
         }
       }
     ) {

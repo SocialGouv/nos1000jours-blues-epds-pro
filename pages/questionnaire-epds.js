@@ -131,7 +131,7 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
             reponseNum9: resultsBoard[8].points,
             score: result,
             source: EPDS_SOURCE,
-            locale: localeSelected.id,
+            langue: localeSelected.id,
           },
         })
       }
