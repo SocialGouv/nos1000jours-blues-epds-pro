@@ -36,30 +36,28 @@ export function ChooseEpdsLocale({
     ))
   }
 
-  const FlagButton = ({ locale }) => {
-    return (
-      <ToggleButton
-        className="fr-btn fr-btn--secondary flag-button"
-        value={locale.identifiant}
-        name="radio"
-        type="radio"
-        id={locale.identifiant}
-        checked={selected === locale.identifiant}
-        onChange={(e) => handleClick(e.currentTarget.value)}
-      >
-        <img
-          alt="Drapeau"
-          src={process.env.NEXT_PUBLIC_API_URL + locale.drapeau.url}
-          height={26}
-          style={{ marginRight: 10, borderRadius: 5 }}
-        />
-        {locale.libelle_francais}
-        {locale.identifiant != LOCAL_IDENTIFIANT_FRANCAIS
-          ? ` / ${locale.libelle_langue}`
-          : null}
-      </ToggleButton>
-    )
-  }
+  const FlagButton = ({ locale }) => (
+    <ToggleButton
+      className="fr-btn fr-btn--secondary flag-button"
+      value={locale.identifiant}
+      name="radio"
+      type="radio"
+      id={locale.identifiant}
+      checked={selected === locale.identifiant}
+      onChange={(e) => handleClick(e.currentTarget.value)}
+    >
+      <img
+        alt="Drapeau"
+        src={process.env.NEXT_PUBLIC_API_URL + locale.drapeau.url}
+        height={26}
+        style={{ marginRight: 10, borderRadius: 5 }}
+      />
+      {locale.libelle_francais}
+      {locale.identifiant != LOCAL_IDENTIFIANT_FRANCAIS
+        ? ` / ${locale.libelle_langue}`
+        : null}
+    </ToggleButton>
+  )
 
   const handleClick = (value) => {
     setSelected(value)
