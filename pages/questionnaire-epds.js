@@ -291,9 +291,9 @@ const buildResultsBoardInFrench = async (
  */
 export const resultsBoardInFrench = (questionsEpds, results) =>
   results.map((question) => {
-    const frenchQuestion = questionsEpds.find((element) => {
-      return question.order === element.ordre
-    })
+    const frenchQuestion = questionsEpds.find(
+      (element) => question.order === element.ordre
+    )
 
     let frenchResponse = ""
     switch (question.points) {
