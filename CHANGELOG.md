@@ -1,3 +1,23 @@
+# [1.8.0](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.7.1...v1.8.0) (2022-01-05)
+
+
+### Bug Fixes
+
+* **epds:** retour de PR ([d24b247](https://github.com/SocialGouv/nos1000jours-web-pro/commit/d24b2474dd9dd9664c98a0b21a5d4cdd279248af))
+* **epds:** retours PR ([d7fcc6b](https://github.com/SocialGouv/nos1000jours-web-pro/commit/d7fcc6b0caf1f57f51452a760aa8d2890a9d35d5))
+
+
+### Features
+
+* **epds:** affichage des résultats avec la traduction ([a1dcd9d](https://github.com/SocialGouv/nos1000jours-web-pro/commit/a1dcd9da119dc782540e15411119614e6bcb9150))
+* **epds:** ajout  de la locale dans les résultats en base ([4338e14](https://github.com/SocialGouv/nos1000jours-web-pro/commit/4338e146a441250ba155726104dd997fd12484ce))
+* **epds:** changement de locale en langue ([94ba9f2](https://github.com/SocialGouv/nos1000jours-web-pro/commit/94ba9f2af4efa758a0ed28cc9e3792bf5df005ad))
+* **epds:** externalisation du tableau des résultats ([8abd5b4](https://github.com/SocialGouv/nos1000jours-web-pro/commit/8abd5b410f40f8c84da127222735bc7dd70510aa))
+* **epds:** Maj i18n ([fd66e82](https://github.com/SocialGouv/nos1000jours-web-pro/commit/fd66e82049f4224b7d97c20fd579ede47a204d15))
+* **epds:** récupération de la langue dans les résultats ([447ce10](https://github.com/SocialGouv/nos1000jours-web-pro/commit/447ce104f67f0e2ebf61b260f1f7c9135500dfc8))
+* **epds:** récupération des résultats en FR ([3d9c947](https://github.com/SocialGouv/nos1000jours-web-pro/commit/3d9c9477b209a017108fd8e250cda9a8b67f5458))
+* **epds:** tranduction du questionnaire ([511cb0b](https://github.com/SocialGouv/nos1000jours-web-pro/commit/511cb0b6f84a953e3ec56d485a68a7c24906ec5f))
+
 ## [1.7.1](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.7.0...v1.7.1) (2021-12-07)
 
 
