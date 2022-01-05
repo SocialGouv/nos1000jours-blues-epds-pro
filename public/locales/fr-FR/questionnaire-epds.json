@@ -11,5 +11,11 @@
     "content1": "Votre test est terminé. Vous allez être redirigé vers les résultats du test.",
     "content2": "Rapprochez-vous de votre professionnel de santé.",
     "button": "CONFIRMER"
+  },
+  "choose-locale": {
+    "change-language": "Changer de langue",
+    "find-language": "Choisissez parmi cette liste la langue que vous souhaitez pour faire passer l’EPDS :",
+    "validate": "Valider",
+    "cancel": "Annuler"
   }
 }

@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client"
+import { useLazyQuery, useMutation } from "@apollo/client"
 import {} from "@dataesr/react-dsfr"
 import { useRouter } from "next/router"
 import * as React from "react"
@@ -14,7 +14,12 @@ import {
 } from "react-bootstrap"
 import { Check2Circle } from "react-bootstrap-icons"
 
-import { client, EPDS_ADD_RESPONSE, QUESTIONNAIRE_EPDS } from "../apollo-client"
+import {
+  client,
+  EPDS_ADD_RESPONSE,
+  QUESTIONNAIRE_EPDS,
+  QUESTIONNAIRE_EPDS_TRADUCTION,
+} from "../apollo-client"
 import { EpdsQuestion } from "../src/components/EpdsQuestion"
 import { HeaderImage } from "../src/components/HeaderImage"
 import { ContentLayout } from "../src/components/Layout"
@@ -25,7 +30,11 @@ import {
   STORAGE_RESULTS_BOARD,
   STORAGE_TOTAL_SCORE,
   STORAGE_RESULTS_ID,
+  LOCAL_IDENTIFIANT_FRANCAIS,
+  STORAGE_RESULTS_LOCALE,
+  STORAGE_RESULTS_BOARD_TRANSLATED,
 } from "../src/constants/constants"
+import { ChooseEpdsLocale } from "../src/modal/ChooseEpdsLocale"
 
 export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
   const { t } = useTranslation("questionnaire-epds")
@@ -37,19 +46,45 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
   const [sendScore, setSendScore] = React.useState(false)
   const [isIdReturned, setIdReturned] = React.useState(false)
 
+  const [showSelectLocal, setShowSelectLocal] = React.useState(true)
+  const [localeSelected, setLocaleSelected] = React.useState()
+  const [updatedQuestionsEpds, setUpdatedQuestionsEpds] =
+    React.useState(questionsEpds)
+  const [resultsBoardTranslated, setResultsBoardTranslated] =
+    React.useState(resultsBoard)
+  const [isFR, setFR] = React.useState(true)
+
   checkQuestionsOrder(questionsEpds)
 
   const [addReponseQuery] = useMutation(EPDS_ADD_RESPONSE, {
     client: client,
     onError: (err) => {
-      console.log(err)
+      console.warn(err)
     },
     onCompleted: (data) => {
       localStorage.setItem(
         STORAGE_RESULTS_ID,
         data.createReponsesEpd.reponsesEpd.id
       )
+      buildResultsBoardInFrench(
+        questionsEpds,
+        resultsBoardTranslated,
+        localeSelected
+      )
       setIdReturned(true)
+    },
+  })
+
+  const [getTranslationsQuery] = useLazyQuery(QUESTIONNAIRE_EPDS_TRADUCTION, {
+    client: client,
+    onCompleted: (data) => {
+      const dataSorted = checkQuestionsOrder([
+        ...data.questionnaireEpdsTraductions,
+      ])
+      setUpdatedQuestionsEpds(dataSorted)
+    },
+    onError: (err) => {
+      console.warn(err)
     },
   })
 
@@ -58,7 +93,11 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
       STORAGE_TOTAL_SCORE,
       resultsBoard.map((data) => data.points).reduce((a, b) => a + b, 0)
     )
-    localStorage.setItem(STORAGE_RESULTS_BOARD, JSON.stringify(resultsBoard))
+    localStorage.setItem(
+      STORAGE_RESULTS_BOARD_TRANSLATED,
+      JSON.stringify(resultsBoard)
+    )
+    localStorage.setItem(STORAGE_RESULTS_LOCALE, JSON.stringify(localeSelected))
 
     router.push({
       pathname: "/resultats",
@@ -92,6 +131,7 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
             reponseNum9: resultsBoard[8].points,
             score: result,
             source: EPDS_SOURCE,
+            langue: localeSelected.id,
           },
         })
       }
@@ -103,6 +143,24 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
   React.useEffect(() => {
     setEnabledNextButton(resultsBoard[actualIndex - 1] != null)
   }, [actualIndex])
+
+  React.useEffect(() => {
+    const translationsQuery = async () => {
+      if (!showSelectLocal && localeSelected) {
+        if (localeSelected.identifiant == LOCAL_IDENTIFIANT_FRANCAIS) {
+          setUpdatedQuestionsEpds(questionsEpds)
+          setFR(true)
+        } else {
+          setFR(false)
+          await getTranslationsQuery({
+            variables: { locale: localeSelected.identifiant },
+          })
+        }
+      }
+    }
+
+    translationsQuery()
+  }, [showSelectLocal])
 
   const onPreviousQuestion = () => {
     ref.current.prev()
@@ -121,6 +179,13 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
         title={t("questionnaire-epds")}
       />
 
+      <ChooseEpdsLocale
+        show={showSelectLocal}
+        setShow={setShowSelectLocal}
+        setLocaleSelected={setLocaleSelected}
+        translation={t}
+      />
+
       <div
         className="page-content questionnaire-content"
         style={{ alignItems: "center" }}
@@ -132,9 +197,9 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
         </div>
 
         <QuestionsCarousel
-          questions={questionsEpds}
+          questions={updatedQuestionsEpds}
           refForOnClick={ref}
-          resultsBoard={resultsBoard}
+          resultsBoard={isFR ? resultsBoard : resultsBoardTranslated}
           setEnabledNextButton={setEnabledNextButton}
         />
         <PreviousAndNextButton
@@ -143,14 +208,14 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
           onNext={onNextQuestion}
           showPrevious={actualIndex > 1}
           isEnabledNext={isEnabledNextButton}
-          showNext={actualIndex < questionsEpds.length}
+          showNext={actualIndex < updatedQuestionsEpds.length}
           nextPage={nextPage}
           sendScore={setSendScore}
           isIdReturned={isIdReturned}
         />
         <QuestionsProgressBar
           indexNow={actualIndex}
-          size={questionsEpds.length}
+          size={updatedQuestionsEpds.length}
         />
       </div>
 
@@ -196,6 +261,66 @@ const QuestionsCarousel = ({
     })}
   </Carousel>
 )
+
+/**
+ * @param {*} questionsEpds : Questions en FR
+ * @param {*} results : Resultats dans la langue passée
+ * @param {*} localeSelected : Locale de la langue utilisée
+ */
+const buildResultsBoardInFrench = async (
+  questionsEpds,
+  results,
+  localeSelected
+) => {
+  /* Lorsque l'on utilisera uniiquement la collection Question_EPDS_Traduction, 
+  il faudra adapter la fonction de récupération du questionnaire en français */
+
+  if (
+    localeSelected &&
+    localeSelected.identifiant != LOCAL_IDENTIFIANT_FRANCAIS
+  ) {
+    const resultsInFrench = resultsBoardInFrench(questionsEpds, results)
+    localStorage.setItem(STORAGE_RESULTS_BOARD, JSON.stringify(resultsInFrench))
+  }
+}
+
+/**
+ * @param {*} questionsEpds : Questions en FR
+ * @param {*} results : Resultats dans la langue passée
+ * @returns Les questions et réponses du résultat en FR
+ */
+export const resultsBoardInFrench = (questionsEpds, results) =>
+  results.map((question) => {
+    const frenchQuestion = questionsEpds.find(
+      (element) => question.order === element.ordre
+    )
+
+    let frenchResponse = ""
+    switch (question.points) {
+      case frenchQuestion.reponse_1_points:
+        frenchResponse = frenchQuestion.reponse_1_libelle
+        break
+      case frenchQuestion.reponse_2_points:
+        frenchResponse = frenchQuestion.reponse_2_libelle
+        break
+      case frenchQuestion.reponse_3_points:
+        frenchResponse = frenchQuestion.reponse_3_libelle
+        break
+      case frenchQuestion.reponse_4_points:
+        frenchResponse = frenchQuestion.reponse_4_libelle
+        break
+      default:
+        frenchResponse = "error"
+        break
+    }
+
+    return {
+      order: frenchQuestion.ordre,
+      points: question.points,
+      question: frenchQuestion.libelle,
+      response: frenchResponse,
+    }
+  })
 
 const PreviousAndNextButton = (props) => (
   <div

@@ -8,15 +8,20 @@ import { Col, Row } from "react-bootstrap"
 import { client, EPDS_PARTAGE_INFORMATION } from "../apollo-client"
 import { HeaderImage } from "../src/components/HeaderImage"
 import { ContentLayout } from "../src/components/Layout"
+import { ResultsTab } from "../src/components/ResultsTab"
 import {
+  LOCAL_IDENTIFIANT_FRANCAIS,
   PATTERN_EMAIL,
   STORAGE_NOM_PATIENT,
   STORAGE_PRENOM_PATIENT,
   STORAGE_RESULTS_BOARD,
+  STORAGE_RESULTS_BOARD_TRANSLATED,
   STORAGE_RESULTS_ID,
+  STORAGE_RESULTS_LOCALE,
   STORAGE_TOTAL_SCORE,
   URL_1000J,
 } from "../src/constants/constants"
+import { getInLocalStorage, jsonParse } from "../src/constants/utils"
 
 export default function Resultats() {
   const { t } = useTranslation("resultats")
@@ -48,6 +53,10 @@ const FormContact = (props) => {
   const score = getInLocalStorage(STORAGE_TOTAL_SCORE)
   const resultsId = getInLocalStorage(STORAGE_RESULTS_ID)
   const resultsBoard = jsonParse(getInLocalStorage(STORAGE_RESULTS_BOARD))
+  const resultsBoardTranslated = jsonParse(
+    getInLocalStorage(STORAGE_RESULTS_BOARD_TRANSLATED)
+  )
+  const resultsLocale = jsonParse(getInLocalStorage(STORAGE_RESULTS_LOCALE))
 
   const [sendEmailReponseQuery] = useMutation(EPDS_PARTAGE_INFORMATION, {
     client: client,
@@ -114,10 +123,20 @@ const FormContact = (props) => {
       <div className="font-weight-bold resultats-score">
         {props.translation("tab.score")} {score} / 30
       </div>
+      <p>
+        {resultsLocale &&
+        resultsLocale.identifiant != LOCAL_IDENTIFIANT_FRANCAIS
+          ? `${props.translation("test-completed-in-language")} : ${
+              resultsLocale.libelle_francais
+            }`
+          : null}
+      </p>
       <ResultsTab
         translation={props.translation}
         resultsBoard={resultsBoard}
         resultsId={resultsId}
+        locale={resultsLocale}
+        resultsBoardTranslated={resultsBoardTranslated}
       />
 
       <div className="font-weight-bold" style={{ marginBottom: 20 }}>
@@ -272,50 +291,6 @@ const AdsForApp = ({ translation }) => (
     </table>
   </div>
 )
-
-const ResultsTab = ({ translation, resultsBoard, resultsId }) => (
-  <div className="fr-table fr-table--bordered">
-    <table>
-      <thead>
-        <tr>
-          <th scope="col">{translation("tab.question")}</th>
-          <th scope="col">{translation("tab.reponse")}</th>
-          <th scope="col">{translation("tab.point")}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {typeof resultsBoard == "object"
-          ? resultsBoard.map((data) => buildDetailScore(data))
-          : ""}
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colSpan="3">
-            <i>
-              {translation("tab.id")} {resultsId}
-            </i>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
-)
-
-const buildDetailScore = (info) => (
-  <tr key={info.question}>
-    <td>{info.question}</td>
-    <td>{info.response}</td>
-    <td>{info.points}</td>
-  </tr>
-)
-
-function getInLocalStorage(key) {
-  if (typeof window !== "undefined") return localStorage.getItem(key)
-}
-
-function jsonParse(data) {
-  if (typeof data !== "undefined") return JSON.parse(data)
-}
 
 export const getStaticProps = async ({ locale }) => ({
   props: {
