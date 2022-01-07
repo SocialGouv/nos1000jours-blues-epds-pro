@@ -48,13 +48,6 @@ export function Nav() {
             >
               {t("nav-contact")}
             </a>
-            <a
-              className="nav-link"
-              href="/comprendre-test"
-              hidden={isResourcesPage}
-            >
-              {t("nav-professionnel")}
-            </a>
           </BSNav>
         </Navbar.Collapse>
       </Container>
