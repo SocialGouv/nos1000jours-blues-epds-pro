@@ -175,14 +175,11 @@ export default function ComprendreTest() {
   }
 
   return (
-    <ContentLayout title={t("comprendre-test")}>
-      <HeaderImage
-        image="/img/bg-espace-pro.png"
-        title={t("comprendre-test")}
-      />
+    <ContentLayout title={t("header")}>
+      <HeaderImage image="/img/bg-espace-pro.png" title={t("header")} />
 
       <Col className="page-content" style={{ alignItems: "center" }}>
-        <h3 className="page-title">{t("comprendre-test")}</h3>
+        <h3 className="page-title">{t("title")}</h3>
         <Pourquoi translation={t} />
 
         <FormInformations translation={t} onclick={nextPage} />
