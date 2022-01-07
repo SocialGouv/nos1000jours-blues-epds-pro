@@ -29,8 +29,9 @@ export function Nav() {
             }
           >
             <img
-              src="/img/logo-1000j.png"
-              height={100}
+              src="/img/logo-1000j.svg"
+              height={75}
+              style={{ margin: 15 }}
               alt="Logo 1000 premiers jours"
             />
           </a>
