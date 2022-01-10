@@ -173,11 +173,8 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
   }
 
   return (
-    <ContentLayout title={t("questionnaire-epds")}>
-      <HeaderImage
-        image="/img/bg-espace-pro.png"
-        title={t("questionnaire-epds")}
-      />
+    <ContentLayout title={t("header")}>
+      <HeaderImage image="/img/bg-espace-pro.png" title={t("header")} />
 
       <ChooseEpdsLocale
         show={showSelectLocal}
