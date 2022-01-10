@@ -1,3 +1,12 @@
+# [1.9.0](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.8.0...v1.9.0) (2022-01-10)
+
+
+### Features
+
+* **blues:** maj du logo ([6ba4fd0](https://github.com/SocialGouv/nos1000jours-web-pro/commit/6ba4fd04e2cc6adea5c24cee457666efdff0aea3))
+* **blues:** renommer le titre ([2a7d558](https://github.com/SocialGouv/nos1000jours-web-pro/commit/2a7d558a2538564dfaca292ca4ba47ae5b3334d2))
+* **blues:** suppression menu espace pro ([ee97a1c](https://github.com/SocialGouv/nos1000jours-web-pro/commit/ee97a1c1e989da730801bc49ccba6dfc03075117))
+
 # [1.8.0](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.7.1...v1.8.0) (2022-01-05)
 
 
