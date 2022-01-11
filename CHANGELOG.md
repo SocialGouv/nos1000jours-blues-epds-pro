@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.10.0...v1.10.1) (2022-01-11)
+
+
+### Bug Fixes
+
+* fix config.name ([#60](https://github.com/SocialGouv/nos1000jours-web-pro/issues/60)) ([a7ed055](https://github.com/SocialGouv/nos1000jours-web-pro/commit/a7ed05528d812f25a9245252c43f9846cb02a3cf))
+
 # [1.10.0](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.9.0...v1.10.0) (2022-01-11)
 
 
