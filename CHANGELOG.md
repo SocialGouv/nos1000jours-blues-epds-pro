@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.9.0...v1.10.0) (2022-01-11)
+
+
+### Features
+
+* **k8s:** add redirection ([2f6610f](https://github.com/SocialGouv/nos1000jours-web-pro/commit/2f6610f9a9e4edbcd971f1ae50ba2ee395def139))
+
 # [1.9.0](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.8.0...v1.9.0) (2022-01-10)
 
 
