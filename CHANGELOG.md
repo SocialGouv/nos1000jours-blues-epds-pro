@@ -1,3 +1,10 @@
+## [1.10.2](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.10.1...v1.10.2) (2022-01-12)
+
+
+### Bug Fixes
+
+* **epds:** sauvegarde du test en FR ([2aeb41b](https://github.com/SocialGouv/nos1000jours-web-pro/commit/2aeb41bed0291a56a813ab2c86948855337194da))
+
 ## [1.10.1](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.10.0...v1.10.1) (2022-01-11)
 
 
