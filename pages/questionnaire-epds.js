@@ -278,6 +278,8 @@ const buildResultsBoardInFrench = async (
   ) {
     const resultsInFrench = resultsBoardInFrench(questionsEpds, results)
     localStorage.setItem(STORAGE_RESULTS_BOARD, JSON.stringify(resultsInFrench))
+  } else {
+    localStorage.setItem(STORAGE_RESULTS_BOARD, JSON.stringify(results))
   }
 }
 
