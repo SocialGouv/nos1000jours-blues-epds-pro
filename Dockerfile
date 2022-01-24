@@ -24,4 +24,6 @@ USER node
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
+USER 1000
+
 CMD ["yarn", "start"]
