@@ -1,3 +1,10 @@
+## [1.10.4](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.10.3...v1.10.4) (2022-02-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency next-i18next to v10 ([d71de88](https://github.com/SocialGouv/nos1000jours-web-pro/commit/d71de88799b23a6bca2b5007453e287097523594))
+
 ## [1.10.3](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.10.2...v1.10.3) (2022-02-02)
 
 
