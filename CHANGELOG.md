@@ -1,3 +1,10 @@
+## [1.10.5](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.10.4...v1.10.5) (2022-02-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency react-bootstrap to v2 ([1956d06](https://github.com/SocialGouv/nos1000jours-web-pro/commit/1956d06f0963675dee4af27eee29c7caf0bf6afa))
+
 ## [1.10.4](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.10.3...v1.10.4) (2022-02-02)
 
 
