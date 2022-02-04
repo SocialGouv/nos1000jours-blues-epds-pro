@@ -198,6 +198,7 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
           refForOnClick={ref}
           resultsBoard={isFR ? resultsBoard : resultsBoardTranslated}
           setEnabledNextButton={setEnabledNextButton}
+          locale={localeSelected}
         />
         <PreviousAndNextButton
           translation={t}
@@ -236,6 +237,7 @@ const QuestionsCarousel = ({
   refForOnClick,
   resultsBoard,
   setEnabledNextButton,
+  locale,
 }) => (
   <Carousel
     interval={null}
@@ -252,6 +254,7 @@ const QuestionsCarousel = ({
             question={question}
             resultsBoard={resultsBoard}
             setEnabledNextButton={setEnabledNextButton}
+            isRTL={locale?.sens_lecture_droite_vers_gauche}
           />
         </Carousel.Item>
       )
@@ -269,7 +272,7 @@ const buildResultsBoardInFrench = async (
   results,
   localeSelected
 ) => {
-  /* Lorsque l'on utilisera uniiquement la collection Question_EPDS_Traduction, 
+  /* Lorsque l'on utilisera uniquement la collection Question_EPDS_Traduction, 
   il faudra adapter la fonction de récupération du questionnaire en français */
 
   if (

@@ -57,6 +57,7 @@ export const GET_LOCALES = gql`
       drapeau {
         url
       }
+      sens_lecture_droite_vers_gauche
     }
   }
 `

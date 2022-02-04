@@ -1,11 +1,18 @@
 import React from "react"
 
-export function EpdsQuestion({ question, resultsBoard, setEnabledNextButton }) {
+export function EpdsQuestion({
+  question,
+  resultsBoard,
+  setEnabledNextButton,
+  isRTL = false,
+}) {
   const prefix = "q" + question.ordre
   const radio1Id = prefix + "-radio1"
   const radio2Id = prefix + "-radio2"
   const radio3Id = prefix + "-radio3"
   const radio4Id = prefix + "-radio4"
+
+  const readingDirection = isRTL ? "rtl" : "ltr"
 
   const arrayResponses = [
     { libelle: question.reponse_1_libelle, points: question.reponse_1_points },
@@ -28,7 +35,10 @@ export function EpdsQuestion({ question, resultsBoard, setEnabledNextButton }) {
   }
 
   return (
-    <div style={{ marginTop: 50 }}>
+    <div
+      style={{ marginTop: 50, textAlign: isRTL ? "right" : "left" }}
+      dir={readingDirection}
+    >
       <form className="fr-form-group">
         <fieldset className="fr-fieldset">
           <legend
@@ -38,7 +48,7 @@ export function EpdsQuestion({ question, resultsBoard, setEnabledNextButton }) {
             {question.libelle}
           </legend>
           <div
-            className="fr-fieldset__content"
+            className={`fr-fieldset__content ${isRTL ? "input-revert" : ""}`}
             style={{ marginTop: "10px" }}
             onChange={handleChange}
           >
@@ -81,6 +91,11 @@ const EpdsStyle = () => (
       color: var(--bleu-france);
       font-size: 16px;
       line-height: 24px;
+    }
+
+    .input-revert .fr-radio-group input[type="radio"] + label:before {
+      position: revert !important;
+      margin: 0 0 0 20px !important;
     }
   `}</style>
 )
