@@ -17,6 +17,7 @@ import { Check2Circle } from "react-bootstrap-icons"
 import {
   client,
   EPDS_ADD_RESPONSE,
+  LABELS_EPDS_TRADUCTION,
   QUESTIONNAIRE_EPDS,
   QUESTIONNAIRE_EPDS_TRADUCTION,
 } from "../apollo-client"
@@ -53,6 +54,7 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
   const [resultsBoardTranslated, setResultsBoardTranslated] =
     React.useState(resultsBoard)
   const [isFR, setFR] = React.useState(true)
+  const [labelsTranslated, setLabelsTranslated] = React.useState()
 
   checkQuestionsOrder(questionsEpds)
 
@@ -82,6 +84,20 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
         ...data.questionnaireEpdsTraductions,
       ])
       setUpdatedQuestionsEpds(dataSorted)
+    },
+    onError: (err) => {
+      console.warn(err)
+    },
+  })
+
+  const [getLabelsTranslationsQuery] = useLazyQuery(LABELS_EPDS_TRADUCTION, {
+    client: client,
+    onCompleted: (data) => {
+      const labelsData = data.labelsEpdsTraductions[0].labels
+
+      const labels = {}
+      labelsData.forEach((item) => (labels[item.label] = item.texte))
+      setLabelsTranslated(labels)
     },
     onError: (err) => {
       console.warn(err)
@@ -152,6 +168,9 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
           setFR(true)
         } else {
           setFR(false)
+          await getLabelsTranslationsQuery({
+            variables: { locale: localeSelected.identifiant },
+          })
           await getTranslationsQuery({
             variables: { locale: localeSelected.identifiant },
           })
@@ -188,9 +207,15 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
         style={{ alignItems: "center" }}
       >
         <div className="questionnaire">
-          {t("introduction1")}
-          <span className="font-weight-bold">{t("introduction2")}</span>
-          {t("introduction3")}
+          {labelsTranslated?.consigne ? (
+            labelsTranslated?.consigne
+          ) : (
+            <>
+              {t("introduction1")}
+              <span className="font-weight-bold">{t("introduction2")}</span>
+              {t("introduction3")}
+            </>
+          )}
         </div>
 
         <QuestionsCarousel
