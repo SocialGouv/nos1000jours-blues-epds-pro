@@ -16,6 +16,10 @@ export function ResultsTab({
   resultsBoard,
   resultsBoardTranslated,
 }) {
+  const readingDirection = locale?.sens_lecture_droite_vers_gauche
+    ? "rtl"
+    : "ltr"
+
   const BuildDetailScore = ({ data, dataTranslated }) => (
     <tr key={data.question}>
       <td>
@@ -23,8 +27,9 @@ export function ResultsTab({
         locale &&
         locale.identifiant != LOCAL_IDENTIFIANT_FRANCAIS ? (
           <div>
-            {dataTranslated.question}
-            <br />
+            <span dir={readingDirection} style={{ display: "flex" }}>
+              {dataTranslated.question}
+            </span>
             -----
           </div>
         ) : null}
@@ -35,8 +40,9 @@ export function ResultsTab({
         locale &&
         locale.identifiant != LOCAL_IDENTIFIANT_FRANCAIS ? (
           <div>
-            {dataTranslated.response}
-            <br />
+            <span dir={readingDirection} style={{ display: "flex" }}>
+              {dataTranslated.response}
+            </span>
             -----
           </div>
         ) : null}
