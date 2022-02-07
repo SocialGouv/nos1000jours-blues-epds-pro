@@ -93,10 +93,10 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
   const [getLabelsTranslationsQuery] = useLazyQuery(LABELS_EPDS_TRADUCTION, {
     client: client,
     onCompleted: (data) => {
-      const labelsData = data.labelsEpdsTraductions[0].labels
+      const labelsData = data.labelsEpdsTraductions[0]?.labels
 
       const labels = {}
-      labelsData.forEach((item) => (labels[item.label] = item.texte))
+      labelsData?.forEach((item) => (labels[item.label] = item.texte))
       setLabelsTranslated(labels)
     },
     onError: (err) => {
@@ -206,7 +206,10 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
         className="page-content questionnaire-content"
         style={{ alignItems: "center" }}
       >
-        <div className="questionnaire">
+        <div
+          className="questionnaire"
+          dir={localeSelected?.sens_lecture_droite_vers_gauche ? "rtl" : "ltr"}
+        >
           {labelsTranslated?.consigne ? (
             labelsTranslated?.consigne
           ) : (
