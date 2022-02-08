@@ -19,41 +19,29 @@ export function ResultsTab({
   const isRTL = locale?.sens_lecture_droite_vers_gauche
 
   const BuildDetailScore = ({ data, dataTranslated }) => (
-    <tr key={data.question}>
-      <td>
-        {dataTranslated &&
-        locale &&
-        locale.identifiant != LOCAL_IDENTIFIANT_FRANCAIS ? (
-          <div>
-            <span
-              className={`${isRTL ? "tab-rtl" : ""}`}
-              style={{ display: "flex" }}
-            >
-              {dataTranslated.question}
-            </span>
-            -----
-          </div>
-        ) : null}
-        {data.question}
-      </td>
-      <td>
-        {dataTranslated &&
-        locale &&
-        locale.identifiant != LOCAL_IDENTIFIANT_FRANCAIS ? (
-          <div>
-            <span
-              className={`${isRTL ? "tab-rtl" : ""}`}
-              style={{ display: "flex" }}
-            >
-              {dataTranslated.response}
-            </span>
-            -----
-          </div>
-        ) : null}
-        {data.response}
-      </td>
-      <td>{data.points}</td>
-    </tr>
+    <>
+      {dataTranslated &&
+      locale &&
+      locale.identifiant != LOCAL_IDENTIFIANT_FRANCAIS ? (
+        <>
+          <tr className={`tab-no-border ${isRTL ? "tab-rtl" : ""}`}>
+            <td>{dataTranslated.question}</td>
+            <td>{dataTranslated.response}</td>
+            <th rowSpan="2">{data.points}</th>
+          </tr>
+          <tr>
+            <td>{data.question}</td>
+            <td>{data.response}</td>
+          </tr>
+        </>
+      ) : (
+        <tr>
+          <td>{data.question}</td>
+          <td>{data.response}</td>
+          <td rowSpan="1">{data.points}</td>
+        </tr>
+      )}
+    </>
   )
 
   return (
@@ -99,10 +87,18 @@ export function ResultsTab({
 
 const ResultTabStyle = () => (
   <style jsx="true">{`
-    .tab-rtl {
+    .tab-rtl td {
       direction: rtl;
       text-align: start;
       font-size: 20px;
+    }
+
+    .tab-no-border td {
+      border-style: dashed !important;
+    }
+    .tab-no-border th {
+      font-weight: normal;
+      text-align: center;
     }
   `}</style>
 )
