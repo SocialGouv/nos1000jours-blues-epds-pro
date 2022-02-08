@@ -36,6 +36,7 @@ import {
   STORAGE_RESULTS_BOARD_TRANSLATED,
 } from "../src/constants/constants"
 import { ChooseEpdsLocale } from "../src/modal/ChooseEpdsLocale"
+import { convertArrayLabelsToObject } from "../src/constants/utils"
 
 export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
   const { t } = useTranslation("questionnaire-epds")
@@ -49,11 +50,13 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
 
   const [showSelectLocal, setShowSelectLocal] = React.useState(true)
   const [localeSelected, setLocaleSelected] = React.useState()
+  const [isFR, setFR] = React.useState(true)
+  const [isRTL, setRTL] = React.useState(false)
+
   const [updatedQuestionsEpds, setUpdatedQuestionsEpds] =
     React.useState(questionsEpds)
   const [resultsBoardTranslated, setResultsBoardTranslated] =
     React.useState(resultsBoard)
-  const [isFR, setFR] = React.useState(true)
   const [labelsTranslated, setLabelsTranslated] = React.useState()
 
   checkQuestionsOrder(questionsEpds)
@@ -95,8 +98,7 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
     onCompleted: (data) => {
       const labelsData = data.labelsEpdsTraductions[0]?.labels
 
-      const labels = {}
-      labelsData?.forEach((item) => (labels[item.label] = item.texte))
+      const labels = convertArrayLabelsToObject(labelsData)
       setLabelsTranslated(labels)
     },
     onError: (err) => {
@@ -175,6 +177,7 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
             variables: { locale: localeSelected.identifiant },
           })
         }
+        setRTL(localeSelected?.sens_lecture_droite_vers_gauche)
       }
     }
 
@@ -207,8 +210,8 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
         style={{ alignItems: "center" }}
       >
         <div
-          className="questionnaire"
-          dir={localeSelected?.sens_lecture_droite_vers_gauche ? "rtl" : "ltr"}
+          className={`questionnaire ${isRTL ? "font-size-rtl" : ""}`}
+          dir={isRTL ? "rtl" : "ltr"}
         >
           {labelsTranslated?.consigne ? (
             labelsTranslated?.consigne
@@ -497,6 +500,7 @@ const ComprendreTestStyle = () => (
     .questionnaire {
       margin-top: 20px;
       font-style: italic;
+      text-align: start;
     }
 
     .questionnaire-buttons {

@@ -2,6 +2,7 @@ import {
   checkQuestionsOrder,
   resultsBoardInFrench,
 } from "../pages/questionnaire-epds"
+import { convertArrayLabelsToObject } from "../src/constants/utils"
 
 describe("Questionnaire", () => {
   describe("Vérification de l'ordre des questions", () => {
@@ -50,6 +51,29 @@ describe("Questionnaire", () => {
       ]
 
       expect(checkQuestionsOrder(questionsEpds)).toEqual(questionsEpdsValid)
+    })
+  })
+
+  describe("Convertion de la liste es traduction de labels", () => {
+    const result = {
+      consigne: "ma consigne",
+      exemple: "mon exemple",
+    }
+
+    test("Les clefs sont écritent en minuscules > clefs en minuscules", () => {
+      const labels = [
+        { label: "consigne", texte: "ma consigne" },
+        { label: "exemple", texte: "mon exemple" },
+      ]
+      expect(convertArrayLabelsToObject(labels)).toEqual(result)
+    })
+
+    test("Les clefs sont écritent avec des majuscules > clefs en minuscules", () => {
+      const labels = [
+        { label: "Consigne", texte: "ma consigne" },
+        { label: "EXEMPLE", texte: "mon exemple" },
+      ]
+      expect(convertArrayLabelsToObject(labels)).toEqual(result)
     })
   })
 

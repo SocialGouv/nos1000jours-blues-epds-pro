@@ -42,7 +42,9 @@ export function EpdsQuestion({
       <form className="fr-form-group">
         <fieldset className="fr-fieldset">
           <legend
-            className="fr-fieldset__legend fr-text--regular epds-question"
+            className={`fr-fieldset__legend fr-text--regular epds-question ${
+              isRTL ? "font-size-rtl" : ""
+            }`}
             id="radio-legend"
           >
             {question.libelle}
@@ -54,25 +56,37 @@ export function EpdsQuestion({
           >
             <div className="fr-radio-group">
               <input type="radio" id={radio1Id} name="radio" />
-              <label className="fr-label" htmlFor={radio1Id}>
+              <label
+                className={`fr-label ${isRTL ? "font-size-rtl" : ""}`}
+                htmlFor={radio1Id}
+              >
                 {question.reponse_1_libelle}
               </label>
             </div>
             <div className="fr-radio-group">
               <input type="radio" id={radio2Id} name="radio" />
-              <label className="fr-label" htmlFor={radio2Id}>
+              <label
+                className={`fr-label ${isRTL ? "font-size-rtl" : ""}`}
+                htmlFor={radio2Id}
+              >
                 {question.reponse_2_libelle}
               </label>
             </div>
             <div className="fr-radio-group">
               <input type="radio" id={radio3Id} name="radio" />
-              <label className="fr-label" htmlFor={radio3Id}>
+              <label
+                className={`fr-label ${isRTL ? "font-size-rtl" : ""}`}
+                htmlFor={radio3Id}
+              >
                 {question.reponse_3_libelle}
               </label>
             </div>
             <div className="fr-radio-group">
               <input type="radio" id={radio4Id} name="radio" />
-              <label className="fr-label" htmlFor={radio4Id}>
+              <label
+                className={`fr-label ${isRTL ? "font-size-rtl" : ""}`}
+                htmlFor={radio4Id}
+              >
                 {question.reponse_4_libelle}
               </label>
             </div>

@@ -3,10 +3,10 @@ import { LOCAL_IDENTIFIANT_FRANCAIS } from "../constants/constants"
 
 /**
  * @param {*} translation
- * @param {*} resultsId : ID des résulats
- * @param {*} locale : Locale FR, DE ...
- * @param {*} resultsBoard : Tableau des résulats en FR
- * @param {*} resultsBoardTranslated : Tableau des résulats si différent de FR
+ * @param {String} resultsId : ID des résulats
+ * @param {Object} locale : Locale FR, DE ...
+ * @param {Array} resultsBoard : Tableau des résulats en FR
+ * @param {Array} resultsBoardTranslated : Tableau des résulats si différent de FR
  * @returns Un tableau contenant les questions et réponses du questionnaire EPDS en FR et dans l'autre langue (si pas effectué en FR)
  */
 export function ResultsTab({
