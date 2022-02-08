@@ -16,9 +16,7 @@ export function ResultsTab({
   resultsBoard,
   resultsBoardTranslated,
 }) {
-  const readingDirection = locale?.sens_lecture_droite_vers_gauche
-    ? "rtl"
-    : "ltr"
+  const isRTL = locale?.sens_lecture_droite_vers_gauche
 
   const BuildDetailScore = ({ data, dataTranslated }) => (
     <tr key={data.question}>
@@ -27,7 +25,10 @@ export function ResultsTab({
         locale &&
         locale.identifiant != LOCAL_IDENTIFIANT_FRANCAIS ? (
           <div>
-            <span dir={readingDirection} style={{ display: "flex" }}>
+            <span
+              className={`${isRTL ? "tab-rtl" : ""}`}
+              style={{ display: "flex" }}
+            >
               {dataTranslated.question}
             </span>
             -----
@@ -40,7 +41,10 @@ export function ResultsTab({
         locale &&
         locale.identifiant != LOCAL_IDENTIFIANT_FRANCAIS ? (
           <div>
-            <span dir={readingDirection} style={{ display: "flex" }}>
+            <span
+              className={`${isRTL ? "tab-rtl" : ""}`}
+              style={{ display: "flex" }}
+            >
               {dataTranslated.response}
             </span>
             -----
@@ -87,6 +91,18 @@ export function ResultsTab({
           </tr>
         </tfoot>
       </table>
+
+      <ResultTabStyle />
     </div>
   )
 }
+
+const ResultTabStyle = () => (
+  <style jsx="true">{`
+    .tab-rtl {
+      direction: rtl;
+      text-align: start;
+      font-size: 20px;
+    }
+  `}</style>
+)
