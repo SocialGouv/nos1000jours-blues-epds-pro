@@ -1,3 +1,16 @@
+# [1.11.0](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.10.5...v1.11.0) (2022-02-10)
+
+
+### Features
+
+* **traduction:** adaptation questions + reponses ([c6bd6e4](https://github.com/SocialGouv/nos1000jours-web-pro/commit/c6bd6e45996d84b13320a51949556dd459de4c44))
+* **traduction:** ajout de la consigne pour les langues étrangères ([aa0b577](https://github.com/SocialGouv/nos1000jours-web-pro/commit/aa0b577c7ab0241f95ed961715896414f476effa))
+* **traduction:** consigne rtl ([5a80d19](https://github.com/SocialGouv/nos1000jours-web-pro/commit/5a80d19d9e7bfbfe66741b0f17554a2a1f1baa1d))
+* **traduction:** resultats rtl ([89ce1c5](https://github.com/SocialGouv/nos1000jours-web-pro/commit/89ce1c52e951c04eb57dfd5610f73ea06459c8be))
+* **traduction:** rtl sur les résultats ([02358cc](https://github.com/SocialGouv/nos1000jours-web-pro/commit/02358ccd1c6e7e1e100d8f4a6fff3282e338613d))
+* **traduction:** taille de la police rtl ([3dd4a50](https://github.com/SocialGouv/nos1000jours-web-pro/commit/3dd4a50501a1766b0070b005792ddd40c98b8f1c))
+* **traduction:** taille texte rtl ([75b8874](https://github.com/SocialGouv/nos1000jours-web-pro/commit/75b8874144bd17946b3fa65f51ee1ab34f741428))
+
 ## [1.10.5](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.10.4...v1.10.5) (2022-02-02)
 
 
