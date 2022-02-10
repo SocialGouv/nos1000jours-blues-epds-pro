@@ -17,6 +17,7 @@ import { Check2Circle } from "react-bootstrap-icons"
 import {
   client,
   EPDS_ADD_RESPONSE,
+  LABELS_EPDS_TRADUCTION,
   QUESTIONNAIRE_EPDS,
   QUESTIONNAIRE_EPDS_TRADUCTION,
 } from "../apollo-client"
@@ -35,6 +36,7 @@ import {
   STORAGE_RESULTS_BOARD_TRANSLATED,
 } from "../src/constants/constants"
 import { ChooseEpdsLocale } from "../src/modal/ChooseEpdsLocale"
+import { convertArrayLabelsToObject } from "../src/constants/utils"
 
 export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
   const { t } = useTranslation("questionnaire-epds")
@@ -48,11 +50,14 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
 
   const [showSelectLocal, setShowSelectLocal] = React.useState(true)
   const [localeSelected, setLocaleSelected] = React.useState()
+  const [isFR, setFR] = React.useState(true)
+  const [isRTL, setRTL] = React.useState(false)
+
   const [updatedQuestionsEpds, setUpdatedQuestionsEpds] =
     React.useState(questionsEpds)
   const [resultsBoardTranslated, setResultsBoardTranslated] =
     React.useState(resultsBoard)
-  const [isFR, setFR] = React.useState(true)
+  const [labelsTranslated, setLabelsTranslated] = React.useState()
 
   checkQuestionsOrder(questionsEpds)
 
@@ -82,6 +87,19 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
         ...data.questionnaireEpdsTraductions,
       ])
       setUpdatedQuestionsEpds(dataSorted)
+    },
+    onError: (err) => {
+      console.warn(err)
+    },
+  })
+
+  const [getLabelsTranslationsQuery] = useLazyQuery(LABELS_EPDS_TRADUCTION, {
+    client: client,
+    onCompleted: (data) => {
+      const labelsData = data.labelsEpdsTraductions[0]?.labels
+
+      const labels = convertArrayLabelsToObject(labelsData)
+      setLabelsTranslated(labels)
     },
     onError: (err) => {
       console.warn(err)
@@ -152,10 +170,14 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
           setFR(true)
         } else {
           setFR(false)
+          await getLabelsTranslationsQuery({
+            variables: { locale: localeSelected.identifiant },
+          })
           await getTranslationsQuery({
             variables: { locale: localeSelected.identifiant },
           })
         }
+        setRTL(localeSelected?.sens_lecture_droite_vers_gauche)
       }
     }
 
@@ -187,10 +209,19 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
         className="page-content questionnaire-content"
         style={{ alignItems: "center" }}
       >
-        <div className="questionnaire">
-          {t("introduction1")}
-          <span className="font-weight-bold">{t("introduction2")}</span>
-          {t("introduction3")}
+        <div
+          className={`questionnaire ${isRTL ? "font-size-rtl" : ""}`}
+          dir={isRTL ? "rtl" : "ltr"}
+        >
+          {labelsTranslated?.consigne ? (
+            labelsTranslated?.consigne
+          ) : (
+            <>
+              {t("introduction1")}
+              <span className="font-weight-bold">{t("introduction2")}</span>
+              {t("introduction3")}
+            </>
+          )}
         </div>
 
         <QuestionsCarousel
@@ -198,6 +229,7 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
           refForOnClick={ref}
           resultsBoard={isFR ? resultsBoard : resultsBoardTranslated}
           setEnabledNextButton={setEnabledNextButton}
+          locale={localeSelected}
         />
         <PreviousAndNextButton
           translation={t}
@@ -236,6 +268,7 @@ const QuestionsCarousel = ({
   refForOnClick,
   resultsBoard,
   setEnabledNextButton,
+  locale,
 }) => (
   <Carousel
     interval={null}
@@ -252,6 +285,7 @@ const QuestionsCarousel = ({
             question={question}
             resultsBoard={resultsBoard}
             setEnabledNextButton={setEnabledNextButton}
+            isRTL={locale?.sens_lecture_droite_vers_gauche}
           />
         </Carousel.Item>
       )
@@ -269,7 +303,7 @@ const buildResultsBoardInFrench = async (
   results,
   localeSelected
 ) => {
-  /* Lorsque l'on utilisera uniiquement la collection Question_EPDS_Traduction, 
+  /* Lorsque l'on utilisera uniquement la collection Question_EPDS_Traduction, 
   il faudra adapter la fonction de récupération du questionnaire en français */
 
   if (
@@ -466,6 +500,7 @@ const ComprendreTestStyle = () => (
     .questionnaire {
       margin-top: 20px;
       font-style: italic;
+      text-align: start;
     }
 
     .questionnaire-buttons {

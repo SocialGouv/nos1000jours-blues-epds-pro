@@ -5,3 +5,9 @@ export function getInLocalStorage(key) {
 export function jsonParse(data) {
   if (typeof data !== "undefined") return JSON.parse(data)
 }
+
+export function convertArrayLabelsToObject(data) {
+  const labels = {}
+  data?.forEach((item) => (labels[item.label.toLowerCase()] = item.texte))
+  return labels
+}

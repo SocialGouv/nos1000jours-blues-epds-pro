@@ -3,10 +3,10 @@ import { LOCAL_IDENTIFIANT_FRANCAIS } from "../constants/constants"
 
 /**
  * @param {*} translation
- * @param {*} resultsId : ID des résulats
- * @param {*} locale : Locale FR, DE ...
- * @param {*} resultsBoard : Tableau des résulats en FR
- * @param {*} resultsBoardTranslated : Tableau des résulats si différent de FR
+ * @param {String} resultsId : ID des résulats
+ * @param {Object} locale : Locale FR, DE ...
+ * @param {Array} resultsBoard : Tableau des résulats en FR
+ * @param {Array} resultsBoardTranslated : Tableau des résulats si différent de FR
  * @returns Un tableau contenant les questions et réponses du questionnaire EPDS en FR et dans l'autre langue (si pas effectué en FR)
  */
 export function ResultsTab({
@@ -16,34 +16,32 @@ export function ResultsTab({
   resultsBoard,
   resultsBoardTranslated,
 }) {
+  const isRTL = locale?.sens_lecture_droite_vers_gauche
+
   const BuildDetailScore = ({ data, dataTranslated }) => (
-    <tr key={data.question}>
-      <td>
-        {dataTranslated &&
-        locale &&
-        locale.identifiant != LOCAL_IDENTIFIANT_FRANCAIS ? (
-          <div>
-            {dataTranslated.question}
-            <br />
-            -----
-          </div>
-        ) : null}
-        {data.question}
-      </td>
-      <td>
-        {dataTranslated &&
-        locale &&
-        locale.identifiant != LOCAL_IDENTIFIANT_FRANCAIS ? (
-          <div>
-            {dataTranslated.response}
-            <br />
-            -----
-          </div>
-        ) : null}
-        {data.response}
-      </td>
-      <td>{data.points}</td>
-    </tr>
+    <>
+      {dataTranslated &&
+      locale &&
+      locale.identifiant != LOCAL_IDENTIFIANT_FRANCAIS ? (
+        <>
+          <tr className={`tab-no-border ${isRTL ? "tab-rtl" : ""}`}>
+            <td>{dataTranslated.question}</td>
+            <td>{dataTranslated.response}</td>
+            <th rowSpan="2">{data.points}</th>
+          </tr>
+          <tr>
+            <td>{data.question}</td>
+            <td>{data.response}</td>
+          </tr>
+        </>
+      ) : (
+        <tr>
+          <td>{data.question}</td>
+          <td>{data.response}</td>
+          <td rowSpan="1">{data.points}</td>
+        </tr>
+      )}
+    </>
   )
 
   return (
@@ -81,6 +79,26 @@ export function ResultsTab({
           </tr>
         </tfoot>
       </table>
+
+      <ResultTabStyle />
     </div>
   )
 }
+
+const ResultTabStyle = () => (
+  <style jsx="true">{`
+    .tab-rtl td {
+      direction: rtl;
+      text-align: start;
+      font-size: 20px;
+    }
+
+    .tab-no-border td {
+      border-style: dashed !important;
+    }
+    .tab-no-border th {
+      font-weight: normal;
+      text-align: center;
+    }
+  `}</style>
+)

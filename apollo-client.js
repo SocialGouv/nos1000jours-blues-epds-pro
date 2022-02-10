@@ -47,6 +47,20 @@ export const QUESTIONNAIRE_EPDS_TRADUCTION = gql`
   }
 `
 
+export const LABELS_EPDS_TRADUCTION = gql`
+  query LabelsEpdsTraductions($locale: String) {
+    labelsEpdsTraductions(where: { langue: { identifiant: $locale } }) {
+      langue {
+        identifiant
+      }
+      labels {
+        label
+        texte
+      }
+    }
+  }
+`
+
 export const GET_LOCALES = gql`
   query Locales {
     locales {
@@ -57,6 +71,7 @@ export const GET_LOCALES = gql`
       drapeau {
         url
       }
+      sens_lecture_droite_vers_gauche
     }
   }
 `
