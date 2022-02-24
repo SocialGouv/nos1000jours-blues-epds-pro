@@ -1,3 +1,12 @@
+## [1.11.1](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.11.0...v1.11.1) (2022-02-24)
+
+
+### Bug Fixes
+
+* **ci:** autodevops-helm ([9258d15](https://github.com/SocialGouv/nos1000jours-web-pro/commit/9258d15896a387bb1f76ca3f8e1ea370ca48b693))
+* **ci:** autodevops-helm ([8234418](https://github.com/SocialGouv/nos1000jours-web-pro/commit/8234418583ff60e8f7d8238834b5a8879fbb439f))
+* **ci:** autodevops-helm ([0ba29e2](https://github.com/SocialGouv/nos1000jours-web-pro/commit/0ba29e2c8a29245f2b81deeb4346c931e9d3abdf))
+
 # [1.11.0](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.10.5...v1.11.0) (2022-02-10)
 
 
