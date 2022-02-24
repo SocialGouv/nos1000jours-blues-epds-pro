@@ -30,9 +30,8 @@ jobs:
       uses: SocialGouv/actions/autodevops-build-register@v1
       with:
         environment: preprod
-        project: ${{ env.project }}
         token: ${{ secrets.GITHUB_TOKEN }}
-        imageName: nos1000jours/${{ env.project }}
+        imageName: nos1000jours/nos1000jours-blues-epds-pro
         dockerbuildargs: |
           NEXT_PUBLIC_MATOMO_SITE_ID=47
           NEXT_PUBLIC_MATOMO_ENABLED=false
@@ -40,37 +39,25 @@ jobs:
           NEXT_PUBLIC_API_URL=https://backoffice-1000jours-preprod.dev.fabrique.social.gouv.fr
 
   ##############################################################################
-  ## GENERATE PREPRODUCTION MANIFESTS
-  ##############################################################################
-  manifests:
-    name: Preproduction manifests
-    runs-on: ubuntu-latest
-    steps:
-
-    - name: Use autodevops manifests generation
-      uses: SocialGouv/actions/autodevops-manifests@v1
-      with:
-        environment: "preprod"
-        rancherId: ${{ secrets.RANCHER_PROJECT_ID }}
-        socialgouvBaseDomain: ${{ secrets.SOCIALGOUV_BASE_DOMAIN }}
-
-  ##############################################################################
   ## DEPLOY PREPRODUCTION APPLICATION
   ##############################################################################
   deploy:
     name: Deploy preproduction
     runs-on: ubuntu-latest
-    needs: [register, manifests]
+    needs: [register]
     environment:
       name: preproduction
       url: ${{ steps.deploy.outputs.url }}
     steps:
   
     - name: Use autodevops deployment
-      uses: SocialGouv/actions/autodevops-deploy@v1
+      uses: SocialGouv/actions/autodevops-helm-deploy@v1
       id: deploy
       with:
         environment: "preprod"
         token: ${{ secrets.GITHUB_TOKEN }}
         kubeconfig: ${{ secrets.KUBECONFIG }}
         rancherId: ${{ secrets.RANCHER_PROJECT_ID }}
+        rancherProjectName: ${{ secrets.RANCHER_PROJECT_NAME }}
+        socialgouvBaseDomain: ${{ secrets.SOCIALGOUV_BASE_DOMAIN }}
+        imageName: nos1000jours/nos1000jours-blues-epds-pro
