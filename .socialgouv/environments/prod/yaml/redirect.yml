@@ -7,8 +7,7 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     kubernetes.io/tls-acme: "true"
   labels:
-    app.kubernetes.io/component: redirect
-    app.kubernetes.io/name: www
+    component: app
   name: www-redirect
   namespace: incubateur
 spec:
