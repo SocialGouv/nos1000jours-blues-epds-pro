@@ -55,7 +55,7 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
 
   const [updatedQuestionsEpds, setUpdatedQuestionsEpds] =
     React.useState(questionsEpds)
-  const [resultsBoardTranslated, setResultsBoardTranslated] =
+  const [resultsBoardTranslated] =
     React.useState(resultsBoard)
   const [labelsTranslated, setLabelsTranslated] = React.useState()
 
