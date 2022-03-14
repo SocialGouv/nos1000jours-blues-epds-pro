@@ -17,14 +17,14 @@ export function ResultsTab({
   resultsBoardTranslated,
 }) {
   const isRTL = locale?.sens_lecture_droite_vers_gauche
-
+  const rtlClassName = isRTL ? "tab-rtl" : "";
   const BuildDetailScore = ({ data, dataTranslated }) => (
     <>
       {dataTranslated &&
       locale &&
       locale.identifiant != LOCAL_IDENTIFIANT_FRANCAIS ? (
         <>
-          <tr className={`tab-no-border ${isRTL ? "tab-rtl" : ""}`}>
+          <tr className={`tab-no-border ${rtlClassName}`}>
             <td>{dataTranslated.question}</td>
             <td>{dataTranslated.response}</td>
             <th rowSpan="2">{data.points}</th>

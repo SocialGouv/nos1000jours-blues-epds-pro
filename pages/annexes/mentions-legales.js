@@ -61,8 +61,8 @@ export default function Mentions() {
           En savoir plus <br />
           Pour en savoir plus sur la politique d’accessibilité numérique de
           l’État :&nbsp;
-          <a href="http://references.modernisation.gouv.fr/accessibilite-numerique">
-            http://references.modernisation.gouv.fr/accessibilite-numerique
+          <a href="https://references.modernisation.gouv.fr/accessibilite-numerique">
+            https://references.modernisation.gouv.fr/accessibilite-numerique
           </a>
         </p>
 
