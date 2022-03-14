@@ -1,3 +1,10 @@
+## [1.11.2](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.11.1...v1.11.2) (2022-03-14)
+
+
+### Bug Fixes
+
+* lints ([#70](https://github.com/SocialGouv/nos1000jours-web-pro/issues/70)) ([6f4cca8](https://github.com/SocialGouv/nos1000jours-web-pro/commit/6f4cca841e7773eee890e9e09da44051b766511e))
+
 ## [1.11.1](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.11.0...v1.11.1) (2022-02-24)
 
 
