@@ -27,7 +27,7 @@ jobs:
     needs: [register]
     environment:
       name: production
-      url: https://PROJECT.fabrique.social.gouv.fr
+      url: https://nos1000jours-blues-epds-pro.fabrique.social.gouv.fr
     steps:
     - name: Use kube-workflow deployment
       uses: SocialGouv/kube-workflow@v1
