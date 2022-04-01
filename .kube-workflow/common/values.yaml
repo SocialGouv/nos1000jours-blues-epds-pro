@@ -1,2 +1,3 @@
 app:
+  enabled: True
   probesPath: /healthz
