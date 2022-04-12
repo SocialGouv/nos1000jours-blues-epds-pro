@@ -1,3 +1,10 @@
+## [1.11.3](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.11.2...v1.11.3) (2022-04-12)
+
+
+### Bug Fixes
+
+* use kube-workflow ([#73](https://github.com/SocialGouv/nos1000jours-web-pro/issues/73)) ([92b8324](https://github.com/SocialGouv/nos1000jours-web-pro/commit/92b83241c5504877b2ab6643a9a0537ccca23f2e))
+
 ## [1.11.2](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.11.1...v1.11.2) (2022-03-14)
 
 
