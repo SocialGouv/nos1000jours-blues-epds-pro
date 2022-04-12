@@ -9,7 +9,6 @@ metadata:
   labels:
     component: app
   name: www-redirect
-  namespace: incubateur
 spec:
   rules:
     - host: nos1000jours-web-pro.fabrique.social.gouv.fr

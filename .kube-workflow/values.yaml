@@ -1,0 +1,3 @@
+app:
+  probesPath: /healthz
+  envConfigName: nos1000jours-web-pro-configmap
