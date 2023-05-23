@@ -1,0 +1,19 @@
+global:
+  imageProject: 1000jours
+
+app:
+  probesPath: /healthz
+  containerPort: 3000
+  envFrom: 
+    - configMapRef:
+        name: nos1000jours-web-pro-configmap
+
+jobs:
+  runs:
+    build-app:
+      with:
+        buildArgs:
+          NEXT_PUBLIC_MATOMO_SITE_ID: "47"
+          NEXT_PUBLIC_MATOMO_ENABLED: "false"
+          NEXT_PUBLIC_MATOMO_URL: https://matomo.fabrique.social.gouv.fr/
+          NEXT_PUBLIC_API_URL: https://backoffice-1000jours-preprod.dev.fabrique.social.gouv.fr
