@@ -1,3 +1,17 @@
+# [1.12.0](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.11.3...v1.12.0) (2023-05-23)
+
+
+### Bug Fixes
+
+* port ([1f5689b](https://github.com/SocialGouv/nos1000jours-web-pro/commit/1f5689b8aa32944414e98e0df082b0482bfd03fe))
+* re-add release workflow ([ac6f0eb](https://github.com/SocialGouv/nos1000jours-web-pro/commit/ac6f0eb7fe18791e31c3f6bca41c66d0b70b0827))
+
+
+### Features
+
+* ci on kontinuous ([b0ca233](https://github.com/SocialGouv/nos1000jours-web-pro/commit/b0ca23375009e302a85635b5d794c6380ae66531))
+* ci on kontinuous ([31045de](https://github.com/SocialGouv/nos1000jours-web-pro/commit/31045dec3bd3c9f063e402e980d747fe74dfe48f))
+
 ## [1.11.3](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.11.2...v1.11.3) (2022-04-12)
 
 
