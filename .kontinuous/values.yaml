@@ -3,6 +3,7 @@ global:
 
 app:
   probesPath: /healthz
+  containerPort: 3000
   envFrom: 
     - configMapRef:
         name: nos1000jours-web-pro-configmap
