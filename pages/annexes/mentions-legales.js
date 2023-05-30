@@ -25,9 +25,9 @@ export default function Mentions() {
           75014 Paris
         </p>
 
-        <h3>Directrice de la publication</h3>
+        <h3>Directeur de la publication</h3>
         <p>
-          Madame Virginie LASSERRE, Directrice générale de la cohésion sociale
+        Monsieur Jean-Benoît DUJOL, Directeur général de la cohésion sociale
         </p>
 
         <h3>Hébergement de l’application</h3>
