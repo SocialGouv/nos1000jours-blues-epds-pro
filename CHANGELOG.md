@@ -1,3 +1,10 @@
+## [1.12.1](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.12.0...v1.12.1) (2023-05-30)
+
+
+### Bug Fixes
+
+* mention legal ([a4563f4](https://github.com/SocialGouv/nos1000jours-web-pro/commit/a4563f4b642482ea82e62b150ba14ee78b617675))
+
 # [1.12.0](https://github.com/SocialGouv/nos1000jours-web-pro/compare/v1.11.3...v1.12.0) (2023-05-23)
 
 
