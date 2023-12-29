@@ -48,5 +48,6 @@
     "extends": [
       "@socialgouv/eslint-config-react"
     ]
-  }
+  },
+  "packageManager": "yarn@3.6.4"
 }

@@ -5,3 +5,7 @@
 .next
 .out
 **/node_modules
+.dockerignore
+Dockerfile
+.kontinuous
+.socialgouv.yaml
