@@ -55,8 +55,7 @@ export default function QuestionnaireEPDS({ questionsEpds, resultsBoard }) {
 
   const [updatedQuestionsEpds, setUpdatedQuestionsEpds] =
     React.useState(questionsEpds)
-  const [resultsBoardTranslated] =
-    React.useState(resultsBoard)
+  const [resultsBoardTranslated] = React.useState(resultsBoard)
   const [labelsTranslated, setLabelsTranslated] = React.useState()
 
   checkQuestionsOrder(questionsEpds)

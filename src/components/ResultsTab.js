@@ -17,7 +17,7 @@ export function ResultsTab({
   resultsBoardTranslated,
 }) {
   const isRTL = locale?.sens_lecture_droite_vers_gauche
-  const rtlClassName = isRTL ? "tab-rtl" : "";
+  const rtlClassName = isRTL ? "tab-rtl" : ""
   const BuildDetailScore = ({ data, dataTranslated }) => (
     <>
       {dataTranslated &&
