@@ -24,7 +24,7 @@ RUN yarn build
 RUN yarn workspaces focus --production && yarn cache clean
 
 FROM node
-COPY --from=builder . .
+COPY --from=builder /app /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
