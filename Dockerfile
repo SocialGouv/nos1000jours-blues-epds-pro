@@ -1,6 +1,10 @@
-FROM node:15.9-alpine
-
+FROM node:15.9-alpine AS node
 WORKDIR /app
+
+FROM node AS builder
+COPY yarn.lock .yarnrc.yml ./
+COPY .yarn .yarn
+RUN yarn fetch --immutable
 
 COPY . .
 
@@ -16,10 +20,11 @@ ENV NEXT_PUBLIC_MATOMO_URL=$NEXT_PUBLIC_MATOMO_URL
 ARG NEXT_PUBLIC_MATOMO_ENABLED
 ENV NEXT_PUBLIC_MATOMO_ENABLED=$NEXT_PUBLIC_MATOMO_ENABLED
 
-RUN yarn --production --frozen-lockfile --prefer-offline && yarn cache clean
 RUN yarn build
+RUN yarn workspaces focus --production && yarn cache clean
 
-USER node
+FROM node
+COPY --from=builder /app /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1

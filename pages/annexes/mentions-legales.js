@@ -27,14 +27,14 @@ export default function Mentions() {
 
         <h3>Directeur de la publication</h3>
         <p>
-        Monsieur Jean-Benoît DUJOL, Directeur général de la cohésion sociale
+          Monsieur Jean-Benoît DUJOL, Directeur général de la cohésion sociale
         </p>
 
         <h3>Hébergement de l’application</h3>
         <p>
           Ce site est hébergé par :
           <br />
-          <a target="_blank" href="https://www.ovh.com">
+          <a target="_blank" href="https://www.ovh.com" rel="noreferrer">
             OVH SAS
           </a>
           <br />
