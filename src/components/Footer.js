@@ -28,25 +28,25 @@ export function Footer() {
               <li className="fr-footer__content-item">
                 <a
                   className="fr-footer__content-link"
-                  href="https://legifrance.gouv.fr"
+                  href="https://info.gouv.fr"
                 >
-                  legifrance.gouv.fr
+                  info.gouv.fr
                 </a>
               </li>
               <li className="fr-footer__content-item">
                 <a
                   className="fr-footer__content-link"
-                  href="https://gouvernement.fr"
-                >
-                  gouvernement.fr
-                </a>
-              </li>
-              <li className="fr-footer__content-item">
-                <a
-                  className="fr-footer__content-link"
-                  href="https://service-public.fr"
+                  href="https://service-public.fr/"
                 >
                   service-public.fr
+                </a>
+              </li>
+              <li className="fr-footer__content-item">
+                <a
+                  className="fr-footer__content-link"
+                  href="https://legifrance.gouv.fr/"
+                >
+                  legifrance.gouv.fr
                 </a>
               </li>
               <li className="fr-footer__content-item">
