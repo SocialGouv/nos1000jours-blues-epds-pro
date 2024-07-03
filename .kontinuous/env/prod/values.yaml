@@ -1,6 +1,13 @@
 app:
   redirectFrom:
     - "nos1000jours-web-pro.fabrique.social.gouv.fr"
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 200m
+      memory: 512Mi
 
 jobs:
   runs:
