@@ -1,4 +1,6 @@
 app:
+  autoscale:
+    enabled: true
   redirectFrom:
     - "nos1000jours-web-pro.fabrique.social.gouv.fr"
   resources:
