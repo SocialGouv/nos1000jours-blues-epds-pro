@@ -5,12 +5,12 @@
 Cloner le repo puis :
 
 ```sh
-yarn
-yarn dev
+pnpm install
+pnpm dev
 ```
 
 ## Pour exécuter les tests :
 
 ```
-yarn test
+pnpm test
 ```
