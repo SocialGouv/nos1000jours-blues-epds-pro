@@ -24,7 +24,7 @@ RUN corepack pnpm fetch
 COPY package.json ./
 RUN corepack install
 
-RUN corepack pnpm install --offline --frozen-lockfile
+RUN corepack pnpm install --offline --frozen-lockfile --trust-policy no-downgrade
 
 COPY . .
 

@@ -1,6 +1,15 @@
 packages:
   - '.'
 
+# Supply-chain hardening:
+# - Delay any newly published versions to avoid "0-day" compromised releases.
+#   72j = 72 * 24 * 60 = 103680 minutes.
+minimumReleaseAge: 103680
+
+# Enforce trust evidence regression protection:
+# Fail install if a package's trust level is downgraded (e.g. trusted publisher -> provenance-only or none).
+trustPolicy: no-downgrade
+
 ignoredBuiltDependencies:
   - core-js-pure
 
