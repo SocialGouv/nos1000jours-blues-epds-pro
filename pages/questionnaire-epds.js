@@ -474,7 +474,7 @@ const ModalEndOfQuestionnaire = (props) => {
   )
 }
 
-export const getStaticProps = async ({ locale }) => {
+export const getServerSideProps = async ({ locale }) => {
   const { data } = await client.query({
     query: QUESTIONNAIRE_EPDS,
   })
