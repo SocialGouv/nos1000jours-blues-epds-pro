@@ -15,14 +15,12 @@ ARG NEXT_PUBLIC_MATOMO_ENABLED=false
 # (needed on Node 17+; Node 20 uses OpenSSL 3)
 ENV NODE_OPTIONS=--openssl-legacy-provider
 
-# Keep the `pnpm fetch` layer cacheable when only `package.json` changes.
-# `pnpm fetch` uses the lockfile, so we only copy pnpm files here.
-COPY pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN corepack pnpm fetch
-
-# Now copy `package.json` and install the exact pnpm version declared there.
-COPY package.json ./
+# package.json must be present BEFORE any corepack pnpm call so the pinned
+# packageManager version is used — otherwise corepack runs its "latest" pnpm
+# (11+ needs node:sqlite, absent from node 20) and the fetch crashes.
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN corepack install
+RUN corepack pnpm fetch
 
 RUN corepack pnpm install --offline --frozen-lockfile --trust-policy no-downgrade
 
